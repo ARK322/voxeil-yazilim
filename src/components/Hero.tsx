@@ -75,8 +75,8 @@ export default function Hero() {
 
   // Sayaç değerleri
   const [hasStarted, setHasStarted] = useState(false);
-  const targetCounters = [7, 50, 98, 6];
-  const counterLabels = ["Yıl", "Tamamlanan Proje", "Müşteri Memnuniyeti", "Ekip Üyesi"];
+  const targetCounters = [7, 50, 98, 15];
+  const counterLabels = ["Yıl", "Tamamlanan Proje", "Müşteri Memnuniyeti", "Ödül ve Sertifikalar"];
 
   // İkinci tasarım görünür olduğunda sayaçları başlat
   useEffect(() => {
