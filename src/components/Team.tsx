@@ -16,7 +16,7 @@ const teamMembers = [
   },
   {
     name: "Bülent KOÇ",
-    role: "Full-Stack Product Architect",
+    role: "DevOps",
     image: "https://ui-avatars.com/api/?name=Bulent+KOÇ&size=240&background=2c2c2c&color=FF6B35&bold=true",
     linkedin: "https://linkedin.com/in/bulent-koc",
     github: "https://github.com/bulent-koc",
