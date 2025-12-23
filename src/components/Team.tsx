@@ -23,7 +23,7 @@ const teamMembers = [
     instagram: "https://instagram.com/bulent_koc",
   },
   {
-    name: "Hakan ADİYAMAN",
+    name: "Dixon Myaz",
     role: "Mobile App Developer",
     image: "https://ui-avatars.com/api/?name=Hakan+ADİYAMAN&size=240&background=2c2c2c&color=FF6B35&bold=true",
     linkedin: "https://linkedin.com/in/hakan-adiyaman",
