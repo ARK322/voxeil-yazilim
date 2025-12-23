@@ -77,14 +77,14 @@ export default function Navbar() {
                 const href = `#${targetId}`;
                 return (
                   <li key={index}>
-                    <a
-                      href={href}
-                      onClick={(e) => handleSmoothScroll(e, href)}
-                      className="text-gray-300 hover:text-[#FF6B35] transition-all duration-300 text-sm font-medium relative group py-2 inline-block cursor-pointer"
-                    >
-                      {item}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF6B35] transition-all duration-300 group-hover:w-full"></span>
-                    </a>
+                        <a
+                          href={href}
+                          onClick={(e) => handleSmoothScroll(e, href)}
+                          className="text-gray-300 hover:text-[#FF6B35] transition-all duration-300 text-base font-medium relative group py-2 inline-block cursor-pointer"
+                        >
+                          {item}
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF6B35] transition-all duration-300 group-hover:w-full"></span>
+                        </a>
                   </li>
                 );
               })}
