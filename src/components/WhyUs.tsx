@@ -130,7 +130,7 @@ function CounterSection() {
     { value: 7, suffix: "+", label: "Yıl", description: "Sektördeki deneyimimiz ve uzmanlığımız ile projelerinize değer katıyoruz." },
     { value: 50, suffix: "+", label: "Tamamlanan Proje", description: "Başarıyla tamamladığımız projeler ile müşterilerimize hizmet veriyoruz." },
     { value: 98, suffix: "%", label: "Müşteri Memnuniyeti", description: "Müşterilerimizin memnuniyeti bizim için en önemli önceliktir." },
-    { value: 6, suffix: "+", label: "Ekip Üyesi", description: "Uzman ekibimiz ile projelerinizi en iyi şekilde hayata geçiriyoruz." },
+    { value: 15, suffix: "+", label: "Ödül ve Sertifikalar", description: "Sektördeki başarılarımız ve uzmanlığımızı gösteren ödüller ve sertifikalar ile güvenilirliğimizi kanıtlıyoruz." },
   ];
 
   return (
