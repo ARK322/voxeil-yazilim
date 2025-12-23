@@ -118,8 +118,8 @@ export default function Services() {
     <section
       ref={containerRef}
       id="hizmetlerimiz"
-      className="relative py-20 px-6 lg:px-8 min-h-screen flex flex-col justify-center"
-      style={{ marginTop: '6rem' }}
+      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center"
+      style={{ marginTop: '3.06rem', paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
     >
       {/* Hizmetler Bölümü */}
       <div className="mx-auto w-full mb-32" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
