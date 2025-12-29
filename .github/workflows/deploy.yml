@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH ile Sunucuya Bağlan ve Güncelle
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
           host: 91.132.49.198
@@ -15,21 +15,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2222
           script: |
-            # 1. Voxeil Proje klasörüne git
             cd /home/voxeil/web/voxeil.com/public_html
-            
-            # 2. Değişiklikleri çek
             git pull origin main
-            
-            # 3. Bağımlılıkları yükle
             npm install --omit=dev
-            
-            # 4. Next.js projesini derle
             npm run build
-            
-            # 5. PM2 ile uygulamayı voxeil ismiyle başlat
             pm2 delete voxeil-app || true
             pm2 start npm --name "voxeil-app" -- start
-            
-            # 6. Kaydet
             pm2 save
