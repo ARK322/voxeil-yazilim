@@ -11,14 +11,26 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: 91.132.49.198
-          username: ${{ secrets.HESTIA_USER }}
+          username: voxeil
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2222
           script: |
+            # 1. Doğru klasöre git
             cd /home/voxeil/web/voxeil.com/public_html
+            
+            # 2. GitHub'daki son değişiklikleri çek
             git pull origin main
+            
+            # 3. Bağımlılıkları yükle
             npm install --omit=dev
+            
+            # 4. Next.js projesini derle
             npm run build
+            
+            # 5. PM2 ile uygulamayı başlat
+            # İsmi voxeil-app olarak güncelledik
             pm2 delete voxeil-app || true
             pm2 start npm --name "voxeil-app" -- start
+            
+            # 6. Sunucu restart olursa otomatik başlasın
             pm2 save
