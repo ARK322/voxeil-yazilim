@@ -15,22 +15,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2222
           script: |
-            # 1. Doğru klasöre git
-            cd /home/${{ secrets.HESTIA_USER }}/web/voxeil.com/public_html
-            
-            # 2. GitHub'daki son değişiklikleri çek
+            cd /home/voxeil/web/voxeil.com/public_html
             git pull origin main
-            
-            # 3. Bağımlılıkları yükle
             npm install --omit=dev
-            
-            # 4. Next.js projesini derle
             npm run build
-            
-            # 5. PM2 ile uygulamayı başlat
-            # İsmi voxeil-app olarak güncelledik ki masorburak ile çakışmasın
             pm2 delete voxeil-app || true
             pm2 start npm --name "voxeil-app" -- start
-            
-            # 6. Sunucu restart olursa otomatik başlasın
             pm2 save
