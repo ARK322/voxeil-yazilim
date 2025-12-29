@@ -1,7 +1,7 @@
 name: Deploy Next.js App
 on:
   push:
-    branches: [ main ] # Sadece main branch'ine kod pushladığında çalışır
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -15,24 +15,22 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2222
           script: |
-            # 1. Proje klasörüne git (HestiaCP standart yolu)
-            cd /home/${{ secrets.HESTIA_USER }}/web/masorburak.com/public_html
+            # 1. Doğru klasöre git
+            cd /home/${{ secrets.HESTIA_USER }}/web/voxeil.com/public_html
             
-            # 2. GitHub'daki son değişiklikleri çek (Token ayarını yaptığımız için şifre sormaz)
+            # 2. GitHub'daki son değişiklikleri çek
             git pull origin main
             
-            # 3. Bağımlılıkları yükle (Sadece üretim paketleri)
+            # 3. Bağımlılıkları yükle
             npm install --omit=dev
             
-            # 4. Next.js projesini derle (Build al - Hata aldığın server.js sorununu bu çözer)
+            # 4. Next.js projesini derle
             npm run build
             
-            # 5. PM2 ile uygulamayı temiz bir şekilde başlat
-            # Varsa eski süreci siler, yoksa hata vermeden devam eder
-            pm2 delete masor-app || true
+            # 5. PM2 ile uygulamayı başlat
+            # İsmi voxeil-app olarak güncelledik ki masorburak ile çakışmasın
+            pm2 delete voxeil-app || true
+            pm2 start npm --name "voxeil-app" -- start
             
-            # Next.js'i npm üzerinden "start" komutuyla başlatır
-            pm2 start npm --name "masor-app" -- start
-            
-            # 6. Sunucu yeniden başlarsa uygulamanın otomatik açılması için kaydet
+            # 6. Sunucu restart olursa otomatik başlasın
             pm2 save
