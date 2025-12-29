@@ -1,0 +1,21 @@
+name: Deploy Node.js App
+on:
+  push:
+    branches: [ main ] # Sadece main branch'ine kod pushladığında çalışır
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH ile Sunucuya Bağlan ve Güncelle
+        uses: appleboy/ssh-action@master
+        with:
+          host: 91.132.49.198
+          username: ${{ secrets.HESTIA_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/${{ secrets.HESTIA_USER }}/web/${{ secrets.HESTIA_USER }}.com/public_html
+            git pull origin main
+            npm install --production
+            # Uygulama çalışıyorsa restart at, çalışmıyorsa başlat
+            pm2 restart all || pm2 start server.js --name "${{ secrets.HESTIA_USER }}"
