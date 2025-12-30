@@ -1,39 +1,24 @@
-name: Deploy Next.js App
+name: Deploy Voxeil
 on:
   push:
-    branches: [ main ] # Sadece main branch'ine kod pushladığında çalışır
-
+    branches: [ main ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH ile Sunucuya Bağlan ve Güncelle
+      - name: SSH ile Sunucuya Bağlan
         uses: appleboy/ssh-action@master
         with:
           host: 91.132.49.198
-          username: voxeilyazilim
+          username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2222
           script: |
-            # 1. Proje klasörüne git (Yeni kullanıcı yolu)
             cd /home/voxeilyazilim/web/voxeil.com/public_html
-            
-            # 2. GitHub'daki son değişiklikleri çek
             git fetch origin
             git reset --hard origin/main
-            
-            # 3. Bağımlılıkları yükle (Sadece üretim paketleri)
             npm install --omit=dev
-            
-            # 4. Next.js projesini derle
             npm run build
-            
-            # 5. PM2 ile uygulamayı temiz bir şekilde başlat
-            # Varsa eski süreci siler, yoksa hata vermeden devam eder
             pm2 delete voxeil-app || true
-            
-            # Next.js'i npm üzerinden "start" komutuyla başlatır
-            pm2 start npm --name "voxeil-app" -- start
-            
-            # 6. Sunucu yeniden başlarsa uygulamanın otomatik açılması için kaydet
+            pm2 start npm --name "voxeil-app" --max-memory-restart 250M -- start -- -p 3000
             pm2 save
