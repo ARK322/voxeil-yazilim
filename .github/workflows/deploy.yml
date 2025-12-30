@@ -1,7 +1,8 @@
 name: Deploy Next.js App
+
 on:
   push:
-    branches: [ main ] # Sadece main branch'ine kod pushladığında çalışır
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -15,7 +16,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2222
           script: |
-            # 1. Proje klasörüne git (Yeni kullanıcı yolu)
+            # 1. Proje klasörüne git
             cd /home/voxeilyazilim/web/voxeil.com/public_html
             
             # 2. GitHub'daki son değişiklikleri çek
@@ -28,12 +29,16 @@ jobs:
             # 4. Next.js projesini derle
             npm run build
             
-            # 5. PM2 ile uygulamayı temiz bir şekilde başlat
-            # Varsa eski süreci siler, yoksa hata vermeden devam eder
+            # 5. Ensure .env.local exists with PORT
+            cat > .env.local << EOF
+            PORT=3000
+            NEXT_PUBLIC_PORT=3000
+            EOF
+            
+            # 6. PM2 ile uygulamayı temiz bir şekilde başlat
+            # (package.json already has -H 127.0.0.1 for localhost binding)
             pm2 delete voxeil-app || true
+            pm2 start npm --name "voxeil-app" -- start --update-env --env PORT=3000 --cwd /home/voxeilyazilim/web/voxeil.com/public_html
             
-            # Next.js'i npm üzerinden "start" komutuyla başlatır
-            pm2 start npm --name "voxeil-app" -- start
-            
-            # 6. Sunucu yeniden başlarsa uygulamanın otomatik açılması için kaydet
+            # 7. Sunucu yeniden başlarsa uygulamanın otomatik açılması için kaydet
             pm2 save
