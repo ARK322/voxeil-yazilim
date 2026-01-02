@@ -1,8 +1,9 @@
-name: Deploy Next.js App
+name: Deploy voxeil.com
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -29,16 +30,15 @@ jobs:
             # 4. Next.js projesini derle
             npm run build
             
-            # 5. Ensure .env.local exists with PORT
+            # 5. .env.local dosyasını oluştur
             cat > .env.local << EOF
             PORT=3000
             NEXT_PUBLIC_PORT=3000
             EOF
             
             # 6. PM2 ile uygulamayı temiz bir şekilde başlat
-            # (package.json already has -H 127.0.0.1 for localhost binding)
             pm2 delete voxeil-app || true
-            pm2 start npm --name "voxeil-app" -- start --update-env --env PORT=3000 --cwd /home/voxeilyazilim/web/voxeil.com/public_html
+            pm2 start bash --name "voxeil-app" -- -c "npx next start -p 3000 -H 127.0.0.1"
             
             # 7. Sunucu yeniden başlarsa uygulamanın otomatik açılması için kaydet
             pm2 save
