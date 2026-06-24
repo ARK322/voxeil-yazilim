@@ -18,9 +18,9 @@ const teamMembers = [
     name: "Bülent KOÇ",
     role: "Full-Stack Product Architect",
     image: "https://ui-avatars.com/api/?name=Bulent+KOÇ&size=240&background=2c2c2c&color=FF6B35&bold=true",
-    linkedin: "https://linkedin.com/in/bulent-koc",
-    github: "https://github.com/bulent-koc",
-    instagram: "https://instagram.com/bulent_koc",
+    linkedin: "https://www.linkedin.com/in/bülent-deniz-koç-15a498301/",
+    github: "https://github.com/budeko",
+    instagram: "https://www.instagram.com/iambudeko",
   },
   {
     name: "Hakan ADİYAMAN",
@@ -46,10 +46,10 @@ export default function Team() {
     <section
       ref={containerRef}
       id="ekibimiz"
-      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center"
+      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center overflow-x-clip"
       style={{ paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
     >
-      <div className="mx-auto w-full" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
+      <div className="mx-auto w-full max-w-full" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
         {/* Başlık ve Açıklama */}
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
@@ -86,13 +86,13 @@ export default function Team() {
             >
               {/* Resim Dairesi ve Sosyal Medya */}
               <motion.div 
-                className="relative mb-6 flex items-center justify-center group"
+                className="relative mb-6 flex items-center justify-center group max-w-full"
                 whileHover="hover"
                 initial="initial"
               >
                 {/* Yuvarlak Resim */}
                 <motion.div
-                  className="relative w-52 h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden z-10"
+                  className="relative w-52 h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden z-10 shrink-0"
                   variants={{
                     initial: { scale: 1, x: 0 },
                     hover: { scale: 0.85, x: -30 }
@@ -110,9 +110,9 @@ export default function Team() {
                   />
                 </motion.div>
 
-                {/* Sosyal Medya İkonları */}
+                {/* Sosyal Medya İkonları — masaüstü hover */}
                 <motion.div
-                  className="absolute left-full ml-1 flex flex-col gap-3 z-20"
+                  className="absolute left-full ml-1 hidden md:flex flex-col gap-3 z-20"
                   variants={{
                     initial: { opacity: 0, x: -20 },
                     hover: { opacity: 1, x: 0 }
@@ -151,6 +151,34 @@ export default function Team() {
                   </motion.a>
                 </motion.div>
               </motion.div>
+
+              {/* Sosyal Medya — mobil */}
+              <div className="flex md:hidden gap-3 mb-4 justify-center">
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                >
+                  <FaLinkedin className="text-xl" />
+                </a>
+                <a
+                  href={member.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                >
+                  <FaGithub className="text-xl" />
+                </a>
+                <a
+                  href={member.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                >
+                  <FaInstagram className="text-xl" />
+                </a>
+              </div>
 
               {/* İsim Kutusu */}
               <div className="px-6 py-4 text-center">

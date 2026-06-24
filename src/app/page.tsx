@@ -16,7 +16,7 @@ export default function Home() {
       </div>
 
       {/* İçerik */}
-      <div className="relative z-10">
+      <div className="relative z-10 overflow-x-clip max-w-full">
         {/* Hero Bölümü */}
         <Hero />
 

@@ -118,7 +118,7 @@ export default function Services() {
     <section
       ref={containerRef}
       id="hizmetlerimiz"
-      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center"
+      className="relative z-20 px-6 lg:px-8 min-h-screen flex flex-col justify-center overflow-x-clip"
       style={{ marginTop: '3.06rem', paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
     >
       {/* Hizmetler Bölümü */}
@@ -128,7 +128,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-5xl lg:text-6xl font-bold text-white text-center mb-6"
+          className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white text-center mb-6"
         >
           Hizmetlerimiz
         </motion.h2>
@@ -137,19 +137,26 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-gray-400 text-lg text-center mb-16 max-w-3xl mx-auto"
+          className="text-gray-400 text-base sm:text-lg text-center mb-10 sm:mb-16 max-w-3xl mx-auto"
         >
           Dijital dönüşüm yolculuğunuzda size en uygun çözümleri sunuyoruz. 
           Modern teknolojiler ve uzman ekibimizle projelerinizi hayata geçiriyoruz.
         </motion.p>
 
-        {/* Butonlar */}
-        <div className="flex justify-between gap-4 mb-12">
+        {/* Butonlar — dar ekranda 3+2 sarma, geniş ekranda tek satır */}
+        <div
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12 lg:flex-nowrap lg:justify-between lg:gap-4"
+          role="tablist"
+          aria-label="Hizmet seçimi"
+        >
           {services.map((service, index) => (
             <button
               key={service.id}
+              type="button"
+              role="tab"
+              aria-selected={activeService === index}
               onClick={() => setActiveService(index)}
-              className={`flex-1 px-6 py-3 rounded-lg font-medium text-base transition-all duration-300 ${
+              className={`w-[calc(33.333%-0.35rem)] sm:w-[calc(33.333%-0.5rem)] lg:w-auto lg:flex-1 rounded-lg px-2 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm lg:text-base font-medium text-center leading-snug transition-all duration-300 lg:px-6 ${
                 activeService === index
                   ? "bg-[#FF6B35] text-white shadow-lg shadow-[#FF6B35]/50"
                   : "bg-[#2c2c2c]/50 text-gray-300 hover:bg-[#2c2c2c] hover:text-white"
@@ -161,7 +168,7 @@ export default function Services() {
         </div>
 
         {/* Kart Galerisi */}
-        <div className="relative h-[480px] overflow-hidden">
+        <div className="relative min-h-[520px] sm:min-h-[480px] lg:h-[480px] overflow-hidden">
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
@@ -178,33 +185,33 @@ export default function Services() {
                   activeService === index ? "pointer-events-auto" : "pointer-events-none"
                 }`}
               >
-                <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-8 lg:p-12 h-full">
-                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 h-full">
+                <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-5 sm:p-8 lg:p-12 h-full">
+                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-12 h-full">
                     {/* Sol Bölge - Başlık, Metin ve Filigran Logo (%60) */}
                     <div className="relative flex flex-col justify-center lg:col-span-3">
                       {/* Filigran Logo Arkaplan */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                        <IconComponent className="text-[#FF6B35] text-[400px]" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
+                        <IconComponent className="text-[#FF6B35] text-[12rem] sm:text-[16rem] lg:text-[400px]" />
                       </div>
                       
                       <div className="relative z-10">
-                        <h3 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+                        <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
                           {service.title}
                         </h3>
-                        <p className="text-gray-400 text-xl leading-relaxed">
+                        <p className="text-gray-400 text-base sm:text-xl leading-relaxed">
                           {service.description}
                         </p>
                       </div>
                     </div>
 
                     {/* Sağ Bölge - Özellikler (%40) */}
-                    <div className="flex flex-col justify-center gap-4 lg:col-span-2">
+                    <div className="flex flex-col justify-center gap-3 sm:gap-4 lg:col-span-2">
                       {service.features.map((feature, idx) => (
                         <div
                           key={idx}
-                          className="bg-gradient-to-r from-black/90 to-black/70 rounded-lg p-5 border border-[#FF6B35]/30 hover:border-[#FF6B35]/50 transition-all duration-300 pl-8"
+                          className="bg-gradient-to-r from-black/90 to-black/70 rounded-lg p-4 sm:p-5 border border-[#FF6B35]/30 hover:border-[#FF6B35]/50 transition-all duration-300 pl-6 sm:pl-8"
                         >
-                          <p className="text-gray-300 text-lg font-medium flex items-center">
+                          <p className="text-gray-300 text-base sm:text-lg font-medium flex items-center">
                             <span className="text-[#FF6B35] mr-3 text-xl">•</span>
                             {feature}
                           </p>

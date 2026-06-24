@@ -45,12 +45,12 @@ function CounterBox({ target, label, delay, hasStarted }: { target: number; labe
       initial={{ opacity: 0, y: 20 }}
       animate={hasStarted ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay }}
-      className="bg-black/80 backdrop-blur-sm border border-gray-800 rounded-lg p-6 text-center"
+      className="bg-black/80 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-6 text-center"
     >
-      <div className="text-4xl font-bold text-[#FF6B35] mb-2">
+      <div className="text-2xl sm:text-4xl font-bold text-[#FF6B35] mb-1 sm:mb-2">
         {formatCount()}
       </div>
-      <div className="text-gray-400 text-sm">
+      <div className="text-gray-400 text-[10px] sm:text-sm leading-tight">
         {label}
       </div>
     </motion.div>
@@ -64,14 +64,44 @@ export default function Hero() {
     offset: ["start start", "end end"],
   });
 
-  // İlk tasarım animasyonları (0-0.5 arası kaybolur)
-  const firstDesignOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const firstDesignScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
-  const firstDesignY = useTransform(scrollYProgress, [0, 0.5], [0, -30]);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // İkinci tasarım animasyonları (0.5-1 arası gelir)
-  const secondDesignOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
-  const secondDesignX = useTransform(scrollYProgress, [0.5, 1], [50, 0]);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  // İlk tasarım animasyonları
+  const firstDesignOpacity = useTransform(
+    scrollYProgress,
+    isMobile ? [0, 0.55] : [0, 0.5],
+    [1, 0]
+  );
+  const firstDesignScale = useTransform(
+    scrollYProgress,
+    isMobile ? [0, 0.55] : [0, 0.5],
+    [1, 0.9]
+  );
+  const firstDesignY = useTransform(
+    scrollYProgress,
+    isMobile ? [0, 0.55] : [0, 0.5],
+    [0, -30]
+  );
+
+  // İkinci tasarım animasyonları
+  const secondDesignOpacity = useTransform(
+    scrollYProgress,
+    isMobile ? [0.45, 0.92] : [0.5, 1],
+    [0, 1]
+  );
+  const secondDesignX = useTransform(
+    scrollYProgress,
+    isMobile ? [0.45, 0.92] : [0.5, 1],
+    [50, 0]
+  );
 
   // Sayaç değerleri
   const [hasStarted, setHasStarted] = useState(false);
@@ -81,12 +111,12 @@ export default function Hero() {
   // İkinci tasarım görünür olduğunda sayaçları başlat
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest >= 0.5 && !hasStarted) {
+      if (latest >= (isMobile ? 0.45 : 0.5) && !hasStarted) {
         setHasStarted(true);
       }
     });
     return () => unsubscribe();
-  }, [scrollYProgress, hasStarted]);
+  }, [scrollYProgress, hasStarted, isMobile]);
 
   // Sayfa yüklendiğinde scroll'u en üste al
   useEffect(() => {
@@ -96,20 +126,12 @@ export default function Hero() {
   return (
     <div
       ref={containerRef}
-      className="relative"
-      style={{
-        height: "200vh",
-      }}
+      className="relative overflow-x-clip h-[340vh] md:h-[200vh]"
     >
       {/* Sticky Wrapper - Scroll sırasında pinned kalır */}
       <div
-        style={{
-          position: "sticky",
-          top: "80px",
-          height: "calc(100vh - 80px)",
-          minHeight: "calc(100vh - 80px)",
-          zIndex: 10,
-        }}
+        className="sticky top-14 sm:top-16 xl:top-20 overflow-hidden h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] xl:h-[calc(100dvh-5rem)] min-h-[calc(100dvh-3.5rem)] sm:min-h-[calc(100dvh-4rem)] xl:min-h-[calc(100dvh-5rem)]"
+        style={{ zIndex: 10 }}
       >
         {/* İlk Tasarım - Scroll 0-0.5 arası görünür */}
         <motion.div
@@ -121,7 +143,7 @@ export default function Hero() {
           }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center overflow-hidden px-4">
             {/* Laptop 1 Resmi */}
             <div className="relative z-10 w-full max-w-4xl h-[50vh]">
               <Image
@@ -146,9 +168,9 @@ export default function Hero() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="absolute top-24 left-24 lg:left-48 z-20"
+              className="absolute top-16 left-4 sm:top-20 sm:left-6 lg:top-24 lg:left-48 z-20 max-w-[85vw]"
             >
-              <h2 className="text-4xl lg:text-6xl font-bold text-white" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3)' }}>
+              <h2 className="text-2xl sm:text-3xl lg:text-6xl font-bold text-white leading-tight" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3)' }}>
                 SİZ DÜŞÜNÜN
               </h2>
             </motion.div>
@@ -158,9 +180,9 @@ export default function Hero() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="absolute bottom-20 right-10 lg:right-20 z-20"
+              className="absolute bottom-16 right-4 sm:bottom-20 sm:right-6 lg:bottom-20 lg:right-20 z-20 max-w-[85vw] text-right"
             >
-              <h2 className="text-4xl lg:text-6xl font-bold text-[#FF6B35]" style={{ textShadow: '0 0 20px rgba(255, 107, 53, 0.5), 0 0 40px rgba(255, 107, 53, 0.3)' }}>
+              <h2 className="text-2xl sm:text-3xl lg:text-6xl font-bold text-[#FF6B35] leading-tight" style={{ textShadow: '0 0 20px rgba(255, 107, 53, 0.5), 0 0 40px rgba(255, 107, 53, 0.3)' }}>
                 BİZ KODLAYALIM
               </h2>
             </motion.div>
@@ -175,10 +197,10 @@ export default function Hero() {
           }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-center" style={{ minHeight: "calc(100vh - 80px)" }}>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-center">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-full items-center justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 w-full items-center">
               {/* Sol - Laptop 2 Resmi */}
-              <div className="lg:col-span-4 relative w-full h-[90vh] lg:h-[100vh]">
+              <div className="order-2 lg:order-1 lg:col-span-4 relative w-full h-[26vh] sm:h-[34vh] lg:h-[100vh]">
                 <Image
                   src="/laptop2.avif"
                   alt="Laptop"
@@ -196,23 +218,23 @@ export default function Hero() {
               </div>
 
               {/* Orta - Metin ve Buton */}
-              <div className="lg:col-span-4 flex flex-col items-center justify-center space-y-6">
-                <h1 className="text-4xl lg:text-5xl font-bold text-white text-center">
+              <div className="order-1 lg:order-2 lg:col-span-4 flex flex-col items-center justify-center space-y-3 sm:space-y-6">
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white text-center leading-tight">
                   Dijital Dönüşümünüzü
                   <br />
                   <span className="text-[#FF6B35]">Birlikte Başlatalım</span>
                 </h1>
-                <p className="text-gray-400 text-lg text-center max-w-md">
+                <p className="text-gray-400 text-sm sm:text-lg text-center max-w-md px-2">
                   Profesyonel yazılım çözümleri ile işinizi bir adım öne taşıyın.
                   Hayalinizdeki projeyi gerçeğe dönüştürelim.
                 </p>
-                <button className="px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#FF7B45] hover:shadow-lg hover:shadow-[#FF6B35]/50 hover:scale-105 active:scale-100">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-[#FF6B35] text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 hover:bg-[#FF7B45] hover:shadow-lg hover:shadow-[#FF6B35]/50 hover:scale-105 active:scale-100">
                   Hemen Başlayın
                 </button>
               </div>
 
               {/* Sağ - Sayaç Kutuları */}
-              <div className="lg:col-span-4 flex flex-col gap-6">
+              <div className="order-3 lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 gap-2 sm:gap-3 lg:gap-6">
                 {targetCounters.map((target, index) => (
                   <CounterBox
                     key={index}
@@ -227,8 +249,8 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Scroll Indicator - Ortada Alt Kısımda */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+        {/* Scroll Indicator - Ortada Alt Kısımda (mobilde gizli) */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 hidden md:block">
           <motion.div
             animate={{
               y: [0, 10, 0],

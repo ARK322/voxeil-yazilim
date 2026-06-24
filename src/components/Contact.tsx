@@ -129,7 +129,7 @@ export default function Contact() {
     <section
       ref={containerRef}
       id="iletisim"
-      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center"
+      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center overflow-x-clip"
       style={{ paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
     >
       <div className="mx-auto w-full" style={{ maxWidth: 'calc(1280px * 0.94)' }}>

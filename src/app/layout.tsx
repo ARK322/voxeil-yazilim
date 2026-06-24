@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body
-        className={`${exo2.variable} antialiased`}
+        className={`${exo2.variable} antialiased overflow-x-clip`}
       >
         <Navbar />
         {children}
