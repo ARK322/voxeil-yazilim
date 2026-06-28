@@ -72,7 +72,6 @@ export function useScrollAnim(
       }
 
       gsap.set(heroFinale, { autoAlpha: 0, visibility: "hidden", pointerEvents: "none" });
-      gsap.set(finaleContent, { x: isMobile ? 0 : -32, y: 24 });
       gsap.set(finaleEditor, { x: isMobile ? 0 : 40, y: 32, scale: 0.96 });
 
       gsap.set(bridgeLayer, { visibility: "hidden", autoAlpha: 0 });
@@ -171,11 +170,6 @@ export function useScrollAnim(
       tl.addLabel("finaleIn", finaleInAt)
         .set(heroFinale, { visibility: "visible", pointerEvents: "auto" }, "finaleIn")
         .to(heroFinale, { autoAlpha: 1, ease: "power2.out", duration: 0.07 }, "finaleIn+=0.01")
-        .to(
-          finaleContent,
-          { x: 0, y: 0, ease: "power3.out", duration: 0.1 },
-          "finaleIn+=0.05"
-        )
         .to(
           finaleEditor,
           { x: 0, y: 0, scale: 1, ease: "power3.out", duration: 0.12 },

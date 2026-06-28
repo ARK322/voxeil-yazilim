@@ -7,7 +7,7 @@ const teamMembers = [
   {
     name: "Ahmed Resul KURT",
     role: "UI/UX Tasarımcı & DevOps Mühendisi",
-    image: "https://ui-avatars.com/api/?name=Ahmed+Resul+KURT&size=240&background=2c2c2c&color=FF6B35&bold=true",
+    image: "https://ui-avatars.com/api/?name=Ahmed+Resul+KURT&size=240&background=2c2c2c&color=E86530&bold=true",
     linkedin: "https://linkedin.com/in/ahmet-resul-kurt",
     github: "https://github.com/ahmet-resul-kurt",
     instagram: "https://instagram.com/ahmet_resul_kurt",
@@ -15,7 +15,7 @@ const teamMembers = [
   {
     name: "Bülent KOÇ",
     role: "Backend Geliştirici & Uygulama Mimarı",
-    image: "https://ui-avatars.com/api/?name=Bulent+KOÇ&size=240&background=2c2c2c&color=FF6B35&bold=true",
+    image: "https://ui-avatars.com/api/?name=Bulent+KOÇ&size=240&background=2c2c2c&color=E86530&bold=true",
     linkedin: "https://www.linkedin.com/in/bülent-deniz-koç-15a498301/",
     github: "https://github.com/budeko",
     instagram: "https://www.instagram.com/iambudeko",
@@ -75,10 +75,10 @@ export default function Team() {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover bg-[#2c2c2c]"
+                    className="w-full h-full object-cover bg-[var(--anthracite)]"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&size=240&background=2c2c2c&color=FF6B35&bold=true`;
+                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&size=240&background=2c2c2c&color=E86530&bold=true`;
                     }}
                   />
                 </motion.div>
@@ -96,7 +96,7 @@ export default function Team() {
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-14 h-14 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                    className="w-14 h-14 site-icon-btn"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -106,7 +106,7 @@ export default function Team() {
                     href={member.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-14 h-14 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                    className="w-14 h-14 site-icon-btn"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -116,7 +116,7 @@ export default function Team() {
                     href={member.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-14 h-14 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                    className="w-14 h-14 site-icon-btn"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -131,7 +131,7 @@ export default function Team() {
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="w-11 h-11 site-icon-btn"
                 >
                   <FaLinkedin className="text-xl" />
                 </a>
@@ -139,7 +139,7 @@ export default function Team() {
                   href={member.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="w-11 h-11 site-icon-btn"
                 >
                   <FaGithub className="text-xl" />
                 </a>
@@ -147,7 +147,7 @@ export default function Team() {
                   href={member.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="w-11 h-11 site-icon-btn"
                 >
                   <FaInstagram className="text-xl" />
                 </a>
@@ -158,7 +158,7 @@ export default function Team() {
                 <h3 className="text-xl lg:text-2xl font-bold text-white mb-2">
                   {member.name}
                 </h3>
-                <p className="text-gray-400 text-sm lg:text-base">
+                <p className="text-muted text-sm lg:text-base">
                   {member.role}
                 </p>
               </div>

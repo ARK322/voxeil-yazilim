@@ -4,31 +4,28 @@ import { forwardRef } from "react";
 import { useEditorTilt } from "./useEditorTilt";
 
 const CODE_LINES: Array<Array<[string, string]>> = [
-  [["kw", "import"], ["tx", " { useEffect, useRef } "], ["kw", "from"], ["str", " 'react'"]],
-  [["kw", "import"], ["tx", " gsap "], ["kw", "from"], ["str", " 'gsap'"]],
-  [["kw", "import"], ["tx", " { motion } "], ["kw", "from"], ["str", " 'framer-motion'"]],
+  [["kw", "import"], ["tx", " { Agency, Project } "], ["kw", "from"], ["str", " '@voxeil/core'"]],
+  [["kw", "import"], ["tx", " { Innovation } "], ["kw", "from"], ["str", " '@voxeil/methods'"]],
   [],
-  [["kw", "type"], ["tx", " HeroProps "], ["pn", "= { title: string }"]],
+  [["kw", "interface"], ["tx", " AgencyManifest "], ["pn", "{"]],
+  [["tx", "  vision: "], ["str", "'Dijital dünyanıza hoşgeldiniz'"], ["pn", ";"]],
+  [["tx", "  purpose: "], ["str", "'İsteklerinizi gerçeğe dönüştür'"], ["pn", ";"]],
+  [["tx", "  location: "], ["str", "'Ankara / Remote'"], ["pn", ";"]],
+  [["pn", "}"],],
   [],
-  [["kw", "export default function"], ["fn", " Hero"], ["pn", "({ title }: HeroProps) {"]],
-  [["tx", "  "], ["kw", "const"], ["tx", " ref = useRef<HTMLDivElement>(null)"]],
+  [["kw", "const"], ["tx", " voxeil"], ["pn", ": "], ["tx", "AgencyManifest "], ["pn", "= {"],],
+  [["tx", "  vision: "], ["str", "'Sınırları aşan çözümler'"], ["pn", ","],],
+  [["tx", "  core: "], ["str", "'Tasarım + Yazılım + Otomasyon'"], ["pn", ","],],
+  [["tx", "  status: "], ["str", "'Projeler için hazır'"], ["pn", ","],],
+  [["pn", "};"],],
   [],
-  [["tx", "  "], ["fn", "useEffect"], ["pn", "(() => {"]],
-  [["tx", "    if (!ref.current) return"]],
-  [["tx", "    gsap.from(ref.current, {"]],
-  [["tx", "      y: "], ["or", "80"], ["pn", ","]],
-  [["tx", "      opacity: "], ["or", "0"], ["pn", ","]],
-  [["tx", "      duration: "], ["or", "1.2"], ["pn", ","]],
-  [["tx", "      ease: "], ["str", "'power4.out'"], ["pn", ","]],
-  [["tx", "    })"]],
-  [["tx", "  }, [])"]],
-  [],
-  [["tx", "  "], ["kw", "return"], ["pn", " ("]],
-  [["tx", "    <motion.section ref={ref}>"]],
-  [["tx", "      <h1>{title}</h1>"]],
-  [["tx", "    </motion.section>"]],
-  [["tx", "  )"]],
-  [["pn", "}"]],
+  [["kw", "async function"], ["fn", " initializeTransformation"], ["pn", "() {"],],
+  [["tx", "  "], ["kw", "const"], ["tx", " project = "], ["kw", "await"], ["tx", " Innovation.init(voxeil);"],],
+  [["tx", "  "], ["kw", "if"], ["pn", "("], ["tx", "project.isReady"], ["pn", ") {"],],
+  [["tx", "    console.log("], ["str", "'Keşif görüşmesi başladı...'"], ["pn", ");"],],
+  [["tx", "    "], ["kw", "return"], ["tx", " project.start();"],],
+  [["tx", "  }"],],
+  [["pn", "}"], ["tx", " // 2026: Yeni ufuklar açıyoruz"]],
 ];
 
 const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
@@ -54,7 +51,7 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
           </span>
 
           <h2 className="hero-finale__title">
-            <span className="hero-finale__title-bold">dijital</span>
+            <span className="hero-finale__title-bold">Dijital</span>
             <br />
             <span className="hero-finale__title-bold">dönüşümünüzü</span>
             <br />
@@ -67,11 +64,11 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
           </p>
 
           <div className="hero-finale__actions">
-            <a href="#iletisim" className="hero-finale__btn hero-finale__btn--primary">
+            <a href="#iletisim" className="site-btn-primary">
               Görüşme Planla
               <span aria-hidden="true">→</span>
             </a>
-            <a href="#hizmetlerimiz" className="hero-finale__btn hero-finale__btn--ghost">
+            <a href="#hizmetlerimiz" className="site-btn-ghost whitespace-nowrap">
               Hizmetlerimiz
               <span aria-hidden="true">↗</span>
             </a>
@@ -93,7 +90,7 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
             onMouseLeave={onMouseLeave}
           >
             <div className="hero-editor__bar">
-              <span className="hero-editor__filename">Hero.tsx</span>
+              <span className="hero-editor__filename">VoxeilEngine.tsx</span>
             </div>
             <div className="hero-editor__code">
               <div className="hero-editor__glare" aria-hidden="true" />

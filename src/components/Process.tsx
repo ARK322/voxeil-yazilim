@@ -81,7 +81,7 @@ export default function Process() {
 
         <div className="relative mx-auto max-w-3xl">
           <div
-            className="absolute left-5 top-3 bottom-3 w-px bg-gradient-to-b from-[#FF6B35]/60 via-[#FF6B35]/20 to-transparent sm:left-6"
+            className="absolute left-5 top-3 bottom-3 w-px bg-gradient-to-b from-orange/60 via-orange/20 to-transparent sm:left-6"
             aria-hidden="true"
           />
 
@@ -98,19 +98,19 @@ export default function Process() {
                   className="relative flex gap-4 sm:gap-6"
                 >
                   <div className="relative z-10 flex shrink-0 flex-col items-center">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#FF6B35]/35 bg-black shadow-[0_0_20px_rgba(255,107,53,0.15)] sm:h-12 sm:w-12">
-                      <Icon className="text-sm text-[#FF6B35] sm:text-base" aria-hidden="true" />
+                    <div className="site-glow-ring flex h-10 w-10 items-center justify-center rounded-full border border-orange/35 bg-black sm:h-12 sm:w-12">
+                      <Icon className="text-sm text-orange sm:text-base" aria-hidden="true" />
                     </div>
                   </div>
 
-                  <article className="min-w-0 flex-1 rounded-xl border border-gray-800 bg-black p-5 backdrop-blur-sm transition-colors duration-300 hover:border-[#FF6B35]/40 sm:p-6">
+                  <article className="site-card site-card--hover min-w-0 flex-1 p-5 sm:p-6">
                     <div className="mb-2 flex flex-wrap items-center gap-2 sm:gap-3">
-                      <span className="font-mono text-xs font-semibold tracking-widest text-[#FF6B35]/80">
+                      <span className="font-mono text-xs font-semibold tracking-widest text-orange/80">
                         {String(step.id).padStart(2, "0")}
                       </span>
                       <h3 className="text-lg font-bold text-white sm:text-xl">{step.title}</h3>
                     </div>
-                    <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
+                    <p className="text-sm leading-relaxed text-muted sm:text-base">
                       {step.description}
                     </p>
                   </article>

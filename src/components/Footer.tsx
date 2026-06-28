@@ -8,10 +8,9 @@ import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope, FaPhone } from "react-ic
 export default function Footer() {
   return (
     <footer className="relative border-t border-gray-800/50">
-      <div className="mx-auto w-full px-6 lg:px-8" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
+      <div className="mx-auto w-full px-6 lg:px-8" style={{ maxWidth: "calc(1280px * 0.94)" }}>
         <div className="py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Logo ve Açıklama */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -29,12 +28,11 @@ export default function Footer() {
                 />
               </Link>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Dijital dönüşüm yolculuğunuzda yanınızdayız. Modern teknolojiler ve uzman ekibimizle 
+                Dijital dönüşüm yolculuğunuzda yanınızdayız. Modern teknolojiler ve uzman ekibimizle
                 projelerinizi hayata geçiriyoruz.
               </p>
             </motion.div>
 
-            {/* Hızlı Linkler */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +64,6 @@ export default function Footer() {
               </ul>
             </motion.div>
 
-            {/* İletişim */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -93,32 +90,34 @@ export default function Footer() {
                   href="https://linkedin.com/company/voxeil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="site-icon-btn w-12 h-12"
+                  aria-label="LinkedIn"
                 >
-                  <FaLinkedin className="text-lg" />
+                  <FaLinkedin className="text-xl" />
                 </a>
                 <a
                   href="https://github.com/voxeil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="site-icon-btn w-12 h-12"
+                  aria-label="GitHub"
                 >
-                  <FaGithub className="text-lg" />
+                  <FaGithub className="text-xl" />
                 </a>
                 <a
                   href="https://instagram.com/voxeil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="site-icon-btn w-12 h-12"
+                  aria-label="Instagram"
                 >
-                  <FaInstagram className="text-lg" />
+                  <FaInstagram className="text-xl" />
                 </a>
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Tüm Hakları Saklıdır */}
         <div className="border-t border-gray-800/50 py-6">
           <motion.p
             initial={{ opacity: 0 }}

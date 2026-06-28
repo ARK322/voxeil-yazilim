@@ -90,7 +90,7 @@ export default function Technologies() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.03 }}
                 viewport={{ once: true }}
-                className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-2.5 sm:p-4 hover:border-[#FF6B35] transition-all duration-300 flex flex-col items-center justify-center aspect-square min-w-0"
+                className="site-card site-card--hover p-2.5 sm:p-4 flex flex-col items-center justify-center aspect-square min-w-0"
               >
                 <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
                   <img
@@ -101,12 +101,12 @@ export default function Technologies() {
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";
                       if (target.parentElement) {
-                        target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-gray-500 text-xs">${tech.name.charAt(0)}</div>`;
+                        target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-subtle text-xs">${tech.name.charAt(0)}</div>`;
                       }
                     }}
                   />
                 </div>
-                <p className="text-gray-300 text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">{tech.name}</p>
+                <p className="text-muted-secondary text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">{tech.name}</p>
               </motion.div>
             ))}
         </div>

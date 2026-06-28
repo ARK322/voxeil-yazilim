@@ -102,16 +102,16 @@ export default function IndustrialSolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-4 sm:p-6 relative overflow-hidden group hover:border-[#FF6B35] transition-all duration-300"
+                  className="site-card site-card--hover p-4 sm:p-6 relative overflow-hidden group"
                 >
                   <div className="absolute top-2 right-2 text-5xl sm:text-7xl opacity-10 group-hover:opacity-15 transition-opacity duration-300">
-                    <IconComponent className="text-[#FF6B35]" />
+                    <IconComponent className="text-orange" />
                   </div>
 
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">
                     {industry.title}
                   </h3>
-                  <p className="text-gray-400 text-sm relative z-10">{industry.description}</p>
+                  <p className="text-muted text-sm relative z-10">{industry.description}</p>
                 </motion.div>
               );
             })}

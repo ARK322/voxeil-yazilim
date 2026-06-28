@@ -50,14 +50,14 @@
   font-family: var(--font-exo2), Arial, sans-serif;
   font-size: clamp(48px, 8vw, 112px);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.012em;
   line-height: 1;
   opacity: 0;
   visibility: hidden;
 }
 
 .intro-word--white  { color: #fff; }
-.intro-word--orange { color: #FF6B35; }
+.intro-word--orange { color: var(--orange); }
 
 .intro-sub {
   margin-top: clamp(16px, 3vh, 32px);
@@ -114,7 +114,7 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: #FF6B35;
+  background: var(--orange);
 }
 
 .scroll-hint__label {
@@ -186,7 +186,6 @@
   line-height: 1.04;
   letter-spacing: -0.04em;
   color: #fff;
-  text-transform: lowercase;
   margin-bottom: clamp(16px, 2.5vh, 24px);
 }
 
@@ -215,39 +214,11 @@
   margin-bottom: clamp(28px, 4vh, 40px);
 }
 
-.hero-finale__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 22px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: var(--font-exo2), Arial, sans-serif;
-  text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-}
-
-.hero-finale__btn--primary {
-  background: #FF6B35;
-  color: #fff;
-  box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.3), 0 8px 32px rgba(255, 107, 53, 0.25);
-}
-
-.hero-finale__btn--primary:hover {
-  background: #ff7b45;
-  box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.4), 0 12px 40px rgba(255, 107, 53, 0.35);
-}
-
-.hero-finale__btn--ghost {
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.hero-finale__btn--ghost:hover {
-  border-color: rgba(255, 255, 255, 0.24);
-  color: #fff;
+.hero-finale__actions .site-btn-primary,
+.hero-finale__actions .site-btn-ghost {
+  font-size: 0.9375rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .hero-finale__status {
@@ -260,11 +231,22 @@
 }
 
 .hero-finale__status-dot {
-  width: 7px;
-  height: 7px;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #ff4444;
-  box-shadow: 0 0 6px rgba(255, 68, 68, 0.5);
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45);
+  animation: status-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
+  }
 }
 
 .hero-finale__status-sep {
@@ -462,7 +444,7 @@
 }
 
 .trust-card:hover {
-  border-color: #ff6b35;
+  border-color: var(--orange);
 }
 
 .trust-card__title {
@@ -632,16 +614,6 @@
     margin-bottom: 1rem;
   }
 
-  .hero-finale__btn {
-    justify-content: center;
-    width: auto;
-    flex: 1 1 calc(50% - 4px);
-    min-width: 0;
-    padding: 11px 14px;
-    font-size: 12px;
-    border-radius: 10px;
-  }
-
   .hero-finale__status {
     display: none;
   }
@@ -729,11 +701,6 @@
 
   .hero-finale__actions {
     flex-direction: column;
-  }
-
-  .hero-finale__btn {
-    flex: 1 1 auto;
-    width: 100%;
   }
 
   .hero-editor--console {

@@ -148,7 +148,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 sm:mb-8">
+            <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
               Bize Ulaşın
             </h3>
 
@@ -161,12 +161,12 @@ export default function Contact() {
                 viewport={{ once: true }}
                 className="flex items-start gap-4"
               >
-                <div className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full site-icon-btn flex-shrink-0">
                   <FaEnvelope className="text-white text-xl" />
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">E-posta</h4>
-                  <a href="mailto:info@voxeil.com" className="text-gray-400 hover:text-[#FF6B35] transition-colors">
+                  <a href="mailto:info@voxeil.com" className="site-link">
                     info@voxeil.com
                   </a>
                 </div>
@@ -179,13 +179,13 @@ export default function Contact() {
                 viewport={{ once: true }}
                 className="flex items-start gap-4"
               >
-                <div className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full site-icon-btn flex-shrink-0">
                   <FaPhone className="text-white text-xl" />
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Telefon</h4>
-                  <a href="tel:+905551234567" className="text-gray-400 hover:text-[#FF6B35] transition-colors">
-                    +90 (555) 123 45 67
+                  <a href="tel:+905551234567" className="site-link">
+                    +90 (530) 401 06 75
                   </a>
                 </div>
               </motion.div>
@@ -197,13 +197,13 @@ export default function Contact() {
                 viewport={{ once: true }}
                 className="flex items-start gap-4"
               >
-                <div className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full site-icon-btn flex-shrink-0">
                   <FaMapMarkerAlt className="text-white text-xl" />
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Adres</h4>
-                  <p className="text-gray-400">
-                    İstanbul, Türkiye
+                  <p className="text-muted">
+                    Ankara, Türkiye
                   </p>
                 </div>
               </motion.div>
@@ -215,12 +215,12 @@ export default function Contact() {
                 viewport={{ once: true }}
                 className="flex items-start gap-4"
               >
-                <div className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full site-icon-btn flex-shrink-0">
                   <FaClock className="text-white text-xl" />
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Çalışma Saatleri</h4>
-                  <p className="text-gray-400">
+                  <p className="text-muted">
                     Pazartesi - Cuma: 09:00 - 18:00
                   </p>
                 </div>
@@ -241,7 +241,7 @@ export default function Contact() {
                   href="https://linkedin.com/company/voxeil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="w-12 h-12 site-icon-btn"
                 >
                   <FaLinkedin className="text-xl" />
                 </a>
@@ -249,7 +249,7 @@ export default function Contact() {
                   href="https://github.com/voxeil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="w-12 h-12 site-icon-btn"
                 >
                   <FaGithub className="text-xl" />
                 </a>
@@ -257,7 +257,7 @@ export default function Contact() {
                   href="https://instagram.com/voxeil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center text-white hover:bg-[#FF7B45] transition-colors"
+                  className="w-12 h-12 site-icon-btn"
                 >
                   <FaInstagram className="text-xl" />
                 </a>
@@ -274,10 +274,10 @@ export default function Contact() {
             className="relative"
           >
             {/* Dikey Ayırıcı Şerit */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FF6B35] via-[#FF6B35]/50 to-transparent lg:block hidden"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange via-orange/50 to-transparent lg:block hidden"></div>
             
             <div className="pt-0 lg:pl-12 space-y-6 sm:space-y-8">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 sm:mb-8">
+              <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
                 Hızlı İletişim Formu
               </h3>
 
@@ -299,15 +299,15 @@ export default function Contact() {
                 />
 
                 <div>
-                  <label htmlFor="entry.2035581240" className="block text-gray-300 mb-2">
-                    Ad Soyad <span className="text-[#FF6B35]" title="Zorunlu alan">*</span>
+                  <label htmlFor="entry.2035581240" className="block text-muted-secondary mb-2">
+                    Ad Soyad <span className="text-orange" title="Zorunlu alan">*</span>
                   </label>
                   <input
                     type="text"
                     id="entry.2035581240"
                     name="entry.2035581240"
                     required
-                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors"
+                    className="site-input"
                     placeholder="Adınız ve Soyadınız *"
                     aria-label="Ad-Soyad"
                     aria-required="true"
@@ -315,8 +315,8 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="entry.9241696" className="block text-gray-300 mb-2">
-                    E-posta veya Telefon <span className="text-[#FF6B35]">*</span>
+                  <label htmlFor="entry.9241696" className="block text-muted-secondary mb-2">
+                    E-posta veya Telefon <span className="text-orange">*</span>
                   </label>
                   <input
                     type="text"
@@ -331,10 +331,10 @@ export default function Contact() {
                     }}
                     onBlur={(e) => validateEmailOrPhone(e.target.value)}
                     required
-                    className={`w-full px-4 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors ${
+                    className={`site-input ${
                       emailOrPhoneError 
                         ? "border-red-500 focus:border-red-500" 
-                        : "border-gray-800 focus:border-[#FF6B35]"
+                        : ""
                     }`}
                     placeholder="E-posta adresiniz veya telefon numaranız (örn: info@example.com veya 05551234567)"
                     aria-label="Mail veya Numara"
@@ -350,15 +350,15 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="entry.1907766424" className="block text-gray-300 mb-2">
-                    Açıklama <span className="text-[#FF6B35]" title="Zorunlu alan">*</span>
+                  <label htmlFor="entry.1907766424" className="block text-muted-secondary mb-2">
+                    Açıklama <span className="text-orange" title="Zorunlu alan">*</span>
                   </label>
                   <textarea
                     id="entry.1907766424"
                     name="entry.1907766424"
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors resize-none"
+                    className="site-input resize-none"
                     placeholder="Mesajınızı buraya yazın... *"
                     aria-label="Açıklama"
                     aria-required="true"
@@ -380,7 +380,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#FF7B45] hover:shadow-lg hover:shadow-[#FF6B35]/50 hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="site-btn-primary w-full sm:w-auto text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? "Gönderiliyor..." : "Gönder"}
                   </button>

@@ -75,7 +75,7 @@ function AnimatedCounter({ target, suffix, delay }: { target: number; suffix: st
   }, [hasStarted, target, delay]);
 
   return (
-    <div id={`counter-${target}`} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FF6B35] mb-2 text-center">
+    <div id={`counter-${target}`} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-orange mb-2 text-center site-glow-text">
       {count}{suffix}
     </div>
   );
@@ -99,13 +99,13 @@ function CounterSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-4 lg:p-5 flex flex-col"
+            className="site-card p-4 lg:p-5 flex flex-col"
           >
             <AnimatedCounter target={stat.value} suffix={stat.suffix} delay={index * 0.2} />
-            <div className="text-gray-400 text-base lg:text-lg font-medium mb-2 text-center" style={{ textShadow: '0 0 10px rgba(255, 107, 53, 0.5), 0 0 20px rgba(255, 107, 53, 0.3)' }}>
+            <div className="text-muted text-base lg:text-lg font-medium mb-2 text-center site-glow-text">
               {stat.label}
             </div>
-            <p className="text-gray-300 text-sm lg:text-base leading-relaxed flex-grow">
+            <p className="text-muted-secondary text-sm lg:text-base leading-relaxed flex-grow">
               {stat.description}
             </p>
           </motion.div>
@@ -165,15 +165,15 @@ export default function WhyUs() {
                     const feature = features[groupStart];
                     const IconComponent = feature.icon;
                     return (
-                      <div className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-6 lg:p-7 hover:border-[#FF6B35] transition-all duration-300 relative overflow-hidden min-h-[220px] flex flex-col items-center justify-center text-center w-full">
+                      <div className="site-card site-card--hover p-6 lg:p-7 relative overflow-hidden min-h-[220px] flex flex-col items-center justify-center text-center w-full">
                         {/* Filigran Icon - Sağ Alt Köşe */}
                         <div className="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 opacity-10 pointer-events-none overflow-hidden">
-                          <IconComponent className="text-[#FF6B35] text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
+                          <IconComponent className="text-orange text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
                         </div>
                         <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 relative z-10">
                           {feature.title}
                         </h3>
-                        <p className="text-gray-400 text-base sm:text-lg leading-relaxed relative z-10">
+                        <p className="text-muted text-base sm:text-lg leading-relaxed relative z-10">
                           {feature.description}
                         </p>
                       </div>
@@ -193,15 +193,15 @@ export default function WhyUs() {
                     const feature = features[groupStart + 1];
                     const IconComponent = feature.icon;
                     return (
-                      <div className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-6 lg:p-7 hover:border-[#FF6B35] transition-all duration-300 relative overflow-hidden min-h-[220px] flex flex-col items-center justify-center text-center w-full">
+                      <div className="site-card site-card--hover p-6 lg:p-7 relative overflow-hidden min-h-[220px] flex flex-col items-center justify-center text-center w-full">
                         {/* Filigran Icon - Sağ Alt Köşe */}
                         <div className="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 opacity-10 pointer-events-none overflow-hidden">
-                          <IconComponent className="text-[#FF6B35] text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
+                          <IconComponent className="text-orange text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
                         </div>
                         <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 relative z-10">
                           {feature.title}
                         </h3>
-                        <p className="text-gray-400 text-base sm:text-lg leading-relaxed relative z-10">
+                        <p className="text-muted text-base sm:text-lg leading-relaxed relative z-10">
                           {feature.description}
                         </p>
                       </div>

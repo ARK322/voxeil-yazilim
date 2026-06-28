@@ -1,3 +1,3 @@
 export default function SectionDivider() {
-  return <div className="border-t border-white/15" aria-hidden="true" />;
+  return <div className="border-t border-border-divider" aria-hidden="true" />;
 }

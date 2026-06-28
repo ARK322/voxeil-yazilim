@@ -20,7 +20,7 @@ const idMap: Record<(typeof menuItems)[number], string> = {
   Ekibimiz: "ekibimiz",
 };
 
-const NAV_OFFSET = 80;
+const NAV_OFFSET = 92;
 
 function getHref(item: string) {
   const targetId =
@@ -30,10 +30,7 @@ function getHref(item: string) {
 }
 
 const linkClassName =
-  "text-gray-300 hover:text-[#FF6B35] transition-all duration-300 text-base font-medium relative group py-2 inline-block cursor-pointer whitespace-nowrap";
-
-const ctaClassName =
-  "inline-flex items-center justify-center px-[22px] py-[14px] rounded-xl bg-white/[0.03] text-white/75 border border-white/12 font-semibold text-sm whitespace-nowrap transition-all duration-200 hover:border-white/[0.24] hover:text-white";
+  "text-muted-secondary hover:text-orange transition-colors duration-200 text-[1.0625rem] font-medium relative group py-2 inline-block cursor-pointer whitespace-nowrap";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -99,7 +96,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50">
       <div className="bg-black backdrop-blur-md border-b border-white/5">
-        <div className="mx-auto flex w-full max-w-[1600px] items-center px-8 lg:px-12 py-3.5 sm:py-4 xl:py-5">
+        <div className="mx-auto flex w-full max-w-[1600px] items-center px-8 lg:px-12 py-4 sm:py-5 xl:py-6">
           <Link
             href="/"
             className="shrink-0 transition-opacity hover:opacity-80"
@@ -110,7 +107,7 @@ export default function Navbar() {
               alt="Logo"
               width={150}
               height={50}
-              className="h-10 w-auto"
+              className="h-11 w-auto"
               priority
             />
           </Link>
@@ -128,7 +125,7 @@ export default function Navbar() {
                       className={linkClassName}
                     >
                       {item}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF6B35] transition-all duration-300 group-hover:w-full" />
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange transition-all duration-300 group-hover:w-full" />
                     </a>
                   </li>
                 );
@@ -140,7 +137,7 @@ export default function Navbar() {
             <a
               href="#iletisim"
               onClick={(e) => handleSmoothScroll(e, "#iletisim")}
-              className={ctaClassName}
+              className="site-btn-ghost whitespace-nowrap"
             >
               Bize Ulaşın
             </a>
@@ -148,7 +145,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="xl:hidden shrink-0 flex items-center justify-center w-10 h-10 text-gray-300 hover:text-[#FF6B35] transition-colors rounded-lg ml-auto"
+            className="xl:hidden shrink-0 flex items-center justify-center w-10 h-10 text-muted-secondary hover:text-orange transition-colors rounded-lg ml-auto"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav-menu"
@@ -163,7 +160,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobil açılır menü */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -174,37 +170,37 @@ export default function Navbar() {
             transition={{ duration: 0.28, ease: "easeInOut" }}
             className="xl:hidden overflow-hidden bg-black backdrop-blur-md border-b border-white/5"
           >
-            <div className="mx-auto w-full max-w-[1600px] px-8 lg:px-12">
-            <ul className="flex flex-col pt-2 pb-4 gap-1">
-              {menuItems.map((item, index) => {
-                const href = getHref(item);
-                return (
-                  <motion.li
-                    key={item}
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.2 }}
-                  >
-                    <a
-                      href={href}
-                      onClick={(e) => handleSmoothScroll(e, href)}
-                      className="block w-full py-3 text-gray-300 hover:text-[#FF6B35] border-b border-gray-800/60 text-base font-medium transition-colors"
+            <div className="nav-container">
+              <ul className="flex flex-col pt-2 pb-4 gap-1">
+                {menuItems.map((item, index) => {
+                  const href = getHref(item);
+                  return (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
                     >
-                      {item}
-                    </a>
-                  </motion.li>
-                );
-              })}
-            </ul>
-            <div className="pb-5">
-              <a
-                href="#iletisim"
-                onClick={(e) => handleSmoothScroll(e, "#iletisim")}
-                className={`block w-full text-center ${ctaClassName}`}
-              >
-                Bize Ulaşın
-              </a>
-            </div>
+                      <a
+                        href={href}
+                        onClick={(e) => handleSmoothScroll(e, href)}
+                        className="block w-full py-3 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
+                      >
+                        {item}
+                      </a>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+              <div className="pb-5">
+                <a
+                  href="#iletisim"
+                  onClick={(e) => handleSmoothScroll(e, "#iletisim")}
+                  className="site-btn-ghost block w-full text-center"
+                >
+                  Bize Ulaşın
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
