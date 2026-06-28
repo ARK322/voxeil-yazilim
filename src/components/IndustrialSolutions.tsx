@@ -1,0 +1,123 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+import {
+  FaIndustry,
+  FaHospital,
+  FaDollarSign,
+  FaGraduationCap,
+  FaTruck,
+  FaHotel,
+} from "react-icons/fa";
+
+const industries = [
+  {
+    icon: FaIndustry,
+    title: "Üretim",
+    description: "Endüstri 4.0 çözümleri ile üretim süreçlerinizi dijitalleştirin.",
+  },
+  {
+    icon: FaHospital,
+    title: "Sağlık",
+    description: "Hasta yönetim sistemleri ve dijital sağlık çözümleri.",
+  },
+  {
+    icon: FaDollarSign,
+    title: "Finans",
+    description: "Güvenli finansal yazılımlar ve ödeme sistemleri.",
+  },
+  {
+    icon: FaGraduationCap,
+    title: "Eğitim",
+    description: "E-öğrenme platformları ve okul yönetim sistemleri.",
+  },
+  {
+    icon: FaTruck,
+    title: "Lojistik",
+    description: "Tedarik zinciri yönetimi ve lojistik takip sistemleri.",
+  },
+  {
+    icon: FaHotel,
+    title: "Turizm",
+    description: "Rezervasyon sistemleri ve müşteri yönetim platformları.",
+  },
+];
+
+export default function IndustrialSolutions() {
+  return (
+    <section id="endustriyel-cozumler" className="site-section relative overflow-x-clip">
+      <div className="site-container">
+        <header className="site-section__header">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="site-section__title"
+          >
+            Endüstriyel Çözümler
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="site-section__desc"
+          >
+            Farklı endüstri kollarına özel yazılım çözümleri sunuyoruz. Sektörünüze
+            özgü ihtiyaçlarınızı anlayarak, size en uygun dijital dönüşüm yolunu
+            birlikte çiziyoruz.
+          </motion.p>
+        </header>
+
+        <div className="site-section__grid grid-cols-1 lg:grid-cols-2 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative w-full h-48 sm:h-56 lg:h-80 mx-auto max-w-sm sm:max-w-none"
+          >
+            <Image
+              src="/shape.webp"
+              alt="Shape"
+              fill
+              className="object-contain"
+              style={{ transform: "rotate(-30deg) scale(1.62)" }}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = "none";
+              }}
+            />
+          </motion.div>
+
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-4 sm:gap-6">
+            {industries.map((industry, index) => {
+              const IconComponent = industry.icon;
+              return (
+                <motion.div
+                  key={industry.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-4 sm:p-6 relative overflow-hidden group hover:border-[#FF6B35] transition-all duration-300"
+                >
+                  <div className="absolute top-2 right-2 text-5xl sm:text-7xl opacity-10 group-hover:opacity-15 transition-opacity duration-300">
+                    <IconComponent className="text-[#FF6B35]" />
+                  </div>
+
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">
+                    {industry.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm relative z-10">{industry.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

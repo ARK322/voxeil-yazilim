@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang="tr" className="custom-scrollbar">
       <body
         className={`${exo2.variable} antialiased overflow-x-clip`}
       >

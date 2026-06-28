@@ -1,20 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 export default function Contact() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Scroll animasyonları
-  const contentY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
-  // Form state
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,38 +116,30 @@ export default function Contact() {
   };
 
   return (
-    <section
-      ref={containerRef}
-      id="iletisim"
-      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center overflow-x-clip"
-      style={{ paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
-    >
-      <div className="mx-auto w-full" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
-        {/* Başlık */}
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-5xl lg:text-6xl font-bold text-white text-center mb-6"
-        >
-          İletişim
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-gray-400 text-lg text-center mb-16 max-w-3xl mx-auto"
-        >
-          Projeleriniz için bizimle iletişime geçin. Size en kısa sürede dönüş yapacağız.
-        </motion.p>
+    <section id="iletisim" className="site-section relative overflow-x-clip">
+      <div className="site-container">
+        <header className="site-section__header">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="site-section__title"
+          >
+            İletişim
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="site-section__desc"
+          >
+            Projeleriniz için bizimle iletişime geçin. Size en kısa sürede dönüş yapacağız.
+          </motion.p>
+        </header>
 
-        {/* İki Bölümlü İletişim Alanı */}
-        <motion.div
-          style={{ y: contentY }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12"
-        >
+        <div className="site-section__grid grid-cols-1 lg:grid-cols-2">
           {/* Sol Bölüm - İletişim Bilgileri */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -166,7 +148,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-3xl lg:text-4xl font-bold text-white mb-8">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 sm:mb-8">
               Bize Ulaşın
             </h3>
 
@@ -294,8 +276,8 @@ export default function Contact() {
             {/* Dikey Ayırıcı Şerit */}
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FF6B35] via-[#FF6B35]/50 to-transparent lg:block hidden"></div>
             
-            <div className="lg:pl-12 space-y-8">
-              <h3 className="text-3xl lg:text-4xl font-bold text-white mb-8">
+            <div className="pt-0 lg:pl-12 space-y-6 sm:space-y-8">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 sm:mb-8">
                 Hızlı İletişim Formu
               </h3>
 
@@ -325,7 +307,7 @@ export default function Contact() {
                     id="entry.2035581240"
                     name="entry.2035581240"
                     required
-                    className="w-full px-4 py-3 bg-black/70 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors"
+                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors"
                     placeholder="Adınız ve Soyadınız *"
                     aria-label="Ad-Soyad"
                     aria-required="true"
@@ -349,7 +331,7 @@ export default function Contact() {
                     }}
                     onBlur={(e) => validateEmailOrPhone(e.target.value)}
                     required
-                    className={`w-full px-4 py-3 bg-black/70 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-colors ${
                       emailOrPhoneError 
                         ? "border-red-500 focus:border-red-500" 
                         : "border-gray-800 focus:border-[#FF6B35]"
@@ -376,20 +358,20 @@ export default function Contact() {
                     name="entry.1907766424"
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-black/70 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors resize-none"
                     placeholder="Mesajınızı buraya yazın... *"
                     aria-label="Açıklama"
                     aria-required="true"
                   ></textarea>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                   {submitSuccess && (
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="text-green-400 text-sm font-medium flex items-center gap-2 whitespace-nowrap"
+                      className="text-green-400 text-sm font-medium flex items-center gap-2"
                     >
                       <span className="text-green-500 text-lg">✓</span>
                       <span>Formunuz başarıyla gönderildi!</span>
@@ -398,9 +380,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#FF7B45] hover:shadow-lg hover:shadow-[#FF6B35]/50 hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-                      submitSuccess ? 'flex-shrink-0' : 'w-full'
-                    }`}
+                    className="w-full sm:w-auto px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#FF7B45] hover:shadow-lg hover:shadow-[#FF6B35]/50 hover:scale-105 active:scale-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     {isSubmitting ? "Gönderiliyor..." : "Gönder"}
                   </button>
@@ -408,7 +388,7 @@ export default function Contact() {
               </form>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

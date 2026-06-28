@@ -8,16 +8,16 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const menuItems = [
   "Hizmetlerimiz",
+  "Süreç",
   "Neden Biz?",
   "Ekibimiz",
-  "İletişim",
 ] as const;
 
 const idMap: Record<(typeof menuItems)[number], string> = {
   Hizmetlerimiz: "hizmetlerimiz",
+  Süreç: "surec",
   "Neden Biz?": "neden-biz",
   Ekibimiz: "ekibimiz",
-  İletişim: "iletisim",
 };
 
 const NAV_OFFSET = 80;
@@ -31,6 +31,9 @@ function getHref(item: string) {
 
 const linkClassName =
   "text-gray-300 hover:text-[#FF6B35] transition-all duration-300 text-base font-medium relative group py-2 inline-block cursor-pointer whitespace-nowrap";
+
+const ctaClassName =
+  "inline-flex items-center justify-center px-[22px] py-[14px] rounded-xl bg-white/[0.03] text-white/75 border border-white/12 font-semibold text-sm whitespace-nowrap transition-all duration-200 hover:border-white/[0.24] hover:text-white";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -84,77 +87,79 @@ export default function Navbar() {
     }
   };
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    closeMobileMenu();
+
+    if (window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 w-full max-w-[100vw] overflow-x-clip">
-      <div className="bg-black/80 backdrop-blur-sm border-b border-gray-800/50">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 xl:px-8">
-          <div className="flex h-14 sm:h-16 xl:h-20 items-center min-w-0">
-            {/* Logo — solda */}
-            <div className="shrink-0 xl:w-1/4">
-              <Link
-                href="/"
-                className="transition-opacity hover:opacity-80"
-                onClick={closeMobileMenu}
-              >
-                <Image
-                  src="/logo.svg"
-                  alt="Logo"
-                  width={150}
-                  height={50}
-                  className="h-10 w-auto sm:h-12"
-                  priority
-                />
-              </Link>
-            </div>
+    <nav className="fixed top-0 inset-x-0 z-50">
+      <div className="bg-black backdrop-blur-md border-b border-white/5">
+        <div className="mx-auto flex w-full max-w-[1600px] items-center px-8 lg:px-12 py-3.5 sm:py-4 xl:py-5">
+          <Link
+            href="/"
+            className="shrink-0 transition-opacity hover:opacity-80"
+            onClick={handleLogoClick}
+          >
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={150}
+              height={50}
+              className="h-10 w-auto"
+              priority
+            />
+          </Link>
 
-            {/* Masaüstü menü — xl altında hamburger */}
-            <div className="hidden xl:flex w-1/2 justify-center min-w-0">
-              <ul className="flex items-center gap-6 2xl:gap-8">
-                {menuItems.map((item) => {
-                  const href = getHref(item);
-                  return (
-                    <li key={item} className="shrink-0">
-                      <a
-                        href={href}
-                        onClick={(e) => handleSmoothScroll(e, href)}
-                        className={linkClassName}
-                      >
-                        {item}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF6B35] transition-all duration-300 group-hover:w-full" />
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+          <div className="hidden xl:flex flex-1 items-center justify-center">
+            <ul className="flex items-center gap-12">
+              {menuItems.map((item) => {
+                const href = getHref(item);
 
-            {/* Masaüstü CTA */}
-            <div className="hidden xl:flex w-1/4 justify-start pl-4 shrink-0">
-              <a
-                href="#iletisim"
-                onClick={(e) => handleSmoothScroll(e, "#iletisim")}
-                className="px-5 py-2.5 bg-[#FF6B35] text-white rounded-lg font-medium text-sm whitespace-nowrap transition-all duration-300 hover:bg-[#FF7B45] hover:shadow-lg hover:shadow-[#FF6B35]/50 hover:scale-105 active:scale-100 cursor-pointer inline-block"
-              >
-                Bize Ulaşın
-              </a>
-            </div>
-
-            {/* Mobil / tablet hamburger */}
-            <button
-              type="button"
-              className="xl:hidden ml-auto shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 text-gray-300 hover:text-[#FF6B35] transition-colors rounded-lg"
-              onClick={() => setIsMobileMenuOpen((open) => !open)}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-nav-menu"
-              aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
-            >
-              {isMobileMenuOpen ? (
-                <FaTimes className="w-5 h-5" />
-              ) : (
-                <FaBars className="w-5 h-5" />
-              )}
-            </button>
+                return (
+                  <li key={item}>
+                    <a
+                      href={href}
+                      onClick={(e) => handleSmoothScroll(e, href)}
+                      className={linkClassName}
+                    >
+                      {item}
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF6B35] transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
+
+          <div className="hidden xl:flex shrink-0">
+            <a
+              href="#iletisim"
+              onClick={(e) => handleSmoothScroll(e, "#iletisim")}
+              className={ctaClassName}
+            >
+              Bize Ulaşın
+            </a>
+          </div>
+
+          <button
+            type="button"
+            className="xl:hidden shrink-0 flex items-center justify-center w-10 h-10 text-gray-300 hover:text-[#FF6B35] transition-colors rounded-lg ml-auto"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav-menu"
+            aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+          >
+            {isMobileMenuOpen ? (
+              <FaTimes className="w-5 h-5" />
+            ) : (
+              <FaBars className="w-5 h-5" />
+            )}
+          </button>
         </div>
       </div>
 
@@ -167,9 +172,10 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: "easeInOut" }}
-            className="xl:hidden overflow-hidden bg-black/95 backdrop-blur-md border-b border-gray-800/50"
+            className="xl:hidden overflow-hidden bg-black backdrop-blur-md border-b border-white/5"
           >
-            <ul className="flex flex-col px-4 sm:px-6 pt-2 pb-4 gap-1">
+            <div className="mx-auto w-full max-w-[1600px] px-8 lg:px-12">
+            <ul className="flex flex-col pt-2 pb-4 gap-1">
               {menuItems.map((item, index) => {
                 const href = getHref(item);
                 return (
@@ -190,14 +196,15 @@ export default function Navbar() {
                 );
               })}
             </ul>
-            <div className="px-4 sm:px-6 pb-5">
+            <div className="pb-5">
               <a
                 href="#iletisim"
                 onClick={(e) => handleSmoothScroll(e, "#iletisim")}
-                className="block w-full text-center px-4 py-3 bg-[#FF6B35] text-white rounded-lg font-medium text-sm transition-all duration-300 hover:bg-[#FF7B45] active:scale-[0.98]"
+                className={`block w-full text-center ${ctaClassName}`}
               >
                 Bize Ulaşın
               </a>
+            </div>
             </div>
           </motion.div>
         )}

@@ -1,14 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
-import { useScroll, useTransform } from "framer-motion";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 const teamMembers = [
   {
     name: "Ahmed Resul KURT",
-    role: "DevOps",
+    role: "UI/UX Tasarımcı & DevOps Mühendisi",
     image: "https://ui-avatars.com/api/?name=Ahmed+Resul+KURT&size=240&background=2c2c2c&color=FF6B35&bold=true",
     linkedin: "https://linkedin.com/in/ahmet-resul-kurt",
     github: "https://github.com/ahmet-resul-kurt",
@@ -16,65 +14,40 @@ const teamMembers = [
   },
   {
     name: "Bülent KOÇ",
-    role: "Full-Stack Product Architect",
+    role: "Backend Geliştirici & Uygulama Mimarı",
     image: "https://ui-avatars.com/api/?name=Bulent+KOÇ&size=240&background=2c2c2c&color=FF6B35&bold=true",
     linkedin: "https://www.linkedin.com/in/bülent-deniz-koç-15a498301/",
     github: "https://github.com/budeko",
     instagram: "https://www.instagram.com/iambudeko",
   },
-  {
-    name: "Hakan ADİYAMAN",
-    role: "Mobile App Developer",
-    image: "https://ui-avatars.com/api/?name=Hakan+ADİYAMAN&size=240&background=2c2c2c&color=FF6B35&bold=true",
-    linkedin: "https://linkedin.com/in/hakan-adiyaman",
-    github: "https://github.com/hakan-adiyaman",
-    instagram: "https://instagram.com/hakan_adiyaman",
-  },
 ];
 
 export default function Team() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Scroll animasyonları
-  const contentY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
   return (
-    <section
-      ref={containerRef}
-      id="ekibimiz"
-      className="relative px-6 lg:px-8 min-h-screen flex flex-col justify-center overflow-x-clip"
-      style={{ paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
-    >
-      <div className="mx-auto w-full max-w-full" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
-        {/* Başlık ve Açıklama */}
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-5xl lg:text-6xl font-bold text-white text-center mb-6"
-        >
-          Ekibimiz
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-gray-400 text-lg text-center mb-16 max-w-3xl mx-auto"
-        >
-          Deneyimli ve tutkulu ekibimizle, projelerinizi en iyi şekilde hayata geçiriyoruz.
-        </motion.p>
+    <section id="ekibimiz" className="site-section relative overflow-x-clip">
+      <div className="site-container">
+        <header className="site-section__header">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="site-section__title"
+          >
+            Ekibimiz
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="site-section__desc"
+          >
+            Deneyimli ve tutkulu ekibimizle, projelerinizi en iyi şekilde hayata geçiriyoruz.
+          </motion.p>
+        </header>
 
-        {/* Ekip Üyeleri */}
-        <motion.div
-          style={{ y: contentY }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6"
-        >
+        <div className="site-section__grid grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
@@ -92,7 +65,7 @@ export default function Team() {
               >
                 {/* Yuvarlak Resim */}
                 <motion.div
-                  className="relative w-52 h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden z-10 shrink-0"
+                  className="relative w-40 h-40 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden z-10 shrink-0"
                   variants={{
                     initial: { scale: 1, x: 0 },
                     hover: { scale: 0.85, x: -30 }
@@ -191,7 +164,7 @@ export default function Team() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

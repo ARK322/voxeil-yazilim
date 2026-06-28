@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
-import { FaCode, FaMobileAlt, FaShoppingCart, FaLightbulb, FaCloud, FaIndustry, FaHospital, FaDollarSign, FaGraduationCap, FaTruck, FaHotel } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { FaCode, FaMobileAlt, FaShoppingCart, FaLightbulb, FaCloud } from "react-icons/fa";
 
 const services = [
   {
@@ -69,243 +67,114 @@ const services = [
   },
 ];
 
-const industries = [
-  {
-    icon: FaIndustry,
-    title: "Üretim",
-    description: "Endüstri 4.0 çözümleri ile üretim süreçlerinizi dijitalleştirin.",
-  },
-  {
-    icon: FaHospital,
-    title: "Sağlık",
-    description: "Hasta yönetim sistemleri ve dijital sağlık çözümleri.",
-  },
-  {
-    icon: FaDollarSign,
-    title: "Finans",
-    description: "Güvenli finansal yazılımlar ve ödeme sistemleri.",
-  },
-  {
-    icon: FaGraduationCap,
-    title: "Eğitim",
-    description: "E-öğrenme platformları ve okul yönetim sistemleri.",
-  },
-  {
-    icon: FaTruck,
-    title: "Lojistik",
-    description: "Tedarik zinciri yönetimi ve lojistik takip sistemleri.",
-  },
-  {
-    icon: FaHotel,
-    title: "Turizm",
-    description: "Rezervasyon sistemleri ve müşteri yönetim platformları.",
-  },
-];
-
 export default function Services() {
   const [activeService, setActiveService] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Scroll animasyonları - bant aşağı kayar, içerik yukarı kayar
-  const contentY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const bandY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
   return (
-    <section
-      ref={containerRef}
-      id="hizmetlerimiz"
-      className="relative z-20 px-6 lg:px-8 min-h-screen flex flex-col justify-center overflow-x-clip"
-      style={{ marginTop: '3.06rem', paddingTop: '2.55rem', paddingBottom: '2.55rem' }}
-    >
-      {/* Hizmetler Bölümü */}
-      <div className="mx-auto w-full mb-32" style={{ maxWidth: 'calc(1280px * 0.94)' }}>
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white text-center mb-6"
-        >
-          Hizmetlerimiz
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-gray-400 text-base sm:text-lg text-center mb-10 sm:mb-16 max-w-3xl mx-auto"
-        >
-          Dijital dönüşüm yolculuğunuzda size en uygun çözümleri sunuyoruz. 
-          Modern teknolojiler ve uzman ekibimizle projelerinizi hayata geçiriyoruz.
-        </motion.p>
+    <section id="hizmetlerimiz" className="site-section relative z-20 overflow-x-clip">
+      <div className="site-container">
+        <header className="site-section__header">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="site-section__title"
+          >
+            Hizmetlerimiz
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="site-section__desc"
+          >
+            Dijital dönüşüm yolculuğunuzda size en uygun çözümleri sunuyoruz.
+            Modern teknolojiler ve uzman ekibimizle projelerinizi hayata geçiriyoruz.
+          </motion.p>
+        </header>
 
-        {/* Butonlar — dar ekranda 3+2 sarma, geniş ekranda tek satır */}
-        <div
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12 lg:flex-nowrap lg:justify-between lg:gap-4"
-          role="tablist"
-          aria-label="Hizmet seçimi"
-        >
-          {services.map((service, index) => (
-            <button
-              key={service.id}
-              type="button"
-              role="tab"
-              aria-selected={activeService === index}
-              onClick={() => setActiveService(index)}
-              className={`w-[calc(33.333%-0.35rem)] sm:w-[calc(33.333%-0.5rem)] lg:w-auto lg:flex-1 rounded-lg px-2 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm lg:text-base font-medium text-center leading-snug transition-all duration-300 lg:px-6 ${
-                activeService === index
-                  ? "bg-[#FF6B35] text-white shadow-lg shadow-[#FF6B35]/50"
-                  : "bg-[#2c2c2c]/50 text-gray-300 hover:bg-[#2c2c2c] hover:text-white"
-              }`}
-            >
-              {service.title}
-            </button>
-          ))}
-        </div>
-
-        {/* Kart Galerisi */}
-        <div className="relative min-h-[520px] sm:min-h-[480px] lg:h-[480px] overflow-hidden">
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
-            return (
-              <motion.div
+        <div className="site-section__body">
+          <div
+            className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 snap-x snap-mandatory scrollbar-none sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:snap-none sm:gap-3 lg:flex-nowrap lg:justify-between lg:gap-4"
+            role="tablist"
+            aria-label="Hizmet seçimi"
+          >
+            {services.map((service, index) => (
+              <button
                 key={service.id}
-                initial={false}
-                animate={{
-                  opacity: activeService === index ? 1 : 0,
-                  x: activeService === index ? 0 : activeService > index ? 100 : -100,
-                  scale: activeService === index ? 1 : 0.9,
-                }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className={`absolute inset-0 ${
-                  activeService === index ? "pointer-events-auto" : "pointer-events-none"
+                type="button"
+                role="tab"
+                aria-selected={activeService === index}
+                onClick={() => setActiveService(index)}
+                className={`shrink-0 snap-start min-w-[42%] max-w-[70%] sm:min-w-0 sm:max-w-none sm:w-[calc(33.333%-0.5rem)] lg:w-auto lg:flex-1 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm lg:text-base font-medium text-center leading-snug transition-all duration-300 lg:px-6 ${
+                  activeService === index
+                    ? "bg-[#FF6B35] text-white shadow-lg shadow-[#FF6B35]/50"
+                    : "bg-black/90 text-gray-300 hover:bg-black hover:text-white"
                 }`}
               >
-                <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-5 sm:p-8 lg:p-12 h-full">
-                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-12 h-full">
-                    {/* Sol Bölge - Başlık, Metin ve Filigran Logo (%60) */}
-                    <div className="relative flex flex-col justify-center lg:col-span-3">
-                      {/* Filigran Logo Arkaplan */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
-                        <IconComponent className="text-[#FF6B35] text-[12rem] sm:text-[16rem] lg:text-[400px]" />
-                      </div>
-                      
-                      <div className="relative z-10">
-                        <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
-                          {service.title}
-                        </h3>
-                        <p className="text-gray-400 text-base sm:text-xl leading-relaxed">
-                          {service.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Sağ Bölge - Özellikler (%40) */}
-                    <div className="flex flex-col justify-center gap-3 sm:gap-4 lg:col-span-2">
-                      {service.features.map((feature, idx) => (
-                        <div
-                          key={idx}
-                          className="bg-gradient-to-r from-black/90 to-black/70 rounded-lg p-4 sm:p-5 border border-[#FF6B35]/30 hover:border-[#FF6B35]/50 transition-all duration-300 pl-6 sm:pl-8"
-                        >
-                          <p className="text-gray-300 text-base sm:text-lg font-medium flex items-center">
-                            <span className="text-[#FF6B35] mr-3 text-xl">•</span>
-                            {feature}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Endüstriyel Çözümler Bölümü */}
-      <motion.div
-        style={{ y: contentY, maxWidth: 'calc(1280px * 0.94)' }}
-        className="mx-auto w-full"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Sol Sütun - Başlık ve Açıklama */}
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-3xl lg:text-4xl font-bold text-white mb-6"
-            >
-              Endüstriyel Çözümler
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-gray-400 text-lg leading-relaxed mb-6"
-            >
-              Farklı endüstri kollarına özel yazılım çözümleri sunuyoruz. Sektörünüze
-              özgü ihtiyaçlarınızı anlayarak, size en uygun dijital dönüşüm yolunu
-              birlikte çiziyoruz.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="relative w-full h-64"
-            >
-              <Image
-                src="/shape.webp"
-                alt="Shape"
-                fill
-                className="object-contain"
-                style={{ transform: 'rotate(-30deg) scale(1.62)' }}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                }}
-              />
-            </motion.div>
+                {service.title}
+              </button>
+            ))}
           </div>
 
-          {/* Sağ Sütun - Endüstri Kartları (2 şer sütun) */}
-          <div className="grid grid-cols-2 gap-6">
-            {industries.map((industry, index) => {
-              const IconComponent = industry.icon;
+          <div className="relative lg:min-h-[480px] lg:h-[480px]">
+            {services.map((service, index) => {
+              const IconComponent = service.icon;
+              const isActive = activeService === index;
               return (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-6 relative overflow-hidden group hover:border-[#FF6B35] transition-all duration-300"
+                  key={service.id}
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? 1 : 0,
+                    x: isActive ? 0 : activeService > index ? 100 : -100,
+                    scale: isActive ? 1 : 0.9,
+                  }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className={`${
+                    isActive ? "relative lg:absolute lg:inset-0" : "hidden lg:block lg:absolute lg:inset-0"
+                  } ${isActive ? "pointer-events-auto" : "pointer-events-none"}`}
                 >
-                  {/* Soluk Simge Arkaplanı - Turuncu tonlu */}
-                  <div className="absolute top-2 right-2 text-7xl opacity-10 group-hover:opacity-15 transition-opacity duration-300">
-                    <IconComponent className="text-[#FF6B35]" />
+                  <div className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-5 sm:p-8 lg:p-12 h-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-12 h-full">
+                      <div className="relative flex flex-col justify-center lg:col-span-3">
+                        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
+                          <IconComponent className="text-[#FF6B35] text-[6rem] sm:text-[10rem] lg:text-[400px]" />
+                        </div>
+
+                        <div className="relative z-10">
+                          <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+                            {service.title}
+                          </h3>
+                          <p className="text-gray-400 text-base sm:text-xl leading-relaxed">
+                            {service.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col justify-center gap-3 sm:gap-4 lg:col-span-2">
+                        {service.features.map((feature, idx) => (
+                          <div
+                            key={idx}
+                            className="bg-gradient-to-r from-black to-black/95 rounded-lg p-4 sm:p-5 border border-[#FF6B35]/30 hover:border-[#FF6B35]/50 transition-all duration-300 pl-6 sm:pl-8"
+                          >
+                            <p className="text-gray-300 text-base sm:text-lg font-medium flex items-center">
+                              <span className="text-[#FF6B35] mr-3 text-xl">•</span>
+                              {feature}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  
-                  <h3 className="text-xl font-bold text-white mb-3 relative z-10">
-                    {industry.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm relative z-10">
-                    {industry.description}
-                  </p>
                 </motion.div>
               );
             })}
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
-
