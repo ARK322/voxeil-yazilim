@@ -1,16 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
-const technologies = [
+const SIMPLE_ICONS_CDN = "https://cdn.jsdelivr.net/npm/simple-icons";
+
+type Technology = {
+  name: string;
+  iconName: string;
+  /** Simple Icons'tan kaldırılan markalar için eski paket sürümü */
+  iconVersion?: string;
+};
+
+const technologies: Technology[] = [
   { name: "React", iconName: "react" },
   { name: "Next.js", iconName: "nextdotjs" },
   { name: "TypeScript", iconName: "typescript" },
   { name: "JavaScript", iconName: "javascript" },
   { name: "Node.js", iconName: "nodedotjs" },
   { name: "Python", iconName: "python" },
-  { name: "Java", iconName: "java" },
+  { name: "Java", iconName: "java", iconVersion: "6.20.0" },
   { name: "C#", iconName: "csharp" },
   { name: "PHP", iconName: "php" },
   { name: "Go", iconName: "go" },
@@ -43,6 +51,11 @@ const technologies = [
   { name: "Pandas", iconName: "pandas" },
   { name: "Numpy", iconName: "numpy" },
 ];
+
+function getTechIconSrc(tech: Technology) {
+  const version = tech.iconVersion ?? "9";
+  return `${SIMPLE_ICONS_CDN}@${version}/icons/${tech.iconName}.svg`;
+}
 
 export default function Technologies() {
   return (
@@ -80,29 +93,18 @@ export default function Technologies() {
                 className="bg-black backdrop-blur-sm border border-gray-800 rounded-lg p-2.5 sm:p-4 hover:border-[#FF6B35] transition-all duration-300 flex flex-col items-center justify-center aspect-square min-w-0"
               >
                 <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
-                  {tech.iconName === "java" ? (
-                    <Image
-                      src="/java.png?v=2"
-                      alt={tech.name}
-                      width={48}
-                      height={48}
-                      className="w-full h-full filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain"
-                      unoptimized
-                    />
-                  ) : (
-                    <img
-                      src={`https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/${tech.iconName}.svg`}
-                      alt={tech.name}
-                      className="w-full h-full filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = "none";
-                        if (target.parentElement) {
-                          target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-gray-500 text-xs">${tech.name.charAt(0)}</div>`;
-                        }
-                      }}
-                    />
-                  )}
+                  <img
+                    src={getTechIconSrc(tech)}
+                    alt={tech.name}
+                    className="w-full h-full filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      if (target.parentElement) {
+                        target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-gray-500 text-xs">${tech.name.charAt(0)}</div>`;
+                      }
+                    }}
+                  />
                 </div>
                 <p className="text-gray-300 text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">{tech.name}</p>
               </motion.div>
