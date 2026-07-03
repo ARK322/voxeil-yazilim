@@ -32,10 +32,14 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
   const { ref: editorRef, onMouseMove, onMouseLeave } = useEditorTilt();
 
   return (
-    <div className="hero-finale" ref={ref} aria-hidden="true">
+    <div className="hero-finale" ref={ref}>
       <div className="hero-finale__inner">
         <div className="hero-finale__content">
-          <span className="hero-finale__tag">
+          {/* SEO/A11y iyileştirmesi: aria-label — görsel etiket metni indekslenebilir kalır */}
+          <span
+            className="hero-finale__tag"
+            aria-label="Hizmet alanları: Yazılım, Tasarım, Otomasyon"
+          >
             <span className="hero-finale__tag-icon" aria-hidden="true">
               ✨
             </span>
@@ -50,7 +54,11 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
             Otomasyon
           </span>
 
-          <h2 className="hero-finale__title">
+          {/* SEO/A11y iyileştirmesi: aria-label — animasyon öncesi tam başlık metni erişilebilir */}
+          <h2
+            className="hero-finale__title"
+            aria-label="Dijital dönüşümünüzü birlikte başlatalım"
+          >
             <span className="hero-finale__title-bold">Dijital</span>
             <br />
             <span className="hero-finale__title-bold">dönüşümünüzü</span>

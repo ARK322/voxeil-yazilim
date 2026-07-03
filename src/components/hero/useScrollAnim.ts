@@ -35,6 +35,7 @@ export function useScrollAnim(
 
   useGSAP(
     () => {
+      // Teknik doğrulama: intro tamamlanmadan ScrollTrigger kurulmaz; isIntroDone değişince yeniden tetiklenir
       if (!isIntroDone) return;
 
       const root = containerRef.current;
@@ -186,6 +187,7 @@ export function useScrollAnim(
         markers: debug,
       });
 
+      // Performans iyileştirmesi: intro bittikten sonra timeline senkronu + ScrollTrigger ölçümü
       requestAnimationFrame(() => {
         ScrollTrigger.refresh();
         tl.progress(st.progress);

@@ -6,7 +6,8 @@
 /* ── Scene root ─────────────────────────────────────────────── */
 .hero-root {
   position: relative;
-  height: 820vh;
+  /* Performans iyileştirmesi: dvh — mobil tarayıcı adres çubuğu kaymasında CLS azaltır */
+  height: 820dvh;
   background: transparent;
 }
 
@@ -134,6 +135,7 @@
   align-items: center;
   justify-content: center;
   z-index: 25;
+  /* SEO iyileştirmesi: opacity + visibility — display:none kullanılmaz; DOM içeriği indekslenebilir kalır */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -440,6 +442,8 @@
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
   visibility: hidden;
+  /* Performans iyileştirmesi: GSAP transform animasyonu için katman ipucu */
+  will-change: transform;
   transition: border-color 0.3s ease;
 }
 
@@ -568,7 +572,8 @@
 
 @media (max-width: 768px) {
   .hero-root {
-    height: 880vh;
+    /* Performans iyileştirmesi: mobil scroll yüksekliği dinamik viewport birimi */
+    height: 880dvh;
   }
 
   .hero-sticky {

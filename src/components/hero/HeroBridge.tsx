@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 
-const BRIDGE_WORDS = ["Strateji.", "Tasarım.", "Uygulama."] as const;
+const BRIDGE_WORDS = ["Strateji", "Tasarım", "Uygulama"] as const;
 
 const HeroBridge = forwardRef<HTMLDivElement>((_, ref) => {
   return (

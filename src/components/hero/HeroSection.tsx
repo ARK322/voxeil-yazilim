@@ -132,6 +132,10 @@ export default function HeroSection() {
 
   return (
     <div ref={containerRef} className="hero-root" aria-label="Hero bölümü">
+      {/* SEO iyileştirmesi: Semantik başlık eklendi — intro-word hiyerarşisi korunur */}
+      <h1 className="sr-only">
+        Voxeil: Ankara Full-Stack Yazılım, Dijital Dönüşüm ve Otomasyon Ajansı
+      </h1>
       <div className="hero-sticky">
         <div className="hero-intro" aria-hidden={isIntroDone}>
           <div className="intro-line">
