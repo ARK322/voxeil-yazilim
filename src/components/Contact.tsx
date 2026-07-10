@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import SocialLinks from "@/components/SocialLinks";
+import { siteConfig } from "@/lib/site";
 
 export default function Contact() {
   const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -184,8 +186,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Telefon</h4>
-                  <a href="tel:+905551234567" className="site-link">
-                    +90 (530) 401 06 75
+                  <a href={`tel:${siteConfig.phone}`} className="site-link">
+                    {siteConfig.phoneDisplay}
                   </a>
                 </div>
               </motion.div>
@@ -203,7 +205,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-white font-semibold mb-1">Adres</h4>
                   <p className="text-muted">
-                    Ankara, Türkiye
+                    {siteConfig.address.full}
                   </p>
                 </div>
               </motion.div>
@@ -236,32 +238,7 @@ export default function Contact() {
               className="pt-6"
             >
               <h4 className="text-white font-semibold mb-4">Sosyal Medya</h4>
-              <div className="flex gap-4">
-                <a
-                  href="https://linkedin.com/company/voxeil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 site-icon-btn"
-                >
-                  <FaLinkedin className="text-xl" />
-                </a>
-                <a
-                  href="https://github.com/voxeil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 site-icon-btn"
-                >
-                  <FaGithub className="text-xl" />
-                </a>
-                <a
-                  href="https://instagram.com/voxeil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 site-icon-btn"
-                >
-                  <FaInstagram className="text-xl" />
-                </a>
-              </div>
+              <SocialLinks />
             </motion.div>
           </motion.div>
 
@@ -294,7 +271,7 @@ export default function Contact() {
                   name="website"
                   tabIndex={-1}
                   autoComplete="off"
-                  style={{ position: "absolute", left: "-9999px" }}
+                  className="honeypot-field"
                   aria-hidden="true"
                 />
 

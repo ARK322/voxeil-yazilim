@@ -83,8 +83,7 @@ export default function IndustrialSolutions() {
               src="/shape.webp"
               alt="Shape"
               fill
-              className="object-contain"
-              style={{ transform: "rotate(-30deg) scale(1.62)" }}
+              className="object-contain shape-image-transform"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = "none";

@@ -1,0 +1,43 @@
+# Voxeil Yazılım
+
+> Ankara merkezli yazılım, dijital dönüşüm ve otomasyon ajansı.
+
+## Site
+
+- Ana sayfa: https://voxeil.com/
+
+## Hakkımızda
+
+Voxeil Yazılım; web geliştirme, mobil uygulama, e-ticaret, otomasyon ve danışmanlık hizmetleri sunan Ankara merkezli bir yazılım şirketidir. Dijital dönüşüm yolculuğunuzda strateji, tasarım ve uygulama aşamalarında destek sağlar.
+
+## Hizmetler
+
+- Web geliştirme ve kurumsal web siteleri
+- iOS ve Android mobil uygulama geliştirme
+- E-ticaret çözümleri
+- Yazılım danışmanlığı ve teknik destek
+- Bulut altyapı ve DevOps
+- Endüstriyel otomasyon ve dijital dönüşüm
+
+## İletişim
+
+- E-posta: info@voxeil.com
+- Telefon: +90 (530) 401 06 75
+- Adres: Çankaya, 06690 Ankara, Türkiye
+- Çalışma saatleri: Pazartesi–Cuma 09:00–18:00
+
+## Sosyal Medya
+
+- LinkedIn: https://linkedin.com/company/voxeil
+- Instagram: https://instagram.com/voxeil
+- GitHub: https://github.com/voxeil
+- Facebook: https://facebook.com/voxeil
+- X: https://x.com/voxeil
+- YouTube: https://youtube.com/@voxeil
+
+## Sayfa Bölümleri
+
+- Hizmetlerimiz: https://voxeil.com/#hizmetlerimiz
+- Neden Biz: https://voxeil.com/#neden-biz
+- Ekibimiz: https://voxeil.com/#ekibimiz
+- İletişim: https://voxeil.com/#iletisim

@@ -1,25 +1,25 @@
+import dynamic from "next/dynamic";
 import HeroSection from "@/components/hero/HeroSection";
 import SectionDivider from "@/components/SectionDivider";
 import Services from "@/components/Services";
-import Process from "@/components/Process";
-import IndustrialSolutions from "@/components/IndustrialSolutions";
-import WhyUs from "@/components/WhyUs";
-import Technologies from "@/components/Technologies";
-import Team from "@/components/Team";
-import Contact from "@/components/Contact";
+import SeoContent from "@/components/SeoContent";
 import Footer from "@/components/Footer";
+
+const Process = dynamic(() => import("@/components/Process"));
+const IndustrialSolutions = dynamic(() => import("@/components/IndustrialSolutions"));
+const WhyUs = dynamic(() => import("@/components/WhyUs"));
+const Team = dynamic(() => import("@/components/Team"));
+const Technologies = dynamic(() => import("@/components/Technologies"));
+const Contact = dynamic(() => import("@/components/Contact"));
 
 export default function Home() {
   return (
     <>
-      {/* Sabit Arkaplan */}
       <div className="fixed inset-0 isometric-dots -z-10">
-        {/* Turuncu Parlayan Bölgeler */}
-        <div className="glow-orange-top-left"></div>
-        <div className="glow-orange-bottom-right"></div>
+        <div className="glow-orange-top-left" />
+        <div className="glow-orange-bottom-right" />
       </div>
 
-      {/* İçerik */}
       <div className="relative z-10 overflow-x-clip max-w-full">
         <HeroSection />
 
@@ -40,6 +40,9 @@ export default function Home() {
 
         <SectionDivider />
         <Technologies />
+
+        <SectionDivider />
+        <SeoContent />
 
         <SectionDivider />
         <Contact />

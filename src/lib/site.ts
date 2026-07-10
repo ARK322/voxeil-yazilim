@@ -1,0 +1,55 @@
+export const siteConfig = {
+  name: "Voxeil Yazılım",
+  legalName: "Voxeil Yazılım ve Mühendislik",
+  url: "https://voxeil.com",
+  title:
+    "Voxeil Yazılım | Ankara Yazılım, Dijital Dönüşüm ve Otomasyon",
+  description:
+    "Ankara merkezli Voxeil Yazılım; web, mobil, e-ticaret, otomasyon ve dijital dönüşüm projelerinde strateji, tasarım ve uygulama çözümleri sunuyoruz. Ücretsiz keşif görüşmesi için iletişime geçin.",
+  keywords: [
+    "yazılım",
+    "dijital dönüşüm",
+    "ankara yazılım",
+    "web geliştirme",
+    "mobil uygulama",
+    "otomasyon",
+    "danışmanlık",
+    "e-ticaret",
+    "voxeil",
+    "yazılım çözümleri",
+  ],
+  locale: "tr_TR",
+  language: "tr",
+  email: "info@voxeil.com",
+  phone: "+905304010675",
+  phoneDisplay: "+90 (530) 401 06 75",
+  address: {
+    streetAddress: "Çankaya",
+    addressLocality: "Ankara",
+    addressRegion: "Ankara",
+    postalCode: "06690",
+    addressCountry: "TR",
+    full: "Çankaya, 06690 Ankara, Türkiye",
+  },
+  openingHours: "Mo-Fr 09:00-18:00",
+  social: {
+    linkedin: "https://linkedin.com/company/voxeil",
+    github: "https://github.com/voxeil",
+    instagram: "https://instagram.com/voxeil",
+    facebook: "https://facebook.com/voxeil",
+    x: "https://x.com/voxeil",
+    youtube: "https://youtube.com/@voxeil",
+  },
+  founders: [
+    {
+      name: "Ahmed Resul KURT",
+      jobTitle: "UI/UX Tasarımcı & DevOps Mühendisi",
+      linkedin: "https://linkedin.com/in/ahmet-resul-kurt",
+    },
+    {
+      name: "Bülent KOÇ",
+      jobTitle: "Backend Geliştirici & Uygulama Mimarı",
+      linkedin: "https://www.linkedin.com/in/bülent-deniz-koç-15a498301/",
+    },
+  ],
+} as const;

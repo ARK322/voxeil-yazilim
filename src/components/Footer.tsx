@@ -3,12 +3,14 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope, FaPhone } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import SocialLinks from "@/components/SocialLinks";
+import { siteConfig } from "@/lib/site";
 
 export default function Footer() {
   return (
     <footer className="relative border-t border-gray-800/50">
-      <div className="mx-auto w-full px-6 lg:px-8" style={{ maxWidth: "calc(1280px * 0.94)" }}>
+      <div className="site-container">
         <div className="py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             <motion.div
@@ -21,15 +23,15 @@ export default function Footer() {
               <Link href="/" className="inline-block transition-opacity hover:opacity-80">
                 <Image
                   src="/logo.svg"
-                  alt="Logo"
+                  alt={`${siteConfig.name} logosu`}
                   width={150}
                   height={50}
                   className="h-10 w-auto mb-4"
                 />
               </Link>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Dijital dönüşüm yolculuğunuzda yanınızdayız. Modern teknolojiler ve uzman ekibimizle
-                projelerinizi hayata geçiriyoruz.
+                Dijital dönüşüm yolculuğunuzda yanınızdayız. Modern teknolojiler ve uzman
+                ekibimizle yazılım çözümleri sunuyoruz.
               </p>
             </motion.div>
 
@@ -42,22 +44,42 @@ export default function Footer() {
               <h3 className="text-white font-semibold mb-4">Hızlı Linkler</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="#hizmetlerimiz" className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm">
+                  <Link
+                    href="#hizmetlerimiz"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
                     Hizmetlerimiz
                   </Link>
                 </li>
                 <li>
-                  <Link href="#neden-biz" className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm">
+                  <Link
+                    href="#neden-biz"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
                     Neden Biz?
                   </Link>
                 </li>
                 <li>
-                  <Link href="#ekibimiz" className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm">
+                  <Link
+                    href="#ekibimiz"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
                     Ekibimiz
                   </Link>
                 </li>
                 <li>
-                  <Link href="#iletisim" className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm">
+                  <Link
+                    href="#hakkimizda"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
+                    Hakkımızda
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#iletisim"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
                     İletişim
                   </Link>
                 </li>
@@ -72,48 +94,30 @@ export default function Footer() {
             >
               <h3 className="text-white font-semibold mb-4">İletişim</h3>
               <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <FaMapMarkerAlt className="text-[#FF6B35] text-sm mt-1 flex-shrink-0" />
+                  <span className="text-gray-400 text-sm">{siteConfig.address.full}</span>
+                </li>
                 <li className="flex items-center gap-3">
                   <FaEnvelope className="text-[#FF6B35] text-sm" />
-                  <a href="mailto:info@voxeil.com" className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm">
-                    info@voxeil.com
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
+                    {siteConfig.email}
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <FaPhone className="text-[#FF6B35] text-sm" />
-                  <a href="tel:+905551234567" className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm">
-                    +90 (555) 123 45 67
+                  <a
+                    href={`tel:${siteConfig.phone}`}
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
+                    {siteConfig.phoneDisplay}
                   </a>
                 </li>
               </ul>
-              <div className="flex gap-4 mt-6">
-                <a
-                  href="https://linkedin.com/company/voxeil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="site-icon-btn w-12 h-12"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin className="text-xl" />
-                </a>
-                <a
-                  href="https://github.com/voxeil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="site-icon-btn w-12 h-12"
-                  aria-label="GitHub"
-                >
-                  <FaGithub className="text-xl" />
-                </a>
-                <a
-                  href="https://instagram.com/voxeil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="site-icon-btn w-12 h-12"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram className="text-xl" />
-                </a>
-              </div>
+              <SocialLinks className="flex flex-wrap gap-4 mt-6" />
             </motion.div>
           </div>
         </div>
@@ -126,7 +130,7 @@ export default function Footer() {
             viewport={{ once: true }}
             className="text-center text-gray-500 text-sm"
           >
-            © {new Date().getFullYear()} Voxeil Yazılım. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} {siteConfig.name}. Tüm hakları saklıdır.
           </motion.p>
         </div>
       </div>

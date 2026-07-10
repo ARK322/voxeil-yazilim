@@ -76,6 +76,7 @@
 
 .intro-tagline {
   margin-top: clamp(12px, 2vh, 20px);
+  margin-bottom: 0;
   font-size: clamp(11px, 1.2vw, 13px);
   color: rgba(255, 255, 255, 0.32);
   letter-spacing: 0.14em;
