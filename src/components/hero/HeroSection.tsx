@@ -137,9 +137,9 @@ export default function HeroSection() {
           <p className="intro-sub">
             Ürününüzü hayal edin. Biz mimariyi tasarlayalım, kodu yazar ve sahaya alırız.
           </p>
-          <h1 className="intro-tagline">
+          <p className="intro-tagline">
             Voxeil — Ankara Yazılım Şirketi | Dijital Dönüşüm
-          </h1>
+          </p>
         </div>
 
         <div className="scroll-hint" aria-hidden="true">

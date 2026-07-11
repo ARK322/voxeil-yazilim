@@ -1,12 +1,10 @@
-import dynamic from "next/dynamic";
+import HeroSection from "@/components/hero/HeroSection";
 import SectionDivider from "@/components/SectionDivider";
 import Services from "@/components/Services";
 import SeoContent from "@/components/SeoContent";
 import Footer from "@/components/Footer";
-
-const HeroSection = dynamic(() => import("@/components/hero/HeroSection"), {
-  loading: () => <div className="hero-root hero-root--loading" aria-hidden="true" />,
-});
+import { siteConfig } from "@/lib/site";
+import dynamic from "next/dynamic";
 
 const Process = dynamic(() => import("@/components/Process"));
 const IndustrialSolutions = dynamic(() => import("@/components/IndustrialSolutions"));
@@ -24,6 +22,8 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 overflow-x-clip max-w-full">
+        <h1 className="site-primary-h1">{siteConfig.title}</h1>
+
         <HeroSection />
 
         <SectionDivider />

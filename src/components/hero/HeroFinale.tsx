@@ -55,7 +55,7 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
           </span>
 
           {/* SEO/A11y iyileştirmesi: aria-label — animasyon öncesi tam başlık metni erişilebilir */}
-          <h2
+          <p
             className="hero-finale__title"
             aria-label="Dijital dönüşümünüzü birlikte başlatalım"
           >
@@ -64,7 +64,7 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
             <span className="hero-finale__title-bold">dönüşümünüzü</span>
             <br />
             <span className="hero-finale__title-light">birlikte başlatalım</span>
-          </h2>
+          </p>
 
           <p className="hero-finale__body">
             30 dakikalık bir keşif görüşmesi ile başlayalım. Size özel bir yol haritası

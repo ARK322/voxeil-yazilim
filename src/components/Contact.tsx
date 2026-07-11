@@ -150,9 +150,9 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
-              Bize Ulaşın
-            </h3>
+            <p className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
+              İletişim Bilgileri
+            </p>
 
             {/* İletişim Bilgileri */}
             <div className="space-y-6">
@@ -167,7 +167,7 @@ export default function Contact() {
                   <FaEnvelope className="text-white text-xl" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">E-posta</h4>
+                  <p className="text-white font-semibold mb-1">E-posta</p>
                   <a href="mailto:info@voxeil.com" className="site-link">
                     info@voxeil.com
                   </a>
@@ -185,7 +185,7 @@ export default function Contact() {
                   <FaPhone className="text-white text-xl" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Telefon</h4>
+                  <p className="text-white font-semibold mb-1">Telefon</p>
                   <a href={`tel:${siteConfig.phone}`} className="site-link">
                     {siteConfig.phoneDisplay}
                   </a>
@@ -203,7 +203,7 @@ export default function Contact() {
                   <FaMapMarkerAlt className="text-white text-xl" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Adres</h4>
+                  <p className="text-white font-semibold mb-1">Adres</p>
                   <p className="text-muted">
                     {siteConfig.address.full}
                   </p>
@@ -221,7 +221,7 @@ export default function Contact() {
                   <FaClock className="text-white text-xl" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Çalışma Saatleri</h4>
+                  <p className="text-white font-semibold mb-1">Çalışma Saatleri</p>
                   <p className="text-muted">
                     Pazartesi - Cuma: 09:00 - 18:00
                   </p>
@@ -237,7 +237,7 @@ export default function Contact() {
               viewport={{ once: true }}
               className="pt-6"
             >
-              <h4 className="text-white font-semibold mb-4">Sosyal Medya</h4>
+              <p className="text-white font-semibold mb-4">Sosyal Medya</p>
               <SocialLinks />
             </motion.div>
           </motion.div>

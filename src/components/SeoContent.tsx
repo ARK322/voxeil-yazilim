@@ -79,18 +79,18 @@ export default function SeoContent() {
               <h3 className="site-heading text-xl">Sık Sorulan Sorular</h3>
               <div className="space-y-4 text-sm sm:text-base">
                 <div>
-                  <h4 className="text-white font-semibold mb-1">
+                  <p className="text-white font-semibold mb-1">
                     Ankara dışındaki firmalarla da çalışıyor musunuz?
-                  </h4>
+                  </p>
                   <p>
                     Evet. Ankara merkezli olmamıza rağmen Türkiye genelinde ve yurt dışında
                     uzaktan proje yönetimi ile hizmet veriyoruz.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">
+                  <p className="text-white font-semibold mb-1">
                     Proje süreci nasıl işliyor?
-                  </h4>
+                  </p>
                   <p>
                     Keşif görüşmesi, teknik analiz, tasarım onayı, geliştirme, test ve canlıya
                     alma adımlarından oluşan şeffaf bir süreç izliyoruz.{" "}
@@ -101,9 +101,9 @@ export default function SeoContent() {
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">
+                  <p className="text-white font-semibold mb-1">
                     Proje tesliminden sonra destek veriyor musunuz?
-                  </h4>
+                  </p>
                   <p>
                     Canlıya alma sonrası bakım, güvenlik güncellemeleri ve teknik destek
                     paketleri sunuyoruz. İhtiyacınıza göre SLA kapsamı belirlenir.

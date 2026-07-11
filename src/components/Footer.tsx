@@ -41,7 +41,7 @@ export default function Footer() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-white font-semibold mb-4">Hızlı Linkler</h3>
+              <p className="footer-col-title">Hızlı Linkler</p>
               <ul className="space-y-2">
                 <li>
                   <Link
@@ -116,7 +116,7 @@ export default function Footer() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-white font-semibold mb-4">İletişim</h3>
+              <p className="footer-col-title">Bize Ulaşın</p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <FaMapMarkerAlt className="text-[#FF6B35] text-sm mt-1 flex-shrink-0" />
