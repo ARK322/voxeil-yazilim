@@ -1,14 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const SIMPLE_ICONS_CDN = "https://cdn.jsdelivr.net/npm/simple-icons";
+import Image from "next/image";
+import { useState } from "react";
 
 type Technology = {
   name: string;
   iconName: string;
-  /** Simple Icons'tan kaldırılan markalar için eski paket sürümü */
-  iconVersion?: string;
 };
 
 const technologies: Technology[] = [
@@ -18,7 +16,7 @@ const technologies: Technology[] = [
   { name: "JavaScript", iconName: "javascript" },
   { name: "Node.js", iconName: "nodedotjs" },
   { name: "Python", iconName: "python" },
-  { name: "Java", iconName: "java", iconVersion: "6.20.0" },
+  { name: "Java", iconName: "java" },
   { name: "C#", iconName: "csharp" },
   { name: "PHP", iconName: "php" },
   { name: "Go", iconName: "go" },
@@ -52,12 +50,9 @@ const technologies: Technology[] = [
   { name: "Numpy", iconName: "numpy" },
 ];
 
-function getTechIconSrc(tech: Technology) {
-  const version = tech.iconVersion ?? "9";
-  return `${SIMPLE_ICONS_CDN}@${version}/icons/${tech.iconName}.svg`;
-}
-
 export default function Technologies() {
+  const [failedIcons, setFailedIcons] = useState<Set<string>>(() => new Set());
+
   return (
     <section id="teknolojiler" className="site-section relative overflow-x-clip">
       <div className="site-container">
@@ -93,18 +88,21 @@ export default function Technologies() {
                 className="site-card site-card--hover p-2.5 sm:p-4 flex flex-col items-center justify-center aspect-square min-w-0"
               >
                 <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
-                  <img
-                    src={getTechIconSrc(tech)}
-                    alt={tech.name}
-                    className="w-full h-full filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      if (target.parentElement) {
-                        target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-subtle text-xs">${tech.name.charAt(0)}</div>`;
+                  {failedIcons.has(tech.name) ? (
+                    <div className="tech-icon-fallback">{tech.name.charAt(0)}</div>
+                  ) : (
+                    <Image
+                      src={`/tech-icons/${tech.iconName}.svg`}
+                      alt={`${tech.name} logosu`}
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      className="w-full h-full filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+                      onError={() =>
+                        setFailedIcons((prev) => new Set(prev).add(tech.name))
                       }
-                    }}
-                  />
+                    />
+                  )}
                 </div>
                 <p className="text-muted-secondary text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">{tech.name}</p>
               </motion.div>

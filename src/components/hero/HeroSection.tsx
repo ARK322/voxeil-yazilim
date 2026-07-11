@@ -9,6 +9,7 @@ import HeroBridge from "./HeroBridge";
 import HeroCTA from "./HeroCTA";
 import HeroFinale from "./HeroFinale";
 import { useIntroAnim } from "./useIntroAnim";
+import { useHeroScrollHeight } from "./useHeroScrollHeight";
 import { useScrollAnim } from "./useScrollAnim";
 import "./hero.css";
 
@@ -42,6 +43,7 @@ export default function HeroSection() {
     { scope: containerRef }
   );
 
+  useHeroScrollHeight(containerRef);
   useIntroAnim(containerRef, handleIntroComplete);
 
   useScrollAnim(containerRef, isIntroDone, {
@@ -120,16 +122,6 @@ export default function HeroSection() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!isIntroDone) return;
-
-    const id = requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-    });
-
-    return () => cancelAnimationFrame(id);
-  }, [isIntroDone]);
-
   return (
     <div ref={containerRef} className="hero-root" aria-label="Hero bölümü">
       <div className="hero-sticky">
@@ -146,7 +138,7 @@ export default function HeroSection() {
             Ürününüzü hayal edin. Biz mimariyi tasarlayalım, kodu yazar ve sahaya alırız.
           </p>
           <h1 className="intro-tagline">
-            Voxeil Yazılım — Ankara Dijital Dönüşüm ve Yazılım Çözümleri
+            Voxeil — Ankara Yazılım Şirketi | Dijital Dönüşüm
           </h1>
         </div>
 

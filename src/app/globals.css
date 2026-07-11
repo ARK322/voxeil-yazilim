@@ -28,6 +28,11 @@
   --editor-border: rgba(255, 255, 255, 0.07);
   --site-px: clamp(1.25rem, 4.5vw, 3.5rem);
   --nav-px: var(--site-px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --nav-height: clamp(4rem, 5vw, 5.5rem);
   --site-max-w: calc(1280px * 0.94);
   --site-inset: max(
     var(--site-px),
@@ -60,6 +65,9 @@ html {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: #333 #000;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -70,13 +78,16 @@ body {
   overflow-x: clip;
   max-width: 100%;
   min-height: 100%;
+  min-height: 100dvh;
 }
 
-@media (max-width: 767px) {
-  body {
-    scroll-behavior: smooth;
-  }
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
+
 
 .site-section {
   padding-top: var(--section-py);
@@ -88,7 +99,8 @@ body {
   width: 100%;
   max-width: var(--site-max-w);
   margin-inline: auto;
-  padding-inline: var(--site-px);
+  padding-left: max(var(--site-px), calc(var(--site-px) + var(--safe-left)));
+  padding-right: max(var(--site-px), calc(var(--site-px) + var(--safe-right)));
 }
 
 .site-section__header {
@@ -169,6 +181,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  min-height: 44px;
   font-weight: 600;
   border-radius: 0.75rem;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -210,6 +223,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 9999px;
   background: var(--orange);
   color: var(--text-primary);
@@ -288,7 +303,7 @@ body {
 
 .site-footer__inner {
   padding-top: clamp(3rem, 6vw, 4.5rem);
-  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  padding-bottom: max(clamp(1.5rem, 3vw, 2rem), var(--safe-bottom));
 }
 
 .site-footer__divider {
@@ -307,7 +322,8 @@ body {
   width: 100%;
   max-width: var(--site-max-w);
   margin-inline: auto;
-  padding-inline: var(--nav-px);
+  padding-left: max(var(--nav-px), calc(var(--nav-px) + var(--safe-left)));
+  padding-right: max(var(--nav-px), calc(var(--nav-px) + var(--safe-right)));
 }
 
 /* Koyu turuncu grid + seyrek nokta deseni */
@@ -443,6 +459,20 @@ body {
   }
 }
 
+@media (max-width: 359px) {
+  :root {
+    --site-px: 1rem;
+    --nav-px: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --section-py: clamp(3rem, 6vw, 4.5rem);
+    --section-header-mb: clamp(2rem, 4vw, 3rem);
+  }
+}
+
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -487,6 +517,20 @@ html.custom-scrollbar::-webkit-scrollbar-corner {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.tech-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.75rem;
+  color: var(--text-subtle);
 }
 
 .honeypot-field {

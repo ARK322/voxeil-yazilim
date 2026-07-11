@@ -6,7 +6,9 @@ export default function JsonLd() {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
+    alternateName: [siteConfig.brandName, "Voxeil Yazılım Şirketi"],
     legalName: siteConfig.legalName,
+    description: siteConfig.description,
     url: siteConfig.url,
     logo: `${siteConfig.url}/logo.svg`,
     email: siteConfig.email,
@@ -37,9 +39,11 @@ export default function JsonLd() {
 
   const localBusiness = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
+    alternateName: siteConfig.brandName,
+    description: "Ankara merkezli yazılım şirketi",
     image: `${siteConfig.url}/logo.svg`,
     url: siteConfig.url,
     telephone: siteConfig.phone,
@@ -71,7 +75,8 @@ export default function JsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteConfig.url}/#website`,
-    name: siteConfig.name,
+    name: siteConfig.brandName,
+    alternateName: siteConfig.name,
     url: siteConfig.url,
     inLanguage: siteConfig.language,
     publisher: {

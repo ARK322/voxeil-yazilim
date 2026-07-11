@@ -81,13 +81,10 @@ export default function IndustrialSolutions() {
           >
             <Image
               src="/shape.webp"
-              alt="Shape"
+              alt="Endüstriyel dijital dönüşüm illüstrasyonu"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-contain shape-image-transform"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = "none";
-              }}
             />
           </motion.div>
 

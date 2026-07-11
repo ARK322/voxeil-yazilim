@@ -26,17 +26,6 @@ export function useIntroAnim(
 
       if (!words.length || !sub || !tagline || !scrollHint || !hintDot) return;
 
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      if (reducedMotion) {
-        gsap.set(words, { autoAlpha: 1, y: 0, rotateX: 0 });
-        gsap.set([sub, tagline, scrollHint], { autoAlpha: 1, y: 0 });
-        onComplete();
-        return;
-      }
-
       const tl = gsap.timeline({
         onComplete: () => {
           gsap.to(hintDot, {

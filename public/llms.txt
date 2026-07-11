@@ -1,6 +1,6 @@
 # Voxeil Yazılım
 
-> Ankara merkezli yazılım, dijital dönüşüm ve otomasyon ajansı.
+> Ankara merkezli yazılım şirketi — dijital dönüşüm, web, mobil ve otomasyon çözümleri.
 
 ## Site
 
@@ -8,7 +8,7 @@
 
 ## Hakkımızda
 
-Voxeil Yazılım; web geliştirme, mobil uygulama, e-ticaret, otomasyon ve danışmanlık hizmetleri sunan Ankara merkezli bir yazılım şirketidir. Dijital dönüşüm yolculuğunuzda strateji, tasarım ve uygulama aşamalarında destek sağlar.
+Voxeil, Ankara merkezli bir yazılım şirketidir. Web geliştirme, mobil uygulama, e-ticaret, otomasyon ve danışmanlık hizmetleri sunar. Dijital dönüşüm yolculuğunuzda strateji, tasarım ve uygulama aşamalarında destek sağlar.
 
 ## Hizmetler
 
@@ -33,7 +33,11 @@ Voxeil Yazılım; web geliştirme, mobil uygulama, e-ticaret, otomasyon ve danı
 - GitHub: https://github.com/voxeil
 - Facebook: https://facebook.com/voxeil
 - X: https://x.com/voxeil
-- YouTube: https://youtube.com/@voxeil
+- YouTube: https://youtube.com/channel/UC9J6q1C4mSyIFBe-V-iGC5g
+
+## Site Haritası
+
+- https://voxeil.com/sitemap.xml
 
 ## Sayfa Bölümleri
 

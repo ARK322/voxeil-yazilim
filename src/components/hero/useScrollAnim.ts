@@ -7,11 +7,23 @@ import type { RefObject } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+if (typeof window !== "undefined") {
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+  });
+}
+
 interface UseScrollAnimOptions {
   heroFinaleRef: RefObject<HTMLDivElement | null>;
   bridgeRef: RefObject<HTMLDivElement | null>;
   ctaRef: RefObject<HTMLDivElement | null>;
   debug?: boolean;
+}
+
+function safeRefresh() {
+  if (window.scrollY > 20) return;
+  requestAnimationFrame(() => ScrollTrigger.refresh());
 }
 
 /**
@@ -35,15 +47,15 @@ export function useScrollAnim(
 
   useGSAP(
     () => {
-      // Teknik doğrulama: intro tamamlanmadan ScrollTrigger kurulmaz; isIntroDone değişince yeniden tetiklenir
       if (!isIntroDone) return;
 
       const root = containerRef.current;
       const heroFinale = heroFinaleRef.current;
       const bridgeLayer = bridgeRef.current;
       const ctaLayer = ctaRef.current;
+      const stickyEl = root?.querySelector<HTMLElement>(".hero-sticky");
 
-      if (!root || !heroFinale || !bridgeLayer || !ctaLayer) return;
+      if (!root || !heroFinale || !bridgeLayer || !ctaLayer || !stickyEl) return;
 
       const isMobile = window.innerWidth < 768;
 
@@ -80,7 +92,6 @@ export function useScrollAnim(
 
       gsap.set(ctaLayer, { visibility: "hidden", autoAlpha: 0 });
 
-      /* 2×2 grid: her kart kendi köşesinden girer (↖ ↗ ↙ ↘) */
       const cardOffset = isMobile ? 18 : 26;
       const cardCorners = [
         { x: -cardOffset, y: -cardOffset },
@@ -100,14 +111,12 @@ export function useScrollAnim(
 
       const tl = gsap.timeline({ defaults: { ease: "none" }, paused: true });
 
-      /* ── Faz 1: intro çıkış ── */
       tl.to(
         [...introWords].reverse(),
         { autoAlpha: 0, y: -40, stagger: 0.012, ease: "power2.in", duration: 0.035 },
         0
       ).to([introSub, introTagline, scrollHint], { autoAlpha: 0, duration: 0.025, ease: "power1.in" }, 0.01);
 
-      /* ── Faz 2: köprü ── */
       tl.addLabel("bridgeIn", 0.08)
         .set(bridgeLayer, { visibility: "visible" }, "bridgeIn")
         .to(bridgeLayer, { autoAlpha: 1, ease: "power2.out", duration: 0.04 }, "bridgeIn+=0.01")
@@ -125,7 +134,6 @@ export function useScrollAnim(
         .to(bridgeLayer, { autoAlpha: 0, ease: "power1.in", duration: 0.035 }, "bridgeHold+=0.14")
         .set(bridgeLayer, { visibility: "hidden" }, "bridgeHold+=0.18");
 
-      /* ── Faz 3: split güven ── */
       tl.addLabel("ctaIn", 0.47)
         .set(ctaLayer, { visibility: "visible", pointerEvents: "auto" }, "ctaIn")
         .to(ctaLayer, { autoAlpha: 1, ease: "power2.out", duration: 0.035 }, "ctaIn+=0.01")
@@ -167,7 +175,6 @@ export function useScrollAnim(
         .to(ctaLayer, { autoAlpha: 0, ease: "power1.in", duration: 0.03 }, "ctaHold+=0.16")
         .set(ctaLayer, { visibility: "hidden", pointerEvents: "none" }, "ctaHold+=0.2");
 
-      /* ── Faz 4: finale ── */
       tl.addLabel("finaleIn", finaleInAt)
         .set(heroFinale, { visibility: "visible", pointerEvents: "auto" }, "finaleIn")
         .to(heroFinale, { autoAlpha: 1, ease: "power2.out", duration: 0.07 }, "finaleIn+=0.01")
@@ -181,25 +188,30 @@ export function useScrollAnim(
         trigger: root,
         start: "top top",
         end: "bottom bottom",
-        scrub: isMobile ? 1.6 : 1.5,
+        pin: stickyEl,
+        pinSpacing: false,
+        pinReparent: isMobile,
+        anticipatePin: 1,
+        scrub: isMobile ? 1 : 1.2,
         animation: tl,
-        invalidateOnRefresh: true,
+        invalidateOnRefresh: false,
         markers: debug,
       });
 
-      // Performans iyileştirmesi: intro bittikten sonra timeline senkronu + ScrollTrigger ölçümü
       requestAnimationFrame(() => {
         ScrollTrigger.refresh();
-        tl.progress(st.progress);
+        window.scrollTo(0, 0);
+        tl.progress(window.scrollY <= 5 ? 0 : st.progress);
       });
 
-      const onResize = () => ScrollTrigger.refresh();
-      window.addEventListener("resize", onResize);
+      const onHeightUpdated = () => safeRefresh();
+
+      window.addEventListener("hero:height-updated", onHeightUpdated);
 
       return () => {
         st.kill();
         tl.kill();
-        window.removeEventListener("resize", onResize);
+        window.removeEventListener("hero:height-updated", onHeightUpdated);
       };
     },
     {

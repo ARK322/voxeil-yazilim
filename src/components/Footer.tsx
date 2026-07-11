@@ -45,6 +45,30 @@ export default function Footer() {
               <ul className="space-y-2">
                 <li>
                   <Link
+                    href="#surec"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
+                    Süreç
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#teknolojiler"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
+                    Teknolojiler
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#endustriyel-cozumler"
+                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                  >
+                    Endüstriyel Çözümler
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="#hizmetlerimiz"
                     className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
                   >

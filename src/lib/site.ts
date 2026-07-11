@@ -1,21 +1,24 @@
 export const siteConfig = {
   name: "Voxeil Yazılım",
+  brandName: "Voxeil",
   legalName: "Voxeil Yazılım ve Mühendislik",
   url: "https://voxeil.com",
-  title:
-    "Voxeil Yazılım | Ankara Yazılım, Dijital Dönüşüm ve Otomasyon",
+  title: "Voxeil | Ankara Yazılım Şirketi",
   description:
-    "Ankara merkezli Voxeil Yazılım; web, mobil, e-ticaret, otomasyon ve dijital dönüşüm projelerinde strateji, tasarım ve uygulama çözümleri sunuyoruz. Ücretsiz keşif görüşmesi için iletişime geçin.",
+    "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm projelerinde uçtan uca yazılım çözümleri sunuyoruz.",
   keywords: [
+    "voxeil",
+    "voxeil yazılım",
+    "voxeil yazılım şirketi",
+    "yazılım şirketi",
+    "ankara yazılım şirketi",
     "yazılım",
     "dijital dönüşüm",
     "ankara yazılım",
     "web geliştirme",
     "mobil uygulama",
     "otomasyon",
-    "danışmanlık",
     "e-ticaret",
-    "voxeil",
     "yazılım çözümleri",
   ],
   locale: "tr_TR",
@@ -38,7 +41,7 @@ export const siteConfig = {
     instagram: "https://instagram.com/voxeil",
     facebook: "https://facebook.com/voxeil",
     x: "https://x.com/voxeil",
-    youtube: "https://youtube.com/@voxeil",
+    youtube: "https://youtube.com/channel/UC9J6q1C4mSyIFBe-V-iGC5g",
   },
   founders: [
     {

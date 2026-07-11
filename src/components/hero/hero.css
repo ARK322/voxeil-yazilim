@@ -6,17 +6,20 @@
 /* ── Scene root ─────────────────────────────────────────────── */
 .hero-root {
   position: relative;
-  /* Performans iyileştirmesi: dvh — mobil tarayıcı adres çubuğu kaymasında CLS azaltır */
-  height: 820dvh;
+  height: var(--hero-scroll-height, 820vh);
   background: transparent;
 }
 
+.hero-root--loading {
+  min-height: 100svh;
+}
+
 .hero-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: relative;
+  height: var(--hero-vh-px, 100svh);
   overflow: hidden;
   background: transparent;
+  contain: layout style paint;
 }
 
 /* ================================================================
@@ -280,7 +283,6 @@
     0 24px 48px -32px rgba(0, 0, 0, 0.55);
   transform-style: preserve-3d;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
 }
 
 .hero-editor__bar {
@@ -443,8 +445,6 @@
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
   visibility: hidden;
-  /* Performans iyileştirmesi: GSAP transform animasyonu için katman ipucu */
-  will-change: transform;
   transition: border-color 0.3s ease;
 }
 
@@ -505,25 +505,32 @@
 
 @media (max-width: 900px) {
   .hero-cta__split {
-    grid-template-columns: 1fr;
-    gap: clamp(28px, 4vh, 40px);
-    padding-top: clamp(5rem, 11vh, 6rem);
-    padding-bottom: clamp(1.5rem, 3vh, 2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: unset;
+    min-height: calc(var(--hero-vh-px, 100svh));
+    gap: clamp(1rem, 3vh, 1.5rem);
+    padding: calc(var(--nav-height, 4rem) + 1.25rem) var(--site-px) 2rem;
+    box-sizing: border-box;
   }
 
   .trust-cards {
     justify-self: center;
-    max-width: min(420px, 100%);
+    width: 100%;
+    max-width: min(22rem, 100%);
   }
 
   .hero-cta__copy {
     justify-self: center;
     text-align: center;
-    max-width: 28rem;
+    max-width: 22rem;
+    width: 100%;
   }
 
   .hero-cta__body {
-    max-width: none;
+    max-width: 20rem;
     margin-inline: auto;
   }
 }
@@ -572,13 +579,68 @@
 }
 
 @media (max-width: 768px) {
-  .hero-root {
-    /* Performans iyileştirmesi: mobil scroll yüksekliği dinamik viewport birimi */
-    height: 880dvh;
-  }
-
   .hero-sticky {
     overflow-x: clip;
+  }
+
+  .hero-cta {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-cta__split {
+    min-height: calc(var(--hero-vh-px, 100svh));
+    padding: calc(var(--nav-height, 4rem) + 1.25rem) var(--site-px) 2rem;
+    gap: clamp(1rem, 3vh, 1.35rem);
+    overflow: visible;
+  }
+
+  .hero-cta__copy {
+    order: -1;
+  }
+
+  .hero-cta__heading {
+    font-size: clamp(1.375rem, 5.5vw, 1.75rem);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-cta__body {
+    font-size: clamp(0.8125rem, 2.8vw, 0.9375rem);
+    line-height: 1.5;
+    max-width: 20rem;
+    margin-inline: auto;
+  }
+
+  .trust-cards {
+    gap: 10px;
+    max-width: min(22rem, 100%);
+  }
+
+  .trust-card {
+    min-height: 0;
+    padding: clamp(12px, 2.8vw, 16px);
+  }
+
+  .trust-card__title {
+    font-size: clamp(0.6875rem, 2.2vw, 0.8125rem);
+  }
+
+  .trust-card__stat {
+    font-size: clamp(0.9375rem, 3.4vw, 1.125rem);
+    margin-top: 6px;
+    line-height: 1.25;
+  }
+
+  .trust-card__desc {
+    font-size: clamp(0.625rem, 2vw, 0.75rem);
+    margin-top: 6px;
+    line-height: 1.35;
+  }
+
+  .trust-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .hero-finale {
@@ -667,19 +729,6 @@
     display: none;
   }
 
-  .hero-cta__split {
-    padding-top: 5.5rem;
-    padding-bottom: 1.75rem;
-  }
-
-  .trust-cards {
-    gap: 10px;
-  }
-
-  .trust-card {
-    min-height: 128px;
-  }
-
   .trust-card:hover {
     transform: none;
   }
@@ -700,6 +749,19 @@
 }
 
 @media (max-width: 480px) {
+  .hero-cta__split {
+    gap: 0.875rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero-cta__body {
+    display: none;
+  }
+
+  .trust-card__desc {
+    display: none;
+  }
+
   .hero-finale__inner {
     padding-top: 5rem;
     gap: 1.5rem;
@@ -724,11 +786,23 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-intro  { opacity: 1 !important; visibility: visible !important; transform: none !important; }
-  .hero-bridge { opacity: 1 !important; visibility: visible !important; }
-  .hero-cta    { opacity: 1 !important; visibility: visible !important; }
-  .hero-finale { opacity: 1 !important; visibility: visible !important; }
-  .hero-editor { transition: none !important; transform: none !important; }
-  .trust-card:hover { transform: none !important; }
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-intro {
+    justify-content: flex-start;
+    padding-top: calc(var(--nav-height, 4rem) + 0.5rem);
+  }
+
+  .intro-word {
+    font-size: clamp(22px, 5.5vh, 36px);
+  }
+
+  .intro-sub,
+  .intro-tagline {
+    display: none;
+  }
+
+  .scroll-hint {
+    bottom: 0.5rem;
+    transform: translateX(-50%) scale(0.85);
+  }
 }

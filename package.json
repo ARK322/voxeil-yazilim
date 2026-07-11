@@ -4,15 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/sync-tech-icons.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:icons": "node scripts/sync-tech-icons.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@splinetool/react-spline": "^4.1.0",
-    "@splinetool/runtime": "^1.12.98",
-    "@splinetool/viewer": "^1.12.98",
     "@studio-freight/lenis": "^1.0.42",
     "framer-motion": "^12.23.26",
     "gsap": "^3.15.0",
@@ -28,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.0",
+    "simple-icons": "^16.25.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

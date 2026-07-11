@@ -20,13 +20,24 @@ const idMap: Record<(typeof menuItems)[number], string> = {
   Ekibimiz: "ekibimiz",
 };
 
-const NAV_OFFSET = 92;
+const FALLBACK_NAV_OFFSET = 92;
 
 function getHref(item: string) {
   const targetId =
     idMap[item as (typeof menuItems)[number]] ??
     item.toLowerCase().replace(/\s+/g, "-");
   return `#${targetId}`;
+}
+
+function getNavOffset() {
+  const nav = document.querySelector("nav");
+  return nav?.offsetHeight ?? FALLBACK_NAV_OFFSET;
+}
+
+function getScrollBehavior(): ScrollBehavior {
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return coarsePointer || reducedMotion ? "auto" : "smooth";
 }
 
 const linkClassName =
@@ -53,6 +64,16 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen, closeMobileMenu]);
 
+  const scrollToElement = (element: HTMLElement) => {
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - getNavOffset();
+
+    window.scrollTo({
+      top: Math.max(0, offsetPosition),
+      behavior: getScrollBehavior(),
+    });
+  };
+
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -61,25 +82,14 @@ export default function Navbar() {
     closeMobileMenu();
 
     const targetId = href.replace("#", "");
-    const scrollToTarget = (element: HTMLElement) => {
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - NAV_OFFSET;
-
-      window.scrollTo({
-        top: Math.max(0, offsetPosition),
-        behavior: "smooth",
-      });
-    };
-
     const element = document.getElementById(targetId);
 
     if (element) {
-      scrollToTarget(element);
+      scrollToElement(element);
     } else {
       setTimeout(() => {
         const retryElement = document.getElementById(targetId);
-        if (retryElement) scrollToTarget(retryElement);
+        if (retryElement) scrollToElement(retryElement);
       }, 300);
     }
   };
@@ -89,14 +99,17 @@ export default function Navbar() {
 
     if (window.location.pathname === "/") {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: getScrollBehavior() });
     }
   };
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50">
+    <nav
+      className="fixed top-0 inset-x-0 z-50 pt-[var(--safe-top)]"
+      aria-label="Ana navigasyon"
+    >
       <div className="bg-black backdrop-blur-md border-b border-white/5">
-        <div className="mx-auto flex w-full max-w-[1600px] items-center px-8 lg:px-12 py-4 sm:py-5 xl:py-6">
+        <div className="nav-container flex w-full items-center py-3 sm:py-4 lg:py-5">
           <Link
             href="/"
             className="shrink-0 transition-opacity hover:opacity-80"
@@ -107,13 +120,13 @@ export default function Navbar() {
               alt="Logo"
               width={150}
               height={50}
-              className="h-11 w-auto"
+              className="h-9 w-auto sm:h-11"
               priority
             />
           </Link>
 
-          <div className="hidden xl:flex flex-1 items-center justify-center">
-            <ul className="flex items-center gap-12">
+          <div className="hidden lg:flex flex-1 items-center justify-center">
+            <ul className="flex items-center gap-6 xl:gap-12">
               {menuItems.map((item) => {
                 const href = getHref(item);
 
@@ -133,7 +146,7 @@ export default function Navbar() {
             </ul>
           </div>
 
-          <div className="hidden xl:flex shrink-0">
+          <div className="hidden lg:flex shrink-0">
             <a
               href="#iletisim"
               onClick={(e) => handleSmoothScroll(e, "#iletisim")}
@@ -145,7 +158,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="xl:hidden shrink-0 flex items-center justify-center w-10 h-10 text-muted-secondary hover:text-orange transition-colors rounded-lg ml-auto"
+            className="lg:hidden shrink-0 flex items-center justify-center min-w-[44px] min-h-[44px] text-muted-secondary hover:text-orange transition-colors rounded-lg ml-auto -mr-2"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav-menu"
@@ -168,10 +181,10 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: "easeInOut" }}
-            className="xl:hidden overflow-hidden bg-black backdrop-blur-md border-b border-white/5"
+            className="lg:hidden overflow-hidden bg-black backdrop-blur-md border-b border-white/5"
           >
-            <div className="nav-container">
-              <ul className="flex flex-col pt-2 pb-4 gap-1">
+            <div className="nav-container pb-[max(1rem,var(--safe-bottom))]">
+              <ul className="flex flex-col pt-2 gap-1">
                 {menuItems.map((item, index) => {
                   const href = getHref(item);
                   return (
@@ -184,7 +197,7 @@ export default function Navbar() {
                       <a
                         href={href}
                         onClick={(e) => handleSmoothScroll(e, href)}
-                        className="block w-full py-3 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
+                        className="flex min-h-[44px] items-center w-full py-2 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
                       >
                         {item}
                       </a>
@@ -192,7 +205,7 @@ export default function Navbar() {
                   );
                 })}
               </ul>
-              <div className="pb-5">
+              <div className="pt-4">
                 <a
                   href="#iletisim"
                   onClick={(e) => handleSmoothScroll(e, "#iletisim")}

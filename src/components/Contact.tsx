@@ -65,7 +65,7 @@ export default function Contact() {
     
     // Google Forms'a form göndermek için hidden iframe kullan
     const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
+    iframe.className = "is-hidden";
     iframe.name = "hidden_iframe_" + Date.now();
     document.body.appendChild(iframe);
     

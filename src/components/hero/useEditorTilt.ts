@@ -10,8 +10,7 @@ export function useEditorTilt() {
 
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(max-width: 768px)").matches) return;
+    if (!el || window.matchMedia("(max-width: 768px)").matches) return;
 
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;

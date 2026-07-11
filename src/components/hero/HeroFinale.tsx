@@ -4,16 +4,16 @@ import { forwardRef } from "react";
 import { useEditorTilt } from "./useEditorTilt";
 
 const CODE_LINES: Array<Array<[string, string]>> = [
-  [["kw", "import"], ["tx", " { Agency, Project } "], ["kw", "from"], ["str", " '@voxeil/core'"]],
+  [["kw", "import"], ["tx", " { SoftwareCompany, Project } "], ["kw", "from"], ["str", " '@voxeil/core'"]],
   [["kw", "import"], ["tx", " { Innovation } "], ["kw", "from"], ["str", " '@voxeil/methods'"]],
   [],
-  [["kw", "interface"], ["tx", " AgencyManifest "], ["pn", "{"]],
+  [["kw", "interface"], ["tx", " CompanyManifest "], ["pn", "{"]],
   [["tx", "  vision: "], ["str", "'Dijital dünyanıza hoşgeldiniz'"], ["pn", ";"]],
   [["tx", "  purpose: "], ["str", "'İsteklerinizi gerçeğe dönüştür'"], ["pn", ";"]],
   [["tx", "  location: "], ["str", "'Ankara / Remote'"], ["pn", ";"]],
   [["pn", "}"],],
   [],
-  [["kw", "const"], ["tx", " voxeil"], ["pn", ": "], ["tx", "AgencyManifest "], ["pn", "= {"],],
+  [["kw", "const"], ["tx", " voxeil"], ["pn", ": "], ["tx", "CompanyManifest "], ["pn", "= {"],],
   [["tx", "  vision: "], ["str", "'Sınırları aşan çözümler'"], ["pn", ","],],
   [["tx", "  core: "], ["str", "'Tasarım + Yazılım + Otomasyon'"], ["pn", ","],],
   [["tx", "  status: "], ["str", "'Projeler için hazır'"], ["pn", ","],],

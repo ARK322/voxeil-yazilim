@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import JsonLd from "@/components/seo/JsonLd";
-import Analytics from "@/components/seo/Analytics";
-import FacebookPixel from "@/components/seo/FacebookPixel";
 import { siteConfig } from "@/lib/site";
 
 const exo2 = Exo_2({
@@ -12,6 +10,13 @@ const exo2 = Exo_2({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#000000",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -23,6 +28,9 @@ export const metadata: Metadata = {
   publisher: siteConfig.name,
   alternates: {
     canonical: "/",
+    types: {
+      "application/xml": "/sitemap.xml",
+    },
   },
   openGraph: {
     type: "website",
@@ -58,13 +66,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? {
-        verification: {
-          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-        },
-      }
-    : {}),
 };
 
 export default function RootLayout({
@@ -78,8 +79,6 @@ export default function RootLayout({
         <JsonLd />
         <Navbar />
         {children}
-        <Analytics />
-        <FacebookPixel />
       </body>
     </html>
   );
