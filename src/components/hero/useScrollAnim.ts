@@ -33,10 +33,10 @@ function safeRefresh() {
  * 0.08–0.25  faz 2 giriş (3 kelime)
  * 0.25–0.36  faz 2 bekleme
  * 0.36–0.45  faz 2 çıkış
- * 0.47–0.62  faz 3 kart + metin girişi
- * 0.62–0.78  faz 3 bekleme (ortada dur)
- * 0.78–0.91  faz 3 çıkış
- * 0.78–1.00  faz 4 finale (giriş ~0.78–0.92, bekleme ~0.92–1.00)
+ * 0.47–0.58  faz 3 kart + metin girişi
+ * 0.58–0.74  faz 3 bekleme (ortada dur)
+ * 0.74–0.84  faz 3 çıkış
+ * 0.86–1.00  faz 4 finale (giriş ~0.86–0.96, bekleme ~0.96–1.00)
  */
 export function useScrollAnim(
   containerRef: RefObject<HTMLDivElement | null>,
@@ -106,9 +106,10 @@ export function useScrollAnim(
 
       gsap.set(ctaCopy, { autoAlpha: 0, x: isMobile ? 0 : 28, y: isMobile ? 16 : 0 });
 
-      const ctaHoldAt = isMobile ? 0.65 : 0.63;
-      const ctaExitDelay = isMobile ? 0.18 : 0.16;
-      const finaleInAt = isMobile ? 0.8 : 0.78;
+      // Faz 3 tam ortada beklesin, çıkış bitsin, sonra finale gelsin — çakışma yok
+      const ctaHoldAt = isMobile ? 0.6 : 0.58;
+      const ctaExitAt = isMobile ? 0.76 : 0.74;
+      const finaleInAt = isMobile ? 0.89 : 0.87;
 
       const tl = gsap.timeline({ defaults: { ease: "none" }, paused: true });
 
@@ -155,7 +156,8 @@ export function useScrollAnim(
           { autoAlpha: 1, x: 0, y: 0, ease: "power2.out", duration: 0.055 },
           "ctaIn+=0.09"
         )
-        .addLabel("ctaHold", ctaHoldAt);
+        .addLabel("ctaHold", ctaHoldAt)
+        .addLabel("ctaExit", ctaExitAt);
 
       trustCards.forEach((card, i) => {
         const corner = cardCorners[i] ?? cardCorners[0];
@@ -166,15 +168,15 @@ export function useScrollAnim(
             x: corner.x,
             y: corner.y,
             ease: "power2.in",
-            duration: 0.038,
+            duration: 0.04,
           },
-          `ctaHold+=${ctaExitDelay + i * 0.022}`
+          `ctaExit+=${i * 0.02}`
         );
       });
 
-      tl.to(ctaCopy, { autoAlpha: 0, x: isMobile ? 0 : 16, y: -8, ease: "power2.in", duration: 0.035 }, `ctaHold+=${ctaExitDelay + 0.04}`)
-        .to(ctaLayer, { autoAlpha: 0, ease: "power1.in", duration: 0.03 }, `ctaHold+=${ctaExitDelay + 0.08}`)
-        .set(ctaLayer, { visibility: "hidden", pointerEvents: "none" }, `ctaHold+=${ctaExitDelay + 0.12}`);
+      tl.to(ctaCopy, { autoAlpha: 0, x: isMobile ? 0 : 16, y: -8, ease: "power2.in", duration: 0.04 }, "ctaExit+=0.04")
+        .to(ctaLayer, { autoAlpha: 0, ease: "power1.in", duration: 0.035 }, "ctaExit+=0.08")
+        .set(ctaLayer, { visibility: "hidden", pointerEvents: "none" }, "ctaExit+=0.12");
 
       tl.addLabel("finaleIn", finaleInAt)
         .set(heroFinale, { visibility: "visible", pointerEvents: "auto" }, "finaleIn")

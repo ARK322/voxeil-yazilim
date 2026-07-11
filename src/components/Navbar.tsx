@@ -124,6 +124,7 @@ export default function Navbar() {
                 height={50}
                 className="h-11 w-auto"
                 priority
+                unoptimized
               />
             </Link>
           </h1>

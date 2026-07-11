@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
 
 type Technology = {
   name: string;
@@ -51,8 +49,6 @@ const technologies: Technology[] = [
 ];
 
 export default function Technologies() {
-  const [failedIcons, setFailedIcons] = useState<Set<string>>(() => new Set());
-
   return (
     <section id="teknolojiler" className="site-section relative overflow-x-clip">
       <div className="site-container">
@@ -78,35 +74,32 @@ export default function Technologies() {
         </header>
 
         <div className="tech-grid-10 grid gap-2 sm:gap-4 max-w-full mx-auto">
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.03 }}
-                viewport={{ once: true }}
-                className="site-card site-card--hover p-2.5 sm:p-4 flex flex-col items-center justify-center aspect-square min-w-0"
-              >
-                <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
-                  {failedIcons.has(tech.name) ? (
-                    <div className="tech-icon-fallback">{tech.name.charAt(0)}</div>
-                  ) : (
-                    <Image
-                      src={`/tech-icons/${tech.iconName}.svg`}
-                      alt={`${tech.name} logosu`}
-                      width={48}
-                      height={48}
-                      loading="lazy"
-                      className="w-full h-full filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
-                      onError={() =>
-                        setFailedIcons((prev) => new Set(prev).add(tech.name))
-                      }
-                    />
-                  )}
-                </div>
-                <p className="text-muted-secondary text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">{tech.name}</p>
-              </motion.div>
-            ))}
+          {technologies.map((tech, index) => (
+            <motion.div
+              key={tech.name}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.03 }}
+              viewport={{ once: true }}
+              className="site-card site-card--hover p-2.5 sm:p-4 flex flex-col items-center justify-center aspect-square min-w-0"
+            >
+              <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/tech-icons/${tech.iconName}.svg`}
+                  alt={`${tech.name} logosu`}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-contain filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+                />
+              </div>
+              <p className="text-muted-secondary text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">
+                {tech.name}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

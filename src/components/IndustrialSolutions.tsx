@@ -85,6 +85,7 @@ export default function IndustrialSolutions() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-contain shape-image-transform"
+              unoptimized
             />
           </motion.div>
 
