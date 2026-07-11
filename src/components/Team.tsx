@@ -43,7 +43,7 @@ export default function Team() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Deneyimli ve tutkulu ekibimizle, projelerinizi en iyi şekilde hayata geçiriyoruz.
+            Deneyimli ekibimizle yazılım sürecinizin her aşamasında yanınızdayız.
           </motion.p>
         </header>
 
@@ -155,9 +155,9 @@ export default function Team() {
 
               {/* İsim Kutusu */}
               <div className="px-6 py-4 text-center">
-                <h3 className="text-xl lg:text-2xl font-bold text-white mb-2">
+                <p className="text-xl lg:text-2xl font-bold text-white mb-2">
                   {member.name}
-                </h3>
+                </p>
                 <p className="text-muted text-sm lg:text-base">
                   {member.role}
                 </p>

@@ -45,7 +45,7 @@ const services = [
     id: 4,
     icon: FaLightbulb,
     title: "Danışmanlık & Destek",
-    description: "Yazılım projelerinizde uzman danışmanlık ve sürekli destek hizmetleri. Teknoloji yol haritanızı birlikte çizelim.",
+    description: "Yazılım ihtiyaçlarınızda uzman danışmanlık ve sürekli destek hizmetleri. Teknoloji yol haritanızı birlikte çizelim.",
     features: [
       "Teknik Danışmanlık",
       "7/24 Destek",
@@ -190,13 +190,13 @@ export default function Services() {
             <p className="text-sm sm:text-base max-w-3xl mx-auto text-center">
               E-ticaret platformlarından kurumsal otomasyon sistemlerine, API entegrasyonlarından
               veri odaklı raporlama panellerine kadar geniş bir yelpazede çözümler geliştiriyoruz.
-              AWS, Azure ve modern DevOps araçlarıyla projelerinizi güvenli ve sürdürülebilir
+              AWS, Azure ve modern DevOps araçlarıyla yazılımınızı güvenli ve sürdürülebilir
               şekilde hayata geçiriyoruz.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base max-w-4xl mx-auto">
               {[
                 "Kurumsal web sitesi ve landing page geliştirme",
-                "iOS ve Android mobil uygulama projeleri",
+                "iOS ve Android mobil uygulama geliştirme",
                 "E-ticaret altyapısı, ödeme ve stok entegrasyonları",
                 "CRM, ERP ve iş süreci otomasyon yazılımları",
                 "Bulut migrasyon, CI/CD ve DevOps danışmanlığı",

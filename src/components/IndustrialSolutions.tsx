@@ -105,9 +105,9 @@ export default function IndustrialSolutions() {
                     <IconComponent className="text-orange" />
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">
+                  <p className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">
                     {industry.title}
-                  </h3>
+                  </p>
                   <p className="text-muted text-sm relative z-10">{industry.description}</p>
                 </motion.div>
               );

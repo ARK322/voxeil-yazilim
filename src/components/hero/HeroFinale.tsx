@@ -16,7 +16,7 @@ const CODE_LINES: Array<Array<[string, string]>> = [
   [["kw", "const"], ["tx", " voxeil"], ["pn", ": "], ["tx", "CompanyManifest "], ["pn", "= {"],],
   [["tx", "  vision: "], ["str", "'Sınırları aşan çözümler'"], ["pn", ","],],
   [["tx", "  core: "], ["str", "'Tasarım + Yazılım + Otomasyon'"], ["pn", ","],],
-  [["tx", "  status: "], ["str", "'Projeler için hazır'"], ["pn", ","],],
+  [["tx", "  status: "], ["str", "'Teklif almaya hazır'"], ["pn", ","],],
   [["pn", "};"],],
   [],
   [["kw", "async function"], ["fn", " initializeTransformation"], ["pn", "() {"],],
@@ -84,7 +84,7 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
 
           <p className="hero-finale__status">
             <span className="hero-finale__status-dot" aria-hidden="true" />
-            Şu anda yeni projeler kabul ediyoruz
+            Şu anda yeni iş birlikleri kabul ediyoruz
             <span className="hero-finale__status-sep">|</span>
             Ankara · Remote
           </p>

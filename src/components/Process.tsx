@@ -48,7 +48,7 @@ const processSteps: Array<{
     id: 5,
     title: "Yayına Alma ve Destek",
     description:
-      "Projenizi canlıya alıyor ve ihtiyaç durumunda teknik destek süreçlerimize devam ediyoruz.",
+      "Çözümünüzü canlıya alıyor ve ihtiyaç durumunda teknik destek süreçlerimize devam ediyoruz.",
     icon: FaRocket,
   },
 ];
@@ -74,7 +74,7 @@ export default function Process() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Projeye başladığımız andan canlıya almaya kadar her adımı şeffaf ve disiplinli
+            İş birliğine başladığımız andan canlıya almaya kadar her adımı şeffaf ve disiplinli
             bir metodolojiyle yönetiyoruz.
           </motion.p>
         </header>
@@ -108,7 +108,7 @@ export default function Process() {
                       <span className="font-mono text-xs font-semibold tracking-widest text-orange/80">
                         {String(step.id).padStart(2, "0")}
                       </span>
-                      <h3 className="text-lg font-bold text-white sm:text-xl">{step.title}</h3>
+                      <p className="text-lg font-bold text-white sm:text-xl">{step.title}</p>
                     </div>
                     <p className="text-sm leading-relaxed text-muted sm:text-base">
                       {step.description}

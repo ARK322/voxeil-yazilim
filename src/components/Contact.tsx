@@ -137,7 +137,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Projeleriniz için bizimle iletişime geçin. Size en kısa sürede dönüş yapacağız.
+            Ücretsiz keşif görüşmesi için bizimle iletişime geçin. Size en kısa sürede dönüş yapacağız.
           </motion.p>
         </header>
 

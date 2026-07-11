@@ -3,8 +3,8 @@
 import { useEffect, type RefObject } from "react";
 
 const MOBILE_QUERY = "(max-width: 767px)";
-const DESKTOP_SCROLL_VH = 8.2;
-const MOBILE_SCROLL_VH = 8.8;
+const DESKTOP_SCROLL_VH = 8.6;
+const MOBILE_SCROLL_VH = 9.2;
 
 function getLockedViewportHeight() {
   return Math.round(window.visualViewport?.height ?? window.innerHeight);

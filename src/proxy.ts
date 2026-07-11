@@ -1,34 +1,31 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { siteConfig } from "@/lib/site";
 
 export function proxy(request: NextRequest) {
-  const host = request.headers.get("host") || "";
+  const hostname = (request.headers.get("host") || "").split(":")[0];
 
-  if (host.includes("localhost") || host.includes("127.0.0.1")) {
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
     return NextResponse.next();
   }
 
-  const url = request.nextUrl.clone();
-  let redirect = false;
-
-  if (host.startsWith("www.")) {
-    url.host = host.replace(/^www\./, "");
-    redirect = true;
-  }
-
   const proto = request.headers.get("x-forwarded-proto");
-  if (proto === "http") {
-    url.protocol = "https:";
-    redirect = true;
+  const needsHttps = proto === "http";
+  const needsWwwStrip = hostname.startsWith("www.");
+
+  if (!needsHttps && !needsWwwStrip) {
+    return NextResponse.next();
   }
 
-  if (redirect) {
-    return NextResponse.redirect(url, 301);
-  }
+  const destination = new URL(
+    request.nextUrl.pathname + request.nextUrl.search,
+    siteConfig.url,
+  );
 
-  return NextResponse.next();
+  return NextResponse.redirect(destination, 301);
 }
 
 export const config = {
-  matcher: "/:path*",
+  matcher:
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
 };

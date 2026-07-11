@@ -7,7 +7,7 @@ const features = [
   {
     icon: FaRocket,
     title: "Hızlı Teslimat",
-    description: "Projelerinizi zamanında ve kaliteli bir şekilde teslim ediyoruz. Hızlı geliştirme süreçleri ile işinizi hızlandırıyoruz.",
+    description: "İhtiyaçlarınızı zamanında ve kaliteli bir şekilde teslim ediyoruz. Hızlı geliştirme süreçleri ile işinizi hızlandırıyoruz.",
   },
   {
     icon: FaLightbulb,
@@ -17,7 +17,7 @@ const features = [
   {
     icon: FaBullseye,
     title: "Odaklanmış Yaklaşım",
-    description: "Her projeye özel, detaylı analiz ve strateji ile hedeflerinize ulaşmanızı sağlıyoruz.",
+    description: "Her iş ortağına özel, detaylı analiz ve strateji ile hedeflerinize ulaşmanızı sağlıyoruz.",
   },
   {
     icon: FaHandshake,
@@ -84,10 +84,10 @@ function AnimatedCounter({ target, suffix, delay }: { target: number; suffix: st
 // Sayaç Bölümü Komponenti
 function CounterSection() {
   const stats = [
-    { value: 7, suffix: "+", label: "Yıl", description: "Sektördeki deneyimimiz ve uzmanlığımız ile projelerinize değer katıyoruz." },
-    { value: 50, suffix: "+", label: "Tamamlanan Proje", description: "Başarıyla tamamladığımız projeler ile müşterilerimize hizmet veriyoruz." },
+    { value: 7, suffix: "+", label: "Yıl Deneyim", description: "Sektördeki deneyimimiz ve uzmanlığımız ile iş ortaklarımıza değer katıyoruz." },
+    { value: 50, suffix: "+", label: "Mutlu Müşteri", description: "Farklı sektörlerden firmalarla uzun vadeli yazılım iş birlikleri yürütüyoruz." },
     { value: 98, suffix: "%", label: "Müşteri Memnuniyeti", description: "Müşterilerimizin memnuniyeti bizim için en önemli önceliktir." },
-    { value: 15, suffix: "+", label: "Ödül ve Sertifikalar", description: "Sektördeki başarılarımız ve uzmanlığımızı gösteren ödüller ve sertifikalar ile güvenilirliğimizi kanıtlıyoruz." },
+    { value: 15, suffix: "+", label: "Teknik Uzmanlık", description: "Modern stack ve kanıtlanmış yöntemlerle güvenilir çözümler üretiyoruz." },
   ];
 
   return (
@@ -135,7 +135,7 @@ export default function WhyUs() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Ankara merkezli uzman ekibimizle projelerinizi baştan sona yönetiyoruz: keşif ve analiz,
+            Ankara merkezli uzman ekibimizle yazılım ihtiyaçlarınızı baştan sona yönetiyoruz: keşif ve analiz,
             UI/UX tasarım, geliştirme, test ve canlıya alma süreçlerinin tamamında yanınızdayız.
             Şeffaf iletişim, zamanında teslimat ve uzun vadeli iş ortaklığı yaklaşımımızla
             dijital hedeflerinize ulaşmanızı sağlıyoruz.
@@ -172,9 +172,9 @@ export default function WhyUs() {
                         <div className="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 opacity-10 pointer-events-none overflow-hidden">
                           <IconComponent className="text-orange text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 relative z-10">
+                        <p className="text-xl sm:text-2xl font-bold text-white mb-3 relative z-10">
                           {feature.title}
-                        </h3>
+                        </p>
                         <p className="text-muted text-base sm:text-lg leading-relaxed relative z-10">
                           {feature.description}
                         </p>
@@ -200,9 +200,9 @@ export default function WhyUs() {
                         <div className="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 opacity-10 pointer-events-none overflow-hidden">
                           <IconComponent className="text-orange text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 relative z-10">
+                        <p className="text-xl sm:text-2xl font-bold text-white mb-3 relative z-10">
                           {feature.title}
-                        </h3>
+                        </p>
                         <p className="text-muted text-base sm:text-lg leading-relaxed relative z-10">
                           {feature.description}
                         </p>

@@ -35,8 +35,9 @@ function safeRefresh() {
  * 0.36–0.45  faz 2 çıkış
  * 0.47–0.58  faz 3 kart + metin girişi
  * 0.58–0.74  faz 3 bekleme (ortada dur)
- * 0.74–0.84  faz 3 çıkış
- * 0.86–1.00  faz 4 finale (giriş ~0.86–0.96, bekleme ~0.96–1.00)
+ * 0.74–0.86  faz 3 çıkış
+ * 0.87–0.95  faz 4 finale giriş
+ * 0.95–1.00  faz 4 bekleme (ortada dur)
  */
 export function useScrollAnim(
   containerRef: RefObject<HTMLDivElement | null>,
@@ -185,7 +186,9 @@ export function useScrollAnim(
           finaleEditor,
           { x: 0, y: 0, scale: 1, ease: "power3.out", duration: 0.12 },
           "finaleIn+=0.1"
-        );
+        )
+        .addLabel("finaleHold", ">")
+        .to({}, { duration: isMobile ? 0.14 : 0.12 }, "finaleHold");
 
       const st = ScrollTrigger.create({
         trigger: root,

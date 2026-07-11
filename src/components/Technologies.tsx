@@ -60,7 +60,7 @@ export default function Technologies() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Kullandığımız Bazı Teknolojiler
+            İş Birliklerinizde Kullandığımız Teknolojiler
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}

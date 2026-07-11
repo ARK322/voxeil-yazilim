@@ -31,7 +31,7 @@ const TRUST_CARDS = [
 
 const HeroCTA = forwardRef<HTMLDivElement>((_, ref) => {
   return (
-    <div className="hero-cta" ref={ref} aria-hidden="true">
+    <div className="hero-cta" ref={ref} aria-hidden="true" data-nosnippet>
       <div className="hero-cta__split">
         <div className="trust-cards">
           {TRUST_CARDS.map((card) => (
@@ -44,9 +44,9 @@ const HeroCTA = forwardRef<HTMLDivElement>((_, ref) => {
         </div>
 
         <div className="hero-cta__copy">
-          <p className="hero-cta__heading">Dijital Geleceğinizi İnşa Ediyoruz.</p>
+          <p className="hero-cta__heading">İşinize özel yazılım çözümleri.</p>
           <p className="hero-cta__body">
-            Karmaşık yazılım projelerini, yüksek performanslı backend mimarileri ve
+            Karmaşık yazılım ihtiyaçlarını, yüksek performanslı backend mimarileri ve
             kullanıcı odaklı arayüzlerle işinize değer katan dijital ürünlere
             dönüştürüyoruz.
           </p>
@@ -58,4 +58,4 @@ const HeroCTA = forwardRef<HTMLDivElement>((_, ref) => {
 
 HeroCTA.displayName = "HeroCTA";
 export default HeroCTA;
-
+

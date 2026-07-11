@@ -5,7 +5,7 @@ export const siteConfig = {
   url: "https://voxeil.com",
   title: "Voxeil | Ankara Yazılım Şirketi",
   description:
-    "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm projelerinde uçtan uca yazılım çözümleri sunuyoruz.",
+    "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm için uçtan uca yazılım geliştirme hizmeti sunuyoruz. Ücretsiz keşif görüşmesi için iletişime geçin.",
   keywords: [
     "voxeil",
     "voxeil yazılım",
