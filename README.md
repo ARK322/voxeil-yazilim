@@ -1,30 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Voxeil Yazılım
 
-## Getting Started
+Ankara merkezli yazılım şirketi kurumsal web sitesi. Next.js 16, standalone build.
 
-First, run the development server:
+## Geliştirme
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production (Docker)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+docker compose up -d --build
+```
 
-## Learn More
+Uygulama `127.0.0.1:3000` üzerinde çalışır. Hestia/Nginx reverse proxy bu porta yönlendirilmelidir.
 
-To learn more about Next.js, take a look at the following resources:
+## Hestia Panel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Projeyi sunucuya yükle (git clone veya dosya transferi)
+2. `docker compose up -d --build`
+3. Web domain → Nginx proxy → `http://127.0.0.1:3000`
+4. SSL sertifikasını Hestia üzerinden al (Let's Encrypt)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scriptler
+
+- `npm run build` — production build (prebuild otomatik tech icon sync)
+- `npm run sync:icons` — tech ikonlarını `public/tech-icons/` altına senkronize eder
