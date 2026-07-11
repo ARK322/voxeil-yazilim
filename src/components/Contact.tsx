@@ -92,7 +92,7 @@ export default function Contact() {
             }, 5000);
           }, 500);
         }
-      } catch (e) {
+      } catch {
         // Cross-origin hatası beklenen, form gönderilmiş olabilir
       }
     }, 100);
@@ -150,9 +150,9 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <p className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
+            <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
               İletişim Bilgileri
-            </p>
+            </h3>
 
             {/* İletişim Bilgileri */}
             <div className="space-y-6">

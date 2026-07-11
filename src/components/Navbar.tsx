@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { siteConfig } from "@/lib/site";
 
 const menuItems = [
   "Hizmetlerimiz",
@@ -110,20 +111,22 @@ export default function Navbar() {
     >
       <div className="bg-black backdrop-blur-md border-b border-white/5">
         <div className="nav-container flex w-full items-center py-3 sm:py-4 lg:py-5">
-          <Link
-            href="/"
-            className="shrink-0 transition-opacity hover:opacity-80"
-            onClick={handleLogoClick}
-          >
-            <Image
-              src="/logo.svg"
-              alt="Logo"
-              width={150}
-              height={50}
-              className="h-9 w-auto sm:h-11"
-              priority
-            />
-          </Link>
+          <h1 className="m-0 shrink-0 leading-none">
+            <Link
+              href="/"
+              className="block transition-opacity hover:opacity-80"
+              onClick={handleLogoClick}
+            >
+              <Image
+                src="/logo.svg"
+                alt={siteConfig.title}
+                width={150}
+                height={50}
+                className="h-9 w-auto sm:h-11"
+                priority
+              />
+            </Link>
+          </h1>
 
           <div className="hidden lg:flex flex-1 items-center justify-center">
             <ul className="flex items-center gap-6 xl:gap-12">

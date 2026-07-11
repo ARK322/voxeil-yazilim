@@ -106,6 +106,8 @@ export default function Services() {
                 key={service.id}
                 type="button"
                 role="tab"
+                id={`service-tab-${service.id}`}
+                aria-controls={`service-panel-${service.id}`}
                 aria-selected={activeService === index}
                 onClick={() => setActiveService(index)}
                 className={`site-btn-tab shrink-0 snap-start min-w-[42%] max-w-[70%] sm:min-w-0 sm:max-w-none sm:w-[calc(33.333%-0.5rem)] lg:w-auto lg:flex-1 px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm lg:text-base leading-snug lg:px-6 ${
@@ -126,6 +128,9 @@ export default function Services() {
               return (
                 <motion.div
                   key={service.id}
+                  id={`service-panel-${service.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`service-tab-${service.id}`}
                   initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0,
@@ -145,9 +150,9 @@ export default function Services() {
                         </div>
 
                         <div className="relative z-10">
-                          <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+                          <p className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
                             {service.title}
-                          </h3>
+                          </p>
                           <p className="text-muted text-base sm:text-xl leading-relaxed">
                             {service.description}
                           </p>

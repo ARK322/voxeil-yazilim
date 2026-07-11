@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/site";
 const exo2 = Exo_2({
   variable: "--font-exo2",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const viewport: Viewport = {
@@ -39,14 +39,6 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: "/logo.svg",
-        width: 512,
-        height: 512,
-        alt: `${siteConfig.name} logosu`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -54,7 +46,6 @@ export const metadata: Metadata = {
     creator: "@voxeil",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ["/logo.svg"],
   },
   robots: {
     index: true,
@@ -68,13 +59,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    apple: [
-      {
-        url: "/apple-touch-icon.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
-    ],
   },
 };
 

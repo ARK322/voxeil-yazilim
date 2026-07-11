@@ -10,10 +10,6 @@
   background: transparent;
 }
 
-.hero-root--loading {
-  min-height: 100svh;
-}
-
 .hero-sticky {
   position: relative;
   height: var(--hero-vh-px, 100svh);
