@@ -1,8 +1,31 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { siteConfig } from "@/lib/site";
+import { checkPostRateLimit } from "@/lib/rate-limit";
+
+function rateLimitResponse(retryAfterMs: number) {
+  return NextResponse.json(
+    {
+      error: "Çok fazla istek gönderildi. Lütfen bir süre sonra tekrar deneyin.",
+      retryAfterMs,
+    },
+    {
+      status: 429,
+      headers: {
+        "Retry-After": String(Math.ceil(retryAfterMs / 1000)),
+      },
+    },
+  );
+}
 
 export function proxy(request: NextRequest) {
+  if (request.method === "POST" && request.nextUrl.pathname.startsWith("/api/")) {
+    const rateLimit = checkPostRateLimit(request);
+    if (!rateLimit.allowed) {
+      return rateLimitResponse(rateLimit.retryAfterMs);
+    }
+  }
+
   const hostname = (request.headers.get("host") || "").split(":")[0];
 
   if (hostname === "localhost" || hostname === "127.0.0.1") {

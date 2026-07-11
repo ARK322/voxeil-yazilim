@@ -4,117 +4,117 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import SocialLinks from "@/components/SocialLinks";
+import { sanitizeContactPayload, validateEmailOrPhone } from "@/lib/contact-form";
+import {
+  checkClientRateLimit,
+  formatRetryAfter,
+  getClientRateLimitMessage,
+  recordClientSubmission,
+} from "@/lib/rate-limit.client";
 import { siteConfig } from "@/lib/site";
 
 export default function Contact() {
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
+  const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // E-posta veya telefon validasyonu
-  const validateEmailOrPhone = (value: string): boolean => {
+  const validateEmailOrPhoneField = (value: string): boolean => {
     if (!value.trim()) {
       setEmailOrPhoneError("Bu alan zorunludur");
       return false;
     }
 
-    // E-posta formatı kontrolü
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    // Telefon formatı kontrolü (Türkiye: +90 veya 0 ile başlayan, 10-11 haneli)
-    // Boşlukları ve özel karakterleri temizle
-    const cleanedValue = value.replace(/\s/g, "").replace(/[()-]/g, "");
-    // Türkiye telefon formatları: +905551234567, 05551234567, 5551234567
-    const phoneRegex = /^(\+90)?[5][0-9]{9}$|^0[5][0-9]{9}$|^[5][0-9]{9}$/;
-
-    if (emailRegex.test(value)) {
+    if (validateEmailOrPhone(value)) {
       setEmailOrPhoneError("");
       return true;
-    } else if (phoneRegex.test(cleanedValue)) {
-      setEmailOrPhoneError("");
-      return true;
-    } else {
-      setEmailOrPhoneError("Geçerli bir e-posta adresi veya telefon numarası giriniz");
-      return false;
     }
+
+    setEmailOrPhoneError("Geçerli bir e-posta adresi veya telefon numarası giriniz");
+    return false;
   };
 
-  // Form submit handler
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+    setSubmitError("");
+
     const form = e.currentTarget;
     const formData = new FormData(form);
-    
-    // Honeypot kontrolü (spam önleme)
+
     const honeypot = formData.get("website") as string;
     if (honeypot) {
-      // Bot tespit edildi, formu gönderme
-      console.warn("Spam tespit edildi");
       return;
     }
 
-    // E-posta/telefon validasyonu
-    const emailOrPhoneValue = formData.get("entry.9241696") as string;
-    if (!validateEmailOrPhone(emailOrPhoneValue)) {
+    const name = (formData.get("name") as string)?.trim();
+    const emailOrPhoneValue = (formData.get("emailOrPhone") as string)?.trim();
+    const message = (formData.get("message") as string)?.trim();
+
+    const parsed = sanitizeContactPayload({
+      name,
+      emailOrPhone: emailOrPhoneValue,
+      message,
+      website: honeypot,
+    });
+
+    if (!parsed.ok) {
+      if (parsed.error.includes("e-posta") || parsed.error.includes("telefon")) {
+        setEmailOrPhoneError(parsed.error);
+      } else {
+        setSubmitError(parsed.error);
+      }
+      return;
+    }
+
+    const clientLimit = checkClientRateLimit();
+    if (!clientLimit.allowed) {
+      setSubmitError(getClientRateLimitMessage(clientLimit));
       return;
     }
 
     setIsSubmitting(true);
-    
-    // Google Forms'a form göndermek için hidden iframe kullan
-    const iframe = document.createElement("iframe");
-    iframe.className = "is-hidden";
-    iframe.name = "hidden_iframe_" + Date.now();
-    document.body.appendChild(iframe);
-    
-    form.target = iframe.name;
-    
-    // Form gönderildikten sonra
-    const checkIframe = setInterval(() => {
-      try {
-        // Iframe yüklendiğinde (form gönderildi)
-        if (iframe.contentWindow?.location.href.includes('formResponse') || 
-            iframe.contentWindow?.location.href.includes('viewform')) {
-          clearInterval(checkIframe);
-          setTimeout(() => {
-            setSubmitSuccess(true);
-            form.reset();
-            setEmailOrPhone("");
-            setIsSubmitting(false);
-            if (document.body.contains(iframe)) {
-              document.body.removeChild(iframe);
-            }
-            // 5 saniye sonra başarı mesajını gizle
-            setTimeout(() => {
-              setSubmitSuccess(false);
-            }, 5000);
-          }, 500);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          emailOrPhone: emailOrPhoneValue,
+          message,
+          website: honeypot,
+        }),
+      });
+
+      const data = (await response.json().catch(() => null)) as
+        | { error?: string; retryAfterMs?: number }
+        | null;
+
+      if (!response.ok) {
+        if (response.status === 429 && data?.retryAfterMs) {
+          setSubmitError(
+            `Çok fazla istek gönderildi. ${formatRetryAfter(data.retryAfterMs)} sonra tekrar deneyin.`,
+          );
+        } else {
+          setSubmitError(data?.error ?? "Form gönderilemedi. Lütfen tekrar deneyin.");
         }
-      } catch {
-        // Cross-origin hatası beklenen, form gönderilmiş olabilir
+        return;
       }
-    }, 100);
-    
-    // 5 saniye sonra timeout
-    setTimeout(() => {
-      clearInterval(checkIframe);
+
+      recordClientSubmission();
       setSubmitSuccess(true);
       form.reset();
       setEmailOrPhone("");
-      setIsSubmitting(false);
-      if (document.body.contains(iframe)) {
-        document.body.removeChild(iframe);
-      }
-      // 5 saniye sonra başarı mesajını gizle
-      setTimeout(() => {
+
+      window.setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
-    }, 5000);
-    
-    // Formu gönder
-    form.submit();
+    } catch {
+      setSubmitError("Bağlantı hatası. Lütfen tekrar deneyin.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -142,7 +142,6 @@ export default function Contact() {
         </header>
 
         <div className="site-section__grid grid-cols-1 lg:grid-cols-2">
-          {/* Sol Bölüm - İletişim Bilgileri */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -154,7 +153,6 @@ export default function Contact() {
               İletişim Bilgileri
             </h3>
 
-            {/* İletişim Bilgileri */}
             <div className="space-y-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -204,9 +202,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-white font-semibold mb-1">Adres</p>
-                  <p className="text-muted">
-                    {siteConfig.address.full}
-                  </p>
+                  <p className="text-muted">{siteConfig.address.full}</p>
                 </div>
               </motion.div>
 
@@ -222,14 +218,11 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-white font-semibold mb-1">Çalışma Saatleri</p>
-                  <p className="text-muted">
-                    Pazartesi - Cuma: 09:00 - 18:00
-                  </p>
+                  <p className="text-muted">Pazartesi - Cuma: 09:00 - 18:00</p>
                 </div>
               </motion.div>
             </div>
 
-            {/* Sosyal Medya */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -242,7 +235,6 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Sağ Bölüm - Ayırıcı Şerit ve İçerik */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -250,22 +242,14 @@ export default function Contact() {
             viewport={{ once: true }}
             className="relative"
           >
-            {/* Dikey Ayırıcı Şerit */}
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange via-orange/50 to-transparent lg:block hidden"></div>
-            
+
             <div className="pt-0 lg:pl-12 space-y-6 sm:space-y-8">
               <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
                 Hızlı İletişim Formu
               </h3>
 
-              {/* İletişim Formu */}
-              <form 
-                action="https://docs.google.com/forms/d/e/1FAIpQLSfw7FKLn0yfDuwG44SzeC19RoAZng52t4CPyuk56nkM0DTl8g/formResponse" 
-                method="POST" 
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                {/* Honeypot Field - Spam önleme (gizli) */}
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                 <input
                   type="text"
                   name="website"
@@ -276,14 +260,15 @@ export default function Contact() {
                 />
 
                 <div>
-                  <label htmlFor="entry.2035581240" className="block text-muted-secondary mb-2">
+                  <label htmlFor="contact-name" className="block text-muted-secondary mb-2">
                     Ad Soyad <span className="text-orange" title="Zorunlu alan">*</span>
                   </label>
                   <input
                     type="text"
-                    id="entry.2035581240"
-                    name="entry.2035581240"
+                    id="contact-name"
+                    name="name"
                     required
+                    maxLength={120}
                     className="site-input"
                     placeholder="Adınız ve Soyadınız *"
                     aria-label="Ad-Soyad"
@@ -292,26 +277,24 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="entry.9241696" className="block text-muted-secondary mb-2">
+                  <label htmlFor="contact-email-phone" className="block text-muted-secondary mb-2">
                     E-posta veya Telefon <span className="text-orange">*</span>
                   </label>
                   <input
                     type="text"
-                    id="entry.9241696"
-                    name="entry.9241696"
+                    id="contact-email-phone"
+                    name="emailOrPhone"
                     value={emailOrPhone}
                     onChange={(e) => {
                       setEmailOrPhone(e.target.value);
                       if (emailOrPhoneError) {
-                        validateEmailOrPhone(e.target.value);
+                        validateEmailOrPhoneField(e.target.value);
                       }
                     }}
-                    onBlur={(e) => validateEmailOrPhone(e.target.value)}
+                    onBlur={(e) => validateEmailOrPhoneField(e.target.value)}
                     required
                     className={`site-input ${
-                      emailOrPhoneError 
-                        ? "border-red-500 focus:border-red-500" 
-                        : ""
+                      emailOrPhoneError ? "border-red-500 focus:border-red-500" : ""
                     }`}
                     placeholder="E-posta adresiniz veya telefon numaranız (örn: info@example.com veya 05551234567)"
                     aria-label="Mail veya Numara"
@@ -327,13 +310,15 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="entry.1907766424" className="block text-muted-secondary mb-2">
+                  <label htmlFor="contact-message" className="block text-muted-secondary mb-2">
                     Açıklama <span className="text-orange" title="Zorunlu alan">*</span>
                   </label>
                   <textarea
-                    id="entry.1907766424"
-                    name="entry.1907766424"
+                    id="contact-message"
+                    name="message"
                     required
+                    minLength={10}
+                    maxLength={4000}
                     rows={5}
                     className="site-input resize-none"
                     placeholder="Mesajınızı buraya yazın... *"
@@ -354,6 +339,11 @@ export default function Contact() {
                       <span>Formunuz başarıyla gönderildi!</span>
                     </motion.div>
                   )}
+                  {submitError && (
+                    <p className="text-red-400 text-sm" role="alert">
+                      {submitError}
+                    </p>
+                  )}
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -370,4 +360,3 @@ export default function Contact() {
     </section>
   );
 }
-
