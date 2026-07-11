@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Voxeil | Ankara Yazılım Şirketi";
+export const alt = "Voxeil Yazılım ve Mühendislik | Web, Mobil & Dijital Dönüşüm";
 
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -41,7 +41,7 @@ export default function OpenGraphImage() {
             textTransform: "uppercase",
           }}
         >
-          Ankara Yazılım Şirketi
+          Web · Mobil · Dijital Dönüşüm
         </div>
         <div
           style={{

@@ -3,9 +3,9 @@ export const siteConfig = {
   brandName: "Voxeil",
   legalName: "Voxeil Yazılım ve Mühendislik",
   url: "https://voxeil.com",
-  title: "Voxeil | Ankara Yazılım Şirketi",
+  title: "Voxeil Yazılım ve Mühendislik | Web, Mobil & Dijital Dönüşüm",
   description:
-    "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm için uçtan uca yazılım geliştirme hizmeti sunuyoruz. Ücretsiz keşif görüşmesi için iletişime geçin.",
+    "Voxeil, Ankara merkezli yazılım şirketi. Web, mobil, e-ticaret ve dijital dönüşümde uçtan uca yazılım geliştirme sunuyoruz. Ücretsiz keşif görüşmesi.",
   footerDescription:
     "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm projelerinde iş ortaklarımıza uçtan uca yazılım çözümleri sunuyoruz.",
   keywords: [
@@ -49,7 +49,7 @@ export const siteConfig = {
     {
       name: "Ahmed Resul KURT",
       jobTitle: "UI/UX Tasarımcı & DevOps Mühendisi",
-      linkedin: "https://linkedin.com/in/ahmet-resul-kurt",
+      linkedin: "https://www.linkedin.com/in/ahmed-resul-kurt-86bb17234/",
     },
     {
       name: "Bülent KOÇ",

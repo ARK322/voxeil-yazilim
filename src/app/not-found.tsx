@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sayfa Bulunamadı | Voxeil",
+  title: "Sayfa Bulunamadı | Voxeil Yazılım ve Mühendislik",
   robots: { index: false, follow: false },
 };
 

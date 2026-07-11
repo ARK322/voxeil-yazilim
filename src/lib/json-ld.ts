@@ -1,5 +1,6 @@
 import { siteConfig } from "@/lib/site";
 import { faqItems } from "@/lib/faq";
+import { getTrustBadgeAwards, getTrustBadgeCredentials } from "@/lib/trust-badges";
 
 export function getJsonLdGraph() {
   const brand = {
@@ -34,20 +35,15 @@ export function getJsonLdGraph() {
       postalCode: siteConfig.address.postalCode,
       addressCountry: siteConfig.address.addressCountry,
     },
-    sameAs: [
-      siteConfig.social.linkedin,
-      siteConfig.social.github,
-      siteConfig.social.instagram,
-      siteConfig.social.facebook,
-      siteConfig.social.x,
-      siteConfig.social.youtube,
-    ],
+    sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
     founder: siteConfig.founders.map((person) => ({
       "@type": "Person",
       name: person.name,
       jobTitle: person.jobTitle,
       url: person.linkedin,
     })),
+    award: getTrustBadgeAwards(),
+    hasCredential: getTrustBadgeCredentials(),
   };
 
   const localBusiness = {
@@ -77,13 +73,7 @@ export function getJsonLdGraph() {
       "@type": "Country",
       name: "Türkiye",
     },
-    sameAs: [
-      siteConfig.social.linkedin,
-      siteConfig.social.facebook,
-      siteConfig.social.instagram,
-      siteConfig.social.x,
-      siteConfig.social.youtube,
-    ],
+    sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
   };
 
   const website = {

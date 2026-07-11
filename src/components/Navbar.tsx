@@ -123,14 +123,17 @@ export default function Navbar() {
               className="block transition-opacity hover:opacity-80"
               onClick={handleLogoClick}
             >
+              {/* SEO: H1 metin içeriği — logo görseli dekoratif */}
+              <span className="sr-only">Voxeil Yazılım ve Mühendislik</span>
               <Image
                 src="/logo.svg"
-                alt={siteConfig.title}
+                alt=""
                 width={150}
                 height={50}
                 className="h-11 w-auto"
                 priority
                 unoptimized
+                aria-hidden="true"
               />
             </Link>
           </h1>

@@ -8,9 +8,9 @@ const teamMembers = [
     name: "Ahmed Resul KURT",
     role: "UI/UX Tasarımcı & DevOps Mühendisi",
     image: "https://ui-avatars.com/api/?name=Ahmed+Resul+KURT&size=240&background=2c2c2c&color=E86530&bold=true",
-    linkedin: "https://linkedin.com/in/ahmet-resul-kurt",
-    github: "https://github.com/ahmet-resul-kurt",
-    instagram: "https://instagram.com/ahmet_resul_kurt",
+    linkedin: "https://www.linkedin.com/in/ahmed-resul-kurt-86bb17234/",
+    github: "https://github.com/ARK322",
+    instagram: "https://www.instagram.com/aruttrk_/",
   },
   {
     name: "Bülent KOÇ",

@@ -20,7 +20,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: siteConfig.title,
+  title: {
+    default: siteConfig.title,
+    template: "%s | Voxeil Yazılım ve Mühendislik",
+  },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -70,11 +73,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={siteConfig.language} className="custom-scrollbar">
-      <body className={`${exo2.variable} antialiased overflow-x-clip`}>
+      <head>
+        {/* SEO: JSON-LD head içinde — tarayıcı ve audit araçları için erişilebilir */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getJsonLdGraph()) }}
         />
+      </head>
+      <body className={`${exo2.variable} antialiased overflow-x-clip`}>
         <Navbar />
         {children}
       </body>
