@@ -135,8 +135,10 @@ export default function WhyUs() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Deneyimli ekibimiz ve modern teknolojilerle, dijital dönüşüm yolculuğunuzda
-            yanınızdayız. Müşteri memnuniyetini ön planda tutarak, kaliteli çözümler sunuyoruz.
+            Ankara merkezli uzman ekibimizle projelerinizi baştan sona yönetiyoruz: keşif ve analiz,
+            UI/UX tasarım, geliştirme, test ve canlıya alma süreçlerinin tamamında yanınızdayız.
+            Şeffaf iletişim, zamanında teslimat ve uzun vadeli iş ortaklığı yaklaşımımızla
+            dijital hedeflerinize ulaşmanızı sağlıyoruz.
           </motion.p>
         </header>
 

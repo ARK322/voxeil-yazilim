@@ -110,7 +110,7 @@ export default function Navbar() {
       aria-label="Ana navigasyon"
     >
       <div className="bg-black backdrop-blur-md border-b border-white/5">
-        <div className="nav-container flex w-full items-center py-3 sm:py-4 lg:py-5">
+        <div className="nav-container flex w-full items-center py-4 sm:py-5 xl:py-6">
           <h1 className="m-0 shrink-0 leading-none">
             <Link
               href="/"
@@ -122,14 +122,14 @@ export default function Navbar() {
                 alt={siteConfig.title}
                 width={150}
                 height={50}
-                className="h-9 w-auto sm:h-11"
+                className="h-11 w-auto"
                 priority
               />
             </Link>
           </h1>
 
-          <div className="hidden lg:flex flex-1 items-center justify-center">
-            <ul className="flex items-center gap-6 xl:gap-12">
+          <div className="hidden xl:flex flex-1 items-center justify-center">
+            <ul className="flex items-center gap-12">
               {menuItems.map((item) => {
                 const href = getHref(item);
 
@@ -149,7 +149,7 @@ export default function Navbar() {
             </ul>
           </div>
 
-          <div className="hidden lg:flex shrink-0">
+          <div className="hidden xl:flex shrink-0">
             <a
               href="#iletisim"
               onClick={(e) => handleSmoothScroll(e, "#iletisim")}
@@ -161,7 +161,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="lg:hidden shrink-0 flex items-center justify-center min-w-[44px] min-h-[44px] text-muted-secondary hover:text-orange transition-colors rounded-lg ml-auto -mr-2"
+            className="xl:hidden shrink-0 flex items-center justify-center min-w-[44px] min-h-[44px] text-muted-secondary hover:text-orange transition-colors rounded-lg ml-auto"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav-menu"
@@ -184,7 +184,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden bg-black backdrop-blur-md border-b border-white/5"
+            className="xl:hidden overflow-hidden bg-black backdrop-blur-md border-b border-white/5"
           >
             <div className="nav-container pb-[max(1rem,var(--safe-bottom))]">
               <ul className="flex flex-col pt-2 gap-1">

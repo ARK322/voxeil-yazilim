@@ -10,9 +10,9 @@ import { siteConfig } from "@/lib/site";
 export default function Footer() {
   return (
     <footer className="relative border-t border-gray-800/50">
-      <div className="site-container">
+      <div className="nav-container">
         <div className="py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr_1.1fr] gap-8 lg:gap-16 xl:gap-24">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -40,6 +40,7 @@ export default function Footer() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
+              className="md:justify-self-center"
             >
               <p className="footer-col-title">Hızlı Linkler</p>
               <ul className="space-y-2">
@@ -93,14 +94,6 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#hakkimizda"
-                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
-                  >
-                    Hakkımızda
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     href="#iletisim"
                     className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
                   >
@@ -115,6 +108,7 @@ export default function Footer() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
+              className="md:justify-self-end"
             >
               <p className="footer-col-title">Bize Ulaşın</p>
               <ul className="space-y-3">

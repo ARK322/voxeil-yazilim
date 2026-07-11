@@ -34,9 +34,9 @@ function safeRefresh() {
  * 0.25–0.36  faz 2 bekleme
  * 0.36–0.45  faz 2 çıkış
  * 0.47–0.62  faz 3 kart + metin girişi
- * 0.62–0.65  faz 3 bekleme
- * 0.65–0.74  faz 3 çıkış
- * 0.72–1.00  faz 4 finale (giriş ~0.72–0.86, bekleme ~0.86–1.00)
+ * 0.62–0.78  faz 3 bekleme (ortada dur)
+ * 0.78–0.91  faz 3 çıkış
+ * 0.78–1.00  faz 4 finale (giriş ~0.78–0.92, bekleme ~0.92–1.00)
  */
 export function useScrollAnim(
   containerRef: RefObject<HTMLDivElement | null>,
@@ -106,8 +106,9 @@ export function useScrollAnim(
 
       gsap.set(ctaCopy, { autoAlpha: 0, x: isMobile ? 0 : 28, y: isMobile ? 16 : 0 });
 
-      const ctaHoldAt = isMobile ? 0.52 : 0.54;
-      const finaleInAt = isMobile ? 0.7 : 0.72;
+      const ctaHoldAt = isMobile ? 0.65 : 0.63;
+      const ctaExitDelay = isMobile ? 0.18 : 0.16;
+      const finaleInAt = isMobile ? 0.8 : 0.78;
 
       const tl = gsap.timeline({ defaults: { ease: "none" }, paused: true });
 
@@ -167,13 +168,13 @@ export function useScrollAnim(
             ease: "power2.in",
             duration: 0.038,
           },
-          `ctaHold+=${0.08 + i * 0.022}`
+          `ctaHold+=${ctaExitDelay + i * 0.022}`
         );
       });
 
-      tl.to(ctaCopy, { autoAlpha: 0, x: isMobile ? 0 : 16, y: -8, ease: "power2.in", duration: 0.035 }, "ctaHold+=0.12")
-        .to(ctaLayer, { autoAlpha: 0, ease: "power1.in", duration: 0.03 }, "ctaHold+=0.16")
-        .set(ctaLayer, { visibility: "hidden", pointerEvents: "none" }, "ctaHold+=0.2");
+      tl.to(ctaCopy, { autoAlpha: 0, x: isMobile ? 0 : 16, y: -8, ease: "power2.in", duration: 0.035 }, `ctaHold+=${ctaExitDelay + 0.04}`)
+        .to(ctaLayer, { autoAlpha: 0, ease: "power1.in", duration: 0.03 }, `ctaHold+=${ctaExitDelay + 0.08}`)
+        .set(ctaLayer, { visibility: "hidden", pointerEvents: "none" }, `ctaHold+=${ctaExitDelay + 0.12}`);
 
       tl.addLabel("finaleIn", finaleInAt)
         .set(heroFinale, { visibility: "visible", pointerEvents: "auto" }, "finaleIn")

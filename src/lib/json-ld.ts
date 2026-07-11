@@ -1,8 +1,8 @@
 import { siteConfig } from "@/lib/site";
+import { faqItems } from "@/lib/faq";
 
-export default function JsonLd() {
+export function getJsonLdGraph() {
   const organization = {
-    "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
@@ -38,7 +38,6 @@ export default function JsonLd() {
   };
 
   const localBusiness = {
-    "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
@@ -72,7 +71,6 @@ export default function JsonLd() {
   };
 
   const website = {
-    "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteConfig.url}/#website`,
     name: siteConfig.brandName,
@@ -85,7 +83,6 @@ export default function JsonLd() {
   };
 
   const webPage = {
-    "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${siteConfig.url}/#webpage`,
     url: siteConfig.url,
@@ -100,15 +97,21 @@ export default function JsonLd() {
     },
   };
 
-  const graph = {
-    "@context": "https://schema.org",
-    "@graph": [organization, localBusiness, website, webPage],
+  const faqPage = {
+    "@type": "FAQPage",
+    "@id": `${siteConfig.url}/#faq`,
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
-    />
-  );
+  return {
+    "@context": "https://schema.org",
+    "@graph": [organization, localBusiness, website, webPage, faqPage],
+  };
 }

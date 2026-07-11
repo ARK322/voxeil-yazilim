@@ -90,8 +90,9 @@ export default function Services() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Dijital dönüşüm yolculuğunuzda size en uygun çözümleri sunuyoruz.
-            Modern teknolojiler ve uzman ekibimizle projelerinizi hayata geçiriyoruz.
+            Voxeil yazılım şirketi olarak stratejiden canlıya almaya kadar uçtan uca yazılım çözümleri
+            sunuyoruz. Modern web teknolojileri, mobil uygulamalar ve bulut altyapıları ile
+            işletmenizin dijital varlığını güçlendiriyoruz.
           </motion.p>
         </header>
 
@@ -178,6 +179,36 @@ export default function Services() {
               );
             })}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mt-10 sm:mt-14 space-y-6 text-muted leading-relaxed"
+          >
+            <p className="text-sm sm:text-base max-w-3xl mx-auto text-center">
+              E-ticaret platformlarından kurumsal otomasyon sistemlerine, API entegrasyonlarından
+              veri odaklı raporlama panellerine kadar geniş bir yelpazede çözümler geliştiriyoruz.
+              AWS, Azure ve modern DevOps araçlarıyla projelerinizi güvenli ve sürdürülebilir
+              şekilde hayata geçiriyoruz.
+            </p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base max-w-4xl mx-auto">
+              {[
+                "Kurumsal web sitesi ve landing page geliştirme",
+                "iOS ve Android mobil uygulama projeleri",
+                "E-ticaret altyapısı, ödeme ve stok entegrasyonları",
+                "CRM, ERP ve iş süreci otomasyon yazılımları",
+                "Bulut migrasyon, CI/CD ve DevOps danışmanlığı",
+                "Bakım, izleme ve teknik destek hizmetleri",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="text-orange mt-0.5 shrink-0">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
       </div>
     </section>

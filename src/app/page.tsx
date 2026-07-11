@@ -1,7 +1,6 @@
 import HeroSection from "@/components/hero/HeroSection";
 import SectionDivider from "@/components/SectionDivider";
 import Services from "@/components/Services";
-import SeoContent from "@/components/SeoContent";
 import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 
@@ -10,6 +9,7 @@ const IndustrialSolutions = dynamic(() => import("@/components/IndustrialSolutio
 const WhyUs = dynamic(() => import("@/components/WhyUs"));
 const Team = dynamic(() => import("@/components/Team"));
 const Technologies = dynamic(() => import("@/components/Technologies"));
+const Faq = dynamic(() => import("@/components/Faq"));
 const Contact = dynamic(() => import("@/components/Contact"));
 
 export default function Home() {
@@ -42,7 +42,7 @@ export default function Home() {
         <Technologies />
 
         <SectionDivider />
-        <SeoContent />
+        <Faq />
 
         <SectionDivider />
         <Contact />

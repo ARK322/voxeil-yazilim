@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import JsonLd from "@/components/seo/JsonLd";
 import { siteConfig } from "@/lib/site";
+import { getJsonLdGraph } from "@/lib/json-ld";
 
 const exo2 = Exo_2({
   variable: "--font-exo2",
@@ -70,7 +70,10 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.language} className="custom-scrollbar">
       <body className={`${exo2.variable} antialiased overflow-x-clip`}>
-        <JsonLd />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getJsonLdGraph()) }}
+        />
         <Navbar />
         {children}
       </body>
