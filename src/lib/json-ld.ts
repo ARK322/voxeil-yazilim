@@ -2,6 +2,16 @@ import { siteConfig } from "@/lib/site";
 import { faqItems } from "@/lib/faq";
 
 export function getJsonLdGraph() {
+  const brand = {
+    "@type": "Brand",
+    "@id": `${siteConfig.url}/#brand`,
+    name: siteConfig.brandName,
+    alternateName: [siteConfig.name, "Voxeil Yazılım Şirketi"],
+    description: "Ankara merkezli yazılım şirketi markası",
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/logo.svg`,
+  };
+
   const organization = {
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
@@ -13,6 +23,9 @@ export function getJsonLdGraph() {
     logo: `${siteConfig.url}/logo.svg`,
     email: siteConfig.email,
     telephone: siteConfig.phone,
+    brand: {
+      "@id": `${siteConfig.url}/#brand`,
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.streetAddress,
@@ -54,6 +67,9 @@ export function getJsonLdGraph() {
       addressRegion: siteConfig.address.addressRegion,
       postalCode: siteConfig.address.postalCode,
       addressCountry: siteConfig.address.addressCountry,
+    },
+    parentOrganization: {
+      "@id": `${siteConfig.url}/#organization`,
     },
     openingHours: siteConfig.openingHours,
     priceRange: "$$",
@@ -112,6 +128,6 @@ export function getJsonLdGraph() {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [organization, localBusiness, website, webPage, faqPage],
+    "@graph": [brand, organization, localBusiness, website, webPage, faqPage],
   };
 }

@@ -6,6 +6,8 @@ export const siteConfig = {
   title: "Voxeil | Ankara Yazılım Şirketi",
   description:
     "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm için uçtan uca yazılım geliştirme hizmeti sunuyoruz. Ücretsiz keşif görüşmesi için iletişime geçin.",
+  footerDescription:
+    "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm projelerinde iş ortaklarımıza uçtan uca yazılım çözümleri sunuyoruz.",
   keywords: [
     "voxeil",
     "voxeil yazılım",

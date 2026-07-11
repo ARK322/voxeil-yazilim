@@ -23,16 +23,16 @@ export default function Footer() {
               <Link href="/" className="inline-block transition-opacity hover:opacity-80">
                 <Image
                   src="/logo.svg"
-                  alt={`${siteConfig.name} logosu`}
+                  alt={`${siteConfig.title}`}
                   width={150}
                   height={50}
                   className="h-10 w-auto mb-4"
                   unoptimized
                 />
               </Link>
+              <p className="text-white font-semibold text-sm">{siteConfig.legalName}</p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Dijital dönüşüm yolculuğunuzda yanınızdayız. Modern teknolojiler ve uzman
-                ekibimizle yazılım çözümleri sunuyoruz.
+                {siteConfig.footerDescription}
               </p>
             </motion.div>
 
@@ -141,7 +141,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800/50 py-6">
+        <div className="border-t border-gray-800/50 py-6 space-y-2">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -149,7 +149,27 @@ export default function Footer() {
             viewport={{ once: true }}
             className="text-center text-gray-500 text-sm"
           >
-            © {new Date().getFullYear()} {siteConfig.name}. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} {siteConfig.brandName} — {siteConfig.legalName}. Tüm
+            hakları saklıdır.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            viewport={{ once: true }}
+            className="text-center text-gray-500 text-xs"
+          >
+            {siteConfig.address.full} ·{" "}
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="hover:text-[#FF6B35] transition-colors"
+            >
+              {siteConfig.email}
+            </a>{" "}
+            ·{" "}
+            <a href={`tel:${siteConfig.phone}`} className="hover:text-[#FF6B35] transition-colors">
+              {siteConfig.phoneDisplay}
+            </a>
           </motion.p>
         </div>
       </div>
