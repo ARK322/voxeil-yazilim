@@ -133,7 +133,30 @@ button,
 }
 
 .shape-image-transform {
-  transform: rotate(-30deg) scale(1.45);
+  transform: rotate(-6deg) scale(1.08);
+  object-position: center center;
+}
+
+.site-section--plain-bg {
+  background-color: var(--page-bg);
+}
+
+.service-panel {
+  min-height: 0;
+}
+
+.service-panel__grid {
+  align-items: stretch;
+}
+
+.service-panel__icon {
+  font-size: clamp(4.5rem, 16vw, 8rem);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.service-panel__feature {
+  min-width: 0;
 }
 
 .site-container {

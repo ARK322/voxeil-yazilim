@@ -93,7 +93,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="hizmetlerimiz" className="site-section relative z-20 overflow-x-clip">
+    <section id="hizmetlerimiz" className="site-section site-section--plain-bg relative z-20 overflow-x-clip">
       <div className="site-container">
         <header className="site-section__header">
           <motion.h2
@@ -144,7 +144,7 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="relative lg:min-h-[340px] lg:h-[340px]">
+          <div className="relative lg:min-h-[320px]">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               const isActive = activeService === index;
@@ -157,40 +157,45 @@ export default function Services() {
                   initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0,
-                    x: isActive ? 0 : activeService > index ? 100 : -100,
-                    scale: isActive ? 1 : 0.9,
+                    y: isActive ? 0 : 12,
+                    scale: isActive ? 1 : 0.98,
                   }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                   className={`${
                     isActive ? "relative lg:absolute lg:inset-0" : "hidden lg:block lg:absolute lg:inset-0"
                   } ${isActive ? "pointer-events-auto" : "pointer-events-none"}`}
                 >
-                  <div className="site-card rounded-lg p-4 sm:p-6 lg:p-8 h-full">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 h-full">
-                      <div className="relative flex flex-col justify-center lg:col-span-3">
-                        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
-                          <IconComponent className="text-orange text-[6rem] sm:text-[10rem] lg:text-[400px]" />
+                  <div className="site-card service-panel overflow-hidden rounded-lg p-4 sm:p-6 lg:p-7 h-full">
+                    <div className="service-panel__grid grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5 h-full min-h-0">
+                      <div className="relative flex min-h-0 flex-col justify-center overflow-hidden lg:col-span-3">
+                        <div
+                          className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden"
+                          aria-hidden="true"
+                        >
+                          <IconComponent className="service-panel__icon text-orange shrink-0" />
                         </div>
 
-                        <div className="relative z-10">
-                          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4">
+                        <div className="relative z-10 min-w-0 pr-0 lg:pr-4">
+                          <p className="text-xl sm:text-2xl lg:text-[1.65rem] font-bold text-white mb-2 sm:mb-3">
                             {service.title}
                           </p>
-                          <p className="text-muted text-base sm:text-xl leading-relaxed">
+                          <p className="text-muted text-sm sm:text-base lg:text-lg leading-relaxed">
                             {service.description}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex flex-col justify-center gap-3 sm:gap-4 lg:col-span-2">
+                      <div className="flex min-h-0 flex-col justify-center gap-2.5 sm:gap-3 lg:col-span-2">
                         {service.features.map((feature, idx) => (
                           <div
                             key={idx}
-                            className="bg-gradient-to-r from-black to-black/95 rounded-lg p-4 sm:p-5 border border-orange/30 hover:border-orange/50 transition-all duration-300 pl-6 sm:pl-8"
+                            className="service-panel__feature rounded-lg border border-orange/30 bg-black/80 p-3.5 sm:p-4 transition-colors duration-300 hover:border-orange/50"
                           >
-                            <p className="text-muted-secondary text-base sm:text-lg font-medium flex items-center">
-                              <span className="text-orange mr-3 text-xl">•</span>
-                              {feature}
+                            <p className="text-muted-secondary text-sm sm:text-base font-medium flex items-center gap-2.5 min-w-0">
+                              <span className="text-orange shrink-0 text-lg leading-none" aria-hidden="true">
+                                •
+                              </span>
+                              <span className="min-w-0 break-words">{feature}</span>
                             </p>
                           </div>
                         ))}

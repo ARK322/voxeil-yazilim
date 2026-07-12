@@ -12,16 +12,7 @@ export default function Faq() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <section id="sss" className="site-section relative overflow-x-clip">
-      <motion.div
-        className="pointer-events-none absolute inset-x-0 top-1/4 h-72 bg-gradient-to-b from-orange/4 via-transparent to-transparent"
-        initial={reducedMotion ? false : { opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true }}
-        aria-hidden="true"
-      />
-
+    <section id="sss" className="site-section site-section--plain-bg relative overflow-x-clip">
       <div className="site-container relative">
         <header className="site-section__header">
           <motion.h2
@@ -40,7 +31,7 @@ export default function Faq() {
             viewport={{ once: true }}
             className="site-section__desc"
           >
-            Proje süreci, destek kapsamı ve çalışma modelimiz hakkında en sık sorulan sorular.
+            Proje süreci, backend mimarisi, destek kapsamı ve çalışma modelimiz hakkında en sık sorulan sorular.
           </motion.p>
         </header>
 

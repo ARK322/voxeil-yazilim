@@ -71,22 +71,24 @@ export default function IndustrialSolutions() {
           </motion.p>
         </header>
 
-        <div className="site-section__grid grid-cols-1 lg:grid-cols-2 items-start">
+        <div className="site-section__grid grid-cols-1 lg:grid-cols-2 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="relative w-full h-36 sm:h-44 lg:h-56 mx-auto max-w-sm sm:max-w-none"
+            className="relative mx-auto flex w-full max-w-md items-center justify-center lg:max-w-none lg:min-h-[420px]"
           >
-            <Image
-              src="/shape.webp"
-              alt="Endüstriyel dijital dönüşüm illüstrasyonu"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain shape-image-transform"
-              unoptimized
-            />
+            <div className="relative aspect-[4/3] w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-none lg:h-[420px] lg:aspect-auto">
+              <Image
+                src="/shape.webp"
+                alt="Endüstriyel dijital dönüşüm illüstrasyonu"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain shape-image-transform"
+                unoptimized
+              />
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-4 sm:gap-6">

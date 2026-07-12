@@ -87,7 +87,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Ankara Yazılım Şirketi İletişim
+            İletişim
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
