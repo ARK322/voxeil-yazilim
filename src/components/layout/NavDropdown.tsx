@@ -4,13 +4,13 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
 import type { NavLinkItem } from "@/lib/sections";
-import { sectionHref } from "@/lib/sections";
+import { navItemHref } from "@/lib/sections";
 
 type NavDropdownProps = {
   label: string;
   items: readonly NavLinkItem[];
   onHome: boolean;
-  onSelect: (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => void;
+  onSelect: (e: React.MouseEvent<HTMLAnchorElement>, item: NavLinkItem) => void;
 };
 
 export default function NavDropdown({
@@ -69,14 +69,14 @@ export default function NavDropdown({
           className="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[13.5rem] rounded-lg border border-white/10 bg-black/95 backdrop-blur-md py-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.45)] z-50"
         >
           {items.map((item) => (
-            <li key={`${item.label}-${item.id}`} role="none">
+            <li key={`${item.label}-${item.serviceTab ?? item.id}`} role="none">
               <Link
-                href={sectionHref(item.id, onHome)}
+                href={navItemHref(item, onHome)}
                 role="menuitem"
                 className="block px-3.5 py-2 text-sm text-muted-secondary hover:text-orange hover:bg-white/5 transition-colors"
                 onClick={(e) => {
                   setOpen(false);
-                  onSelect(e, item.id);
+                  onSelect(e, item);
                 }}
               >
                 {item.label}

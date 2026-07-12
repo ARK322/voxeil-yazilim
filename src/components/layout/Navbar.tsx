@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import NavDropdown from "@/components/layout/NavDropdown";
-import { navGroups, sectionAnchors, sectionHref } from "@/lib/sections";
-import { scrollToSection } from "@/lib/scroll-to-section";
+import { navGroups, sectionAnchors, sectionHref, navItemHref, type NavLinkItem } from "@/lib/sections";
+import { scrollToNavTarget } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
 
 export default function Navbar() {
@@ -38,9 +38,9 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen, closeMobileMenu]);
 
-  const handleSectionClick = (
+  const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string
+    item: NavLinkItem
   ) => {
     if (!onHome) {
       closeMobileMenu();
@@ -49,7 +49,14 @@ export default function Navbar() {
 
     e.preventDefault();
     closeMobileMenu();
-    scrollToSection(sectionId);
+    scrollToNavTarget(item.id, item.serviceTab);
+  };
+
+  const handleSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string
+  ) => {
+    handleNavClick(e, { label: "", id: sectionId as NavLinkItem["id"] });
   };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -125,7 +132,7 @@ export default function Navbar() {
                   label={group.label}
                   items={group.items}
                   onHome={onHome}
-                  onSelect={handleSectionClick}
+                  onSelect={handleNavClick}
                 />
               ))}
             </ul>
@@ -174,10 +181,10 @@ export default function Navbar() {
                           className="overflow-hidden pb-2"
                         >
                           {group.items.map((item) => (
-                            <li key={`${group.id}-${item.label}`}>
+                            <li key={`${group.id}-${item.label}-${item.serviceTab ?? ""}`}>
                               <Link
-                                href={sectionHref(item.id, onHome)}
-                                onClick={(e) => handleSectionClick(e, item.id)}
+                                href={navItemHref(item, onHome)}
+                                onClick={(e) => handleNavClick(e, item)}
                                 className="flex min-h-[40px] items-center pl-3 text-sm text-muted-secondary hover:text-orange transition-colors"
                               >
                                 {item.label}

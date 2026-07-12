@@ -1,3 +1,6 @@
+import { dispatchServiceTab, parseServiceHash, SERVICE_SECTION_ID } from "@/lib/services";
+import { sectionAnchors, type SectionId } from "@/lib/sections";
+
 const FALLBACK_NAV_OFFSET = 92;
 
 function getNavOffset() {
@@ -24,4 +27,33 @@ export function scrollToSection(targetId: string) {
     top: Math.max(0, offsetPosition),
     behavior: getScrollBehavior(),
   });
+}
+
+export function scrollToNavTarget(sectionId: SectionId, serviceTab?: number) {
+  if (serviceTab !== undefined) {
+    dispatchServiceTab(serviceTab);
+  }
+  scrollToSection(sectionId);
+}
+
+export function parseNavHash(
+  hash: string
+): { sectionId: SectionId; serviceTab?: number } | null {
+  if (!hash) return null;
+
+  const serviceTab = parseServiceHash(hash);
+  if (serviceTab !== null) {
+    return { sectionId: SERVICE_SECTION_ID as SectionId, serviceTab };
+  }
+
+  if (hash === SERVICE_SECTION_ID) {
+    return { sectionId: SERVICE_SECTION_ID as SectionId };
+  }
+
+  const sectionIds = Object.values(sectionAnchors);
+  if (sectionIds.includes(hash as SectionId)) {
+    return { sectionId: hash as SectionId };
+  }
+
+  return null;
 }

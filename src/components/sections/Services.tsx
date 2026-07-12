@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCode, FaMobileAlt, FaShoppingCart, FaLightbulb, FaCloud } from "react-icons/fa";
+import { SERVICE_TAB_EVENT } from "@/lib/services";
+import { parseNavHash } from "@/lib/scroll-to-section";
 
 const services = [
   {
@@ -70,6 +72,26 @@ const services = [
 export default function Services() {
   const [activeService, setActiveService] = useState(0);
 
+  useEffect(() => {
+    const onTabChange = (event: Event) => {
+      const tabIndex = (event as CustomEvent<{ tabIndex: number }>).detail.tabIndex;
+      if (typeof tabIndex === "number" && tabIndex >= 0 && tabIndex < services.length) {
+        setActiveService(tabIndex);
+      }
+    };
+
+    window.addEventListener(SERVICE_TAB_EVENT, onTabChange);
+    return () => window.removeEventListener(SERVICE_TAB_EVENT, onTabChange);
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    const target = parseNavHash(hash);
+    if (target?.serviceTab !== undefined) {
+      setActiveService(target.serviceTab);
+    }
+  }, []);
+
   return (
     <section id="hizmetlerimiz" className="site-section relative z-20 overflow-x-clip">
       <div className="site-container">
@@ -122,7 +144,7 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="relative lg:min-h-[480px] lg:h-[480px]">
+          <div className="relative lg:min-h-[340px] lg:h-[340px]">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               const isActive = activeService === index;
@@ -143,15 +165,15 @@ export default function Services() {
                     isActive ? "relative lg:absolute lg:inset-0" : "hidden lg:block lg:absolute lg:inset-0"
                   } ${isActive ? "pointer-events-auto" : "pointer-events-none"}`}
                 >
-                  <div className="site-card rounded-lg p-5 sm:p-8 lg:p-12 h-full">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-12 h-full">
+                  <div className="site-card rounded-lg p-4 sm:p-6 lg:p-8 h-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 h-full">
                       <div className="relative flex flex-col justify-center lg:col-span-3">
                         <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
                           <IconComponent className="text-orange text-[6rem] sm:text-[10rem] lg:text-[400px]" />
                         </div>
 
                         <div className="relative z-10">
-                          <p className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+                          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4">
                             {service.title}
                           </p>
                           <p className="text-muted text-base sm:text-xl leading-relaxed">
@@ -185,7 +207,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mt-10 sm:mt-14 space-y-6 text-muted leading-relaxed"
+            className="mt-6 sm:mt-8 space-y-4 text-muted leading-relaxed"
           >
             <p className="text-sm sm:text-base max-w-3xl mx-auto text-center">
               E-ticaret platformlarından kurumsal otomasyon sistemlerine, API entegrasyonlarından

@@ -77,7 +77,7 @@ export default function IndustrialSolutions() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="relative w-full h-48 sm:h-56 lg:h-80 mx-auto max-w-sm sm:max-w-none"
+            className="relative w-full h-36 sm:h-44 lg:h-56 mx-auto max-w-sm sm:max-w-none"
           >
             <Image
               src="/shape.webp"
@@ -99,7 +99,7 @@ export default function IndustrialSolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="site-card site-card--hover p-4 sm:p-6 relative overflow-hidden group"
+                  className="site-card site-card--hover p-3.5 sm:p-5 relative overflow-hidden group"
                 >
                   <div className="absolute top-2 right-2 text-5xl sm:text-7xl opacity-10 group-hover:opacity-15 transition-opacity duration-300">
                     <IconComponent className="text-orange" />

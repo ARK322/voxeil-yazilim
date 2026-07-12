@@ -3,16 +3,36 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import SocialLinks from "@/components/layout/SocialLinks";
 import TrustBadges from "@/components/TrustBadges";
-import { footerLinkColumns, sectionHref, sectionAnchors } from "@/lib/sections";
+import {
+  footerLinkColumns,
+  navItemHref,
+  sectionHref,
+  sectionAnchors,
+  type NavLinkItem,
+} from "@/lib/sections";
+import { scrollToNavTarget } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
 
 const footerLinkClass =
   "text-gray-400 hover:text-[#FF6B35] transition-colors text-sm leading-snug";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+
+  const handleFooterLink = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: NavLinkItem
+  ) => {
+    if (!onHome) return;
+    e.preventDefault();
+    scrollToNavTarget(item.id, item.serviceTab);
+  };
+
   return (
     <footer className="relative border-t border-gray-800/50">
       <div className="nav-container">
@@ -54,8 +74,12 @@ export default function Footer() {
                 <p className="footer-col-title mb-3">{column.title}</p>
                 <ul className="space-y-1.5">
                   {column.items.map((item) => (
-                    <li key={`${column.title}-${item.label}`}>
-                      <Link href={sectionHref(item.id)} className={footerLinkClass}>
+                    <li key={`${column.title}-${item.label}-${item.serviceTab ?? ""}`}>
+                      <Link
+                        href={navItemHref(item, onHome)}
+                        onClick={(e) => handleFooterLink(e, item)}
+                        className={footerLinkClass}
+                      >
                         {item.label}
                       </Link>
                     </li>

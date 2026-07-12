@@ -59,13 +59,13 @@ export default function Team() {
             >
               {/* Resim Dairesi ve Sosyal Medya */}
               <motion.div 
-                className="relative mb-6 flex items-center justify-center group max-w-full"
+                className="relative mb-4 flex items-center justify-center group max-w-full"
                 whileHover="hover"
                 initial="initial"
               >
                 {/* Yuvarlak Resim */}
                 <motion.div
-                  className="relative w-40 h-40 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden z-10 shrink-0"
+                  className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden z-10 shrink-0"
                   variants={{
                     initial: { scale: 1, x: 0 },
                     hover: { scale: 0.85, x: -30 }

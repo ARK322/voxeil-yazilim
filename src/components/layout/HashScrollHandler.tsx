@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { scrollToSection } from "@/lib/scroll-to-section";
+import { parseNavHash, scrollToNavTarget } from "@/lib/scroll-to-section";
 
 export default function HashScrollHandler() {
   useEffect(() => {
-    // Yenilemede tarayicinin eski scroll konumunu geri yuklemesini engelle
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
@@ -17,7 +16,15 @@ export default function HashScrollHandler() {
       return;
     }
 
-    requestAnimationFrame(() => scrollToSection(hash));
+    const target = parseNavHash(hash);
+    if (!target) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    requestAnimationFrame(() =>
+      scrollToNavTarget(target.sectionId, target.serviceTab)
+    );
   }, []);
 
   return null;

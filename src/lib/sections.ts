@@ -1,3 +1,5 @@
+import { serviceNavTabs, serviceTabHash } from "@/lib/services";
+
 export const sectionAnchors = {
   hizmetlerimiz: "hizmetlerimiz",
   surec: "surec",
@@ -15,25 +17,57 @@ export type SectionId = (typeof sectionAnchors)[keyof typeof sectionAnchors];
 export type NavLinkItem = {
   label: string;
   id: SectionId;
+  /** Hizmetler bölümünde açılacak sekme (0–4) */
+  serviceTab?: number;
+};
+
+export type NavGroup = {
+  id: string;
+  label: string;
+  items: NavLinkItem[];
+};
+
+export type FooterLinkColumn = {
+  title: string;
+  items: NavLinkItem[];
 };
 
 export function sectionHref(id: string, onHome = false) {
   return onHome ? `#${id}` : `/#${id}`;
 }
 
+export function navItemHref(item: NavLinkItem, onHome = false) {
+  if (item.serviceTab !== undefined) {
+    const tab = serviceNavTabs[item.serviceTab];
+    if (tab) {
+      const hash = serviceTabHash(tab.slug);
+      return onHome ? `#${hash}` : `/#${hash}`;
+    }
+  }
+  return sectionHref(item.id, onHome);
+}
+
+const serviceNavItems: NavLinkItem[] = [
+  { label: "Tüm Hizmetler", id: sectionAnchors.hizmetlerimiz },
+  ...serviceNavTabs.map((tab) => ({
+    label: tab.label,
+    id: sectionAnchors.hizmetlerimiz,
+    serviceTab: tab.tabIndex,
+  })),
+];
+
+const serviceFooterItems: NavLinkItem[] = serviceNavTabs.map((tab) => ({
+  label: tab.label,
+  id: sectionAnchors.hizmetlerimiz,
+  serviceTab: tab.tabIndex,
+}));
+
 /** Yazılım şirketi nav grupları — header dropdown + mobil accordion */
-export const navGroups = [
+export const navGroups: NavGroup[] = [
   {
     id: "hizmetler",
     label: "Hizmetler",
-    items: [
-      { label: "Tüm Hizmetler", id: sectionAnchors.hizmetlerimiz },
-      { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz },
-      { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz },
-      { label: "E-Ticaret Çözümleri", id: sectionAnchors.hizmetlerimiz },
-      { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz },
-      { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz },
-    ] satisfies NavLinkItem[],
+    items: serviceNavItems,
   },
   {
     id: "sirket",
@@ -58,18 +92,11 @@ export const navGroups = [
 
 /**
  * Footer link sütunları (Marka + bu 2 + İletişim = 4 sütun).
- * Şirket altında süreç/ekip + sektörel/teknoloji birleşik — yazılım firması sitemap.
  */
-export const footerLinkColumns = [
+export const footerLinkColumns: FooterLinkColumn[] = [
   {
     title: "Hizmetler",
-    items: [
-      { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz },
-      { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz },
-      { label: "E-Ticaret", id: sectionAnchors.hizmetlerimiz },
-      { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz },
-      { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz },
-    ] satisfies NavLinkItem[],
+    items: serviceFooterItems,
   },
   {
     title: "Şirket",

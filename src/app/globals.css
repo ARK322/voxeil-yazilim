@@ -39,10 +39,10 @@
     var(--site-px),
     calc(var(--site-px) + (100vw - var(--site-px) * 2 - var(--site-max-w)) / 2)
   );
-  --section-py: clamp(4rem, 8vw, 6rem);
-  --section-header-mb: clamp(2.5rem, 5vw, 4rem);
-  --section-block-gap: clamp(1.5rem, 3vw, 2.5rem);
-  --section-grid-gap: clamp(2rem, 4vw, 3rem);
+  --section-py: clamp(2.25rem, 4.5vw, 3.5rem);
+  --section-header-mb: clamp(1.25rem, 2.5vw, 2rem);
+  --section-block-gap: clamp(0.875rem, 1.75vw, 1.375rem);
+  --section-grid-gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 @theme inline {
@@ -133,7 +133,7 @@ button,
 }
 
 .shape-image-transform {
-  transform: rotate(-30deg) scale(1.62);
+  transform: rotate(-30deg) scale(1.45);
 }
 
 .site-container {
@@ -150,19 +150,19 @@ button,
 }
 
 .site-section__title {
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-size: clamp(1.625rem, 3vw, 2.375rem);
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: var(--tracking-ui);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .site-section__desc {
-  font-size: clamp(1rem, 1.6vw, 1.125rem);
-  line-height: 1.65;
+  font-size: clamp(0.875rem, 1.25vw, 0.975rem);
+  line-height: 1.55;
   color: var(--text-muted);
   letter-spacing: var(--tracking-body);
-  max-width: 48rem;
+  max-width: 40rem;
   margin-inline: auto;
 }
 
@@ -468,15 +468,15 @@ button,
 
 @media (max-width: 767px) {
   :root {
-    --section-py: clamp(2.5rem, 7vw, 3.5rem);
-    --section-header-mb: clamp(1.75rem, 4vw, 2.5rem);
-    --section-block-gap: 1.25rem;
-    --section-grid-gap: 1.5rem;
+    --section-py: clamp(1.75rem, 5vw, 2.5rem);
+    --section-header-mb: clamp(1rem, 3vw, 1.5rem);
+    --section-block-gap: 0.875rem;
+    --section-grid-gap: 1rem;
   }
 
   .site-section__title {
-    font-size: clamp(1.75rem, 7vw, 2.35rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 6vw, 1.875rem);
+    margin-bottom: 0.625rem;
   }
 
   .site-section__desc {
@@ -509,8 +509,8 @@ button,
 
 @media (min-width: 768px) and (max-width: 1023px) {
   :root {
-    --section-py: clamp(3rem, 6vw, 4.5rem);
-    --section-header-mb: clamp(2rem, 4vw, 3rem);
+    --section-py: clamp(2rem, 4vw, 3rem);
+    --section-header-mb: clamp(1.125rem, 2.5vw, 1.75rem);
   }
 }
 

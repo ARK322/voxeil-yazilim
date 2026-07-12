@@ -85,7 +85,7 @@ export default function Process() {
             aria-hidden="true"
           />
 
-          <ol className="relative flex flex-col gap-6 sm:gap-8">
+          <ol className="relative flex flex-col gap-4 sm:gap-5">
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               return (

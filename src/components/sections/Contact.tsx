@@ -108,7 +108,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
+            <h3 className="site-heading text-xl sm:text-2xl lg:text-3xl mb-4 sm:mb-5">
               İletişim Bilgileri
             </h3>
 
@@ -211,7 +211,7 @@ export default function Contact() {
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange via-orange/50 to-transparent lg:block hidden"></div>
 
             <div className="pt-0 lg:pl-12 space-y-6 sm:space-y-8">
-              <h3 className="site-heading text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
+              <h3 className="site-heading text-xl sm:text-2xl lg:text-3xl mb-4 sm:mb-5">
                 Hızlı İletişim Formu
               </h3>
 

@@ -75,7 +75,7 @@ function AnimatedCounter({ target, suffix, delay }: { target: number; suffix: st
   }, [hasStarted, target, delay]);
 
   return (
-    <div id={`counter-${target}`} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-orange mb-2 text-center site-glow-text">
+    <div id={`counter-${target}`} className="text-3xl sm:text-4xl lg:text-5xl font-bold text-orange mb-2 text-center site-glow-text">
       {count}{suffix}
     </div>
   );
@@ -167,7 +167,7 @@ export default function WhyUs() {
                     const feature = features[groupStart];
                     const IconComponent = feature.icon;
                     return (
-                      <div className="site-card site-card--hover p-6 lg:p-7 relative overflow-hidden min-h-[220px] flex flex-col items-center justify-center text-center w-full">
+                      <div className="site-card site-card--hover p-5 lg:p-6 relative overflow-hidden min-h-[170px] flex flex-col items-center justify-center text-center w-full">
                         {/* Filigran Icon - Sağ Alt Köşe */}
                         <div className="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 opacity-10 pointer-events-none overflow-hidden">
                           <IconComponent className="text-orange text-[5rem] sm:text-[8rem] lg:text-[12rem]" />
@@ -195,7 +195,7 @@ export default function WhyUs() {
                     const feature = features[groupStart + 1];
                     const IconComponent = feature.icon;
                     return (
-                      <div className="site-card site-card--hover p-6 lg:p-7 relative overflow-hidden min-h-[220px] flex flex-col items-center justify-center text-center w-full">
+                      <div className="site-card site-card--hover p-5 lg:p-6 relative overflow-hidden min-h-[170px] flex flex-col items-center justify-center text-center w-full">
                         {/* Filigran Icon - Sağ Alt Köşe */}
                         <div className="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 opacity-10 pointer-events-none overflow-hidden">
                           <IconComponent className="text-orange text-[5rem] sm:text-[8rem] lg:text-[12rem]" />

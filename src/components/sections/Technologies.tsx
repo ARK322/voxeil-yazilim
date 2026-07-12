@@ -73,7 +73,7 @@ export default function Technologies() {
           </motion.p>
         </header>
 
-        <div className="tech-grid-10 grid gap-2 sm:gap-4 max-w-full mx-auto">
+        <div className="tech-grid-10 grid gap-1.5 sm:gap-3 max-w-full mx-auto">
           {technologies.map((tech, index) => (
             <motion.div
               key={tech.name}
@@ -81,7 +81,7 @@ export default function Technologies() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.03 }}
               viewport={{ once: true }}
-              className="site-card site-card--hover p-2.5 sm:p-4 flex flex-col items-center justify-center aspect-square min-w-0"
+              className="site-card site-card--hover p-2 sm:p-3 flex flex-col items-center justify-center aspect-square min-w-0"
             >
               <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
