@@ -5,20 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { mainNavItems, sectionAnchors, sectionHref } from "@/lib/sections";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
+import NavDropdown from "@/components/layout/NavDropdown";
+import { navGroups, sectionAnchors, sectionHref } from "@/lib/sections";
 import { scrollToSection } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
-
-const linkClassName =
-  "text-muted-secondary hover:text-orange transition-colors duration-200 text-[1.0625rem] font-medium relative group py-2 inline-block cursor-pointer whitespace-nowrap";
 
 export default function Navbar() {
   const pathname = usePathname();
   const onHome = pathname === "/";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
 
-  const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    setOpenAccordion(null);
+  }, []);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -40,12 +42,14 @@ export default function Navbar() {
     e: React.MouseEvent<HTMLAnchorElement>,
     sectionId: string
   ) => {
-    if (!onHome) return;
+    if (!onHome) {
+      closeMobileMenu();
+      return;
+    }
 
     e.preventDefault();
     closeMobileMenu();
     scrollToSection(sectionId);
-    window.history.replaceState(null, "", `#${sectionId}`);
   };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -54,7 +58,6 @@ export default function Navbar() {
     if (onHome) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
-      window.history.replaceState(null, "", "/");
     }
   };
 
@@ -114,39 +117,76 @@ export default function Navbar() {
               showMobileMenu ? "row-start-2 pt-2" : "hidden xl:block"
             }`}
           >
-            <ul
-              className={`flex ${
-                showMobileMenu
-                  ? "flex-col gap-1"
-                  : "xl:flex-row xl:items-center xl:justify-center xl:gap-12"
-              }`}
-            >
-              {mainNavItems.map((item, index) => {
-                const href = sectionHref(item.id, onHome);
+            {/* Desktop: dropdowns */}
+            <ul className="hidden xl:flex xl:flex-row xl:items-center xl:justify-center xl:gap-10">
+              {navGroups.map((group) => (
+                <NavDropdown
+                  key={group.id}
+                  label={group.label}
+                  items={group.items}
+                  onHome={onHome}
+                  onSelect={handleSectionClick}
+                />
+              ))}
+            </ul>
+
+            {/* Mobile: accordion */}
+            <ul className={`flex flex-col gap-1 xl:hidden ${showMobileMenu ? "" : "hidden"}`}>
+              {navGroups.map((group, index) => {
+                const isOpen = openAccordion === group.id;
 
                 return (
                   <motion.li
-                    key={item.id}
+                    key={group.id}
                     initial={showMobileMenu ? { opacity: 0, y: -8 } : false}
                     animate={showMobileMenu ? { opacity: 1, y: 0 } : undefined}
                     transition={
                       showMobileMenu ? { delay: index * 0.05, duration: 0.2 } : undefined
                     }
+                    className="border-b border-border/60"
                   >
-                    <Link
-                      href={href}
-                      onClick={(e) => handleSectionClick(e, item.id)}
-                      className={
-                        showMobileMenu
-                          ? "flex min-h-[44px] items-center w-full py-2 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
-                          : linkClassName
+                    <button
+                      type="button"
+                      className="flex min-h-[44px] w-full items-center justify-between py-2 text-muted-secondary hover:text-orange text-[0.9375rem] font-medium transition-colors"
+                      aria-expanded={isOpen}
+                      onClick={() =>
+                        setOpenAccordion((current) =>
+                          current === group.id ? null : group.id
+                        )
                       }
                     >
-                      {item.label}
-                      {!showMobileMenu && (
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange transition-all duration-300 group-hover:w-full" />
+                      {group.label}
+                      <FaChevronDown
+                        className={`w-3 h-3 opacity-70 transition-transform ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.ul
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden pb-2"
+                        >
+                          {group.items.map((item) => (
+                            <li key={`${group.id}-${item.label}`}>
+                              <Link
+                                href={sectionHref(item.id, onHome)}
+                                onClick={(e) => handleSectionClick(e, item.id)}
+                                className="flex min-h-[40px] items-center pl-3 text-sm text-muted-secondary hover:text-orange transition-colors"
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </motion.ul>
                       )}
-                    </Link>
+                    </AnimatePresence>
                   </motion.li>
                 );
               })}

@@ -6,33 +6,25 @@ import Link from "next/link";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import SocialLinks from "@/components/layout/SocialLinks";
 import TrustBadges from "@/components/TrustBadges";
-import {
-  serviceFooterLabels,
-  footerLinks,
-  sectionHref,
-  sectionAnchors,
-} from "@/lib/sections";
+import { footerLinkColumns, sectionHref, sectionAnchors } from "@/lib/sections";
 import { siteConfig } from "@/lib/site";
 
-const socialTextLinks = [
-  { href: siteConfig.social.facebook, label: "Facebook" },
-  { href: siteConfig.social.youtube, label: "YouTube" },
-  { href: siteConfig.social.linkedin, label: "LinkedIn" },
-  { href: siteConfig.social.instagram, label: "Instagram" },
-] as const;
+const footerLinkClass =
+  "text-gray-400 hover:text-[#FF6B35] transition-colors text-sm leading-snug";
 
 export default function Footer() {
   return (
     <footer className="relative border-t border-gray-800/50">
       <div className="nav-container">
-        <div className="py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+            {/* 1 — Marka */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="space-y-4 lg:col-span-1"
+              className="space-y-3"
             >
               <Link href="/" className="inline-block transition-opacity hover:opacity-80">
                 <Image
@@ -40,7 +32,7 @@ export default function Footer() {
                   alt={siteConfig.logoAlt}
                   width={150}
                   height={50}
-                  className="h-10 w-auto mb-4"
+                  className="h-9 w-auto"
                   unoptimized
                 />
               </Link>
@@ -48,110 +40,75 @@ export default function Footer() {
               <p className="text-gray-400 text-sm leading-relaxed">
                 {siteConfig.footerDescription}
               </p>
-              <Link href={sectionHref(sectionAnchors.hakkimizda)} className="text-sm site-link">
-                Hakkımızda
-              </Link>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.05 }}
-              viewport={{ once: true }}
-            >
-              <p className="footer-col-title">Yazılım Hizmetleri</p>
-              <ul className="space-y-2">
-                {serviceFooterLabels.map((label) => (
-                  <li key={label}>
-                    <Link
-                      href={sectionHref(sectionAnchors.hizmetlerimiz)}
-                      className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            {/* 2–3 — Hizmetler + Şirket */}
+            {footerLinkColumns.map((column, index) => (
+              <motion.div
+                key={column.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.05 * (index + 1) }}
+                viewport={{ once: true }}
+              >
+                <p className="footer-col-title mb-3">{column.title}</p>
+                <ul className="space-y-1.5">
+                  {column.items.map((item) => (
+                    <li key={`${column.title}-${item.label}`}>
+                      <Link href={sectionHref(item.id)} className={footerLinkClass}>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <p className="footer-col-title">Hızlı Linkler</p>
-              <ul className="space-y-2">
-                {footerLinks.map((route) => (
-                  <li key={route.id}>
-                    <Link
-                      href={sectionHref(route.id)}
-                      className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
-                    >
-                      {route.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
+            {/* 4 — İletişim */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               viewport={{ once: true }}
             >
-              <p className="footer-col-title">Bize Ulaşın</p>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <FaMapMarkerAlt className="text-[#FF6B35] text-sm mt-1 flex-shrink-0" />
+              <p className="footer-col-title mb-3">İletişim</p>
+              <ul className="space-y-2.5">
+                <li className="flex items-start gap-2.5">
+                  <FaMapMarkerAlt className="text-[#FF6B35] text-xs mt-1 flex-shrink-0" />
                   <a
                     href={siteConfig.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
+                    className={footerLinkClass}
                   >
                     {siteConfig.address.full}
                   </a>
                 </li>
-                <li className="flex items-center gap-3">
-                  <FaEnvelope className="text-[#FF6B35] text-sm" />
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
-                  >
+                <li className="flex items-center gap-2.5">
+                  <FaEnvelope className="text-[#FF6B35] text-xs flex-shrink-0" />
+                  <a href={`mailto:${siteConfig.email}`} className={footerLinkClass}>
                     {siteConfig.email}
                   </a>
                 </li>
-                <li className="flex items-center gap-3">
-                  <FaPhone className="text-[#FF6B35] text-sm" />
-                  <a
-                    href={`tel:${siteConfig.phone}`}
-                    className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
-                  >
+                <li className="flex items-center gap-2.5">
+                  <FaPhone className="text-[#FF6B35] text-xs flex-shrink-0" />
+                  <a href={`tel:${siteConfig.phone}`} className={footerLinkClass}>
                     {siteConfig.phoneDisplay}
                   </a>
                 </li>
               </ul>
-              <SocialLinks className="flex flex-wrap gap-4 mt-6" />
-              <div className="flex flex-wrap gap-x-4 gap-y-2 mt-4">
-                {socialTextLinks.map(({ href, label }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer me"
-                    className="text-gray-500 hover:text-[#FF6B35] transition-colors text-xs"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
+              <Link
+                href={sectionHref(sectionAnchors.iletisim)}
+                className="inline-block mt-3 text-sm text-[#FF6B35] hover:text-[#FF6B35]/80 transition-colors"
+              >
+                Teklif / Keşif görüşmesi →
+              </Link>
+              <SocialLinks className="flex flex-wrap gap-3.5 mt-4" />
             </motion.div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800/50 py-6 space-y-2">
+        <div className="border-t border-gray-800/50 py-4 space-y-2">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -161,25 +118,6 @@ export default function Footer() {
           >
             © {new Date().getFullYear()} {siteConfig.brandName} — {siteConfig.legalName}. Tüm
             hakları saklıdır.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            viewport={{ once: true }}
-            className="text-center text-gray-500 text-xs"
-          >
-            {siteConfig.address.full} ·{" "}
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="hover:text-[#FF6B35] transition-colors"
-            >
-              {siteConfig.email}
-            </a>{" "}
-            ·{" "}
-            <a href={`tel:${siteConfig.phone}`} className="hover:text-[#FF6B35] transition-colors">
-              {siteConfig.phoneDisplay}
-            </a>
           </motion.p>
           <TrustBadges />
         </div>

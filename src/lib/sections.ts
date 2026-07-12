@@ -10,32 +10,77 @@ export const sectionAnchors = {
   iletisim: "iletisim",
 } as const;
 
+export type SectionId = (typeof sectionAnchors)[keyof typeof sectionAnchors];
+
+export type NavLinkItem = {
+  label: string;
+  id: SectionId;
+};
+
 export function sectionHref(id: string, onHome = false) {
   return onHome ? `#${id}` : `/#${id}`;
 }
 
-export const mainNavItems = [
-  { label: "Hizmetlerimiz", id: sectionAnchors.hizmetlerimiz },
-  { label: "Süreç", id: sectionAnchors.surec },
-  { label: "Neden Biz?", id: sectionAnchors.nedenBiz },
-  { label: "Ekibimiz", id: sectionAnchors.ekibimiz },
+/** Yazılım şirketi nav grupları — header dropdown + mobil accordion */
+export const navGroups = [
+  {
+    id: "hizmetler",
+    label: "Hizmetler",
+    items: [
+      { label: "Tüm Hizmetler", id: sectionAnchors.hizmetlerimiz },
+      { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz },
+      { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz },
+      { label: "E-Ticaret Çözümleri", id: sectionAnchors.hizmetlerimiz },
+      { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz },
+      { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz },
+    ] satisfies NavLinkItem[],
+  },
+  {
+    id: "sirket",
+    label: "Şirket",
+    items: [
+      { label: "Proje Süreci", id: sectionAnchors.surec },
+      { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz },
+      { label: "Hakkımızda", id: sectionAnchors.hakkimizda },
+      { label: "Ekibimiz", id: sectionAnchors.ekibimiz },
+    ] satisfies NavLinkItem[],
+  },
+  {
+    id: "cozumler",
+    label: "Çözümler",
+    items: [
+      { label: "Sektörel Yazılım", id: sectionAnchors.endustriyelCozumler },
+      { label: "Teknoloji Stack", id: sectionAnchors.teknolojiler },
+      { label: "SSS", id: sectionAnchors.sss },
+    ] satisfies NavLinkItem[],
+  },
 ] as const;
 
-export const serviceFooterLabels = [
-  "Web Geliştirme",
-  "Mobil Uygulama",
-  "E-Ticaret",
-  "Dijital Dönüşüm",
-] as const;
-
-export const footerLinks = [
-  { id: sectionAnchors.hizmetlerimiz, label: "Hizmetlerimiz" },
-  { id: sectionAnchors.surec, label: "Süreç" },
-  { id: sectionAnchors.endustriyelCozumler, label: "Endüstriyel Çözümler" },
-  { id: sectionAnchors.nedenBiz, label: "Neden Biz?" },
-  { id: sectionAnchors.hakkimizda, label: "Hakkımızda" },
-  { id: sectionAnchors.ekibimiz, label: "Ekibimiz" },
-  { id: sectionAnchors.teknolojiler, label: "Teknolojiler" },
-  { id: sectionAnchors.sss, label: "SSS" },
-  { id: sectionAnchors.iletisim, label: "İletişim" },
+/**
+ * Footer link sütunları (Marka + bu 2 + İletişim = 4 sütun).
+ * Şirket altında süreç/ekip + sektörel/teknoloji birleşik — yazılım firması sitemap.
+ */
+export const footerLinkColumns = [
+  {
+    title: "Hizmetler",
+    items: [
+      { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz },
+      { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz },
+      { label: "E-Ticaret", id: sectionAnchors.hizmetlerimiz },
+      { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz },
+      { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz },
+    ] satisfies NavLinkItem[],
+  },
+  {
+    title: "Şirket",
+    items: [
+      { label: "Proje Süreci", id: sectionAnchors.surec },
+      { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz },
+      { label: "Hakkımızda", id: sectionAnchors.hakkimizda },
+      { label: "Ekibimiz", id: sectionAnchors.ekibimiz },
+      { label: "Sektörel Yazılım", id: sectionAnchors.endustriyelCozumler },
+      { label: "Teknoloji Stack", id: sectionAnchors.teknolojiler },
+      { label: "SSS", id: sectionAnchors.sss },
+    ] satisfies NavLinkItem[],
+  },
 ] as const;

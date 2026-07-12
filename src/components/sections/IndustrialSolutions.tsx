@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   FaIndustry,
   FaHospital,
@@ -76,27 +77,16 @@ export default function IndustrialSolutions() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="relative w-full h-48 sm:h-56 lg:h-80 mx-auto max-w-sm sm:max-w-none flex items-center justify-center"
-            aria-hidden="true"
+            className="relative w-full h-48 sm:h-56 lg:h-80 mx-auto max-w-sm sm:max-w-none"
           >
-            <div className="relative w-full h-full max-w-xs lg:max-w-md">
-              <div className="absolute inset-0 rounded-3xl border border-orange/20 bg-gradient-to-br from-orange/10 via-transparent to-orange/5" />
-              <div className="absolute inset-4 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="grid grid-cols-3 gap-3 p-6 opacity-80">
-                  {[FaIndustry, FaHospital, FaDollarSign, FaGraduationCap, FaTruck, FaHotel].map(
-                    (Icon, index) => (
-                      <div
-                        key={index}
-                        className="flex h-12 w-12 items-center justify-center rounded-xl border border-orange/30 bg-black/60"
-                      >
-                        <Icon className="text-orange text-lg" aria-hidden="true" />
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            </div>
+            <Image
+              src="/shape.webp"
+              alt="Endüstriyel dijital dönüşüm illüstrasyonu"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain shape-image-transform"
+              unoptimized
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-4 sm:gap-6">

@@ -132,6 +132,10 @@ button,
   line-height: 1.625;
 }
 
+.shape-image-transform {
+  transform: rotate(-30deg) scale(1.62);
+}
+
 .site-container {
   width: 100%;
   max-width: var(--site-max-w);
