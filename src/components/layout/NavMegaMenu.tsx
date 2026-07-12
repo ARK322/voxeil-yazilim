@@ -10,6 +10,11 @@ const panelTransition = {
   ease: [0.22, 1, 0.36, 1] as const,
 };
 
+const contentTransition = {
+  duration: 0.22,
+  ease: [0.22, 1, 0.36, 1] as const,
+};
+
 type NavMegaMenuTriggersProps = {
   groups: readonly NavGroup[];
   open: boolean;
@@ -36,6 +41,7 @@ export function NavMegaMenuTriggers({
     <ul className="flex flex-row items-center justify-center gap-10">
       {groups.map((group) => {
         const isActive = open && activeGroupId === group.id;
+        const panelId = `nav-mega-panel-${group.id}`;
 
         return (
           <li key={group.id}>
@@ -45,7 +51,7 @@ export function NavMegaMenuTriggers({
                 isActive ? "text-orange" : "text-muted-secondary hover:text-orange"
               }`}
               aria-expanded={isActive}
-              aria-controls="nav-mega-panel"
+              aria-controls={panelId}
               aria-haspopup="true"
               onClick={() => onToggleGroup(group.id)}
             >
@@ -78,9 +84,11 @@ export function NavMegaMenuPanel({
   onHome,
   onSelect,
 }: NavMegaMenuPanelProps) {
+  const activeGroup = groups.find((group) => group.id === activeGroupId);
+
   return (
     <AnimatePresence initial={false}>
-      {open && (
+      {open && activeGroup ? (
         <>
           <motion.button
             type="button"
@@ -94,9 +102,9 @@ export function NavMegaMenuPanel({
           />
 
           <motion.div
-            id="nav-mega-panel"
+            id={`nav-mega-panel-${activeGroup.id}`}
             role="region"
-            aria-label="Site navigasyon menüsü"
+            aria-label={`${activeGroup.label} menüsü`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -104,54 +112,75 @@ export function NavMegaMenuPanel({
             className="nav-mega-panel"
           >
             <div className="nav-container py-8 sm:py-10">
-              <div className="nav-mega-grid grid grid-cols-3 gap-8 lg:gap-12">
-                {groups.map((group) => {
-                  const isHighlighted = activeGroupId === group.id;
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeGroup.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={contentTransition}
+                >
+                  <header className="mb-6 border-b border-white/8 pb-5">
+                    <p className="text-white font-semibold text-lg lg:text-xl">
+                      {activeGroup.label}
+                    </p>
+                    {activeGroup.description ? (
+                      <p className="mt-1.5 max-w-2xl text-sm text-muted leading-relaxed">
+                        {activeGroup.description}
+                      </p>
+                    ) : null}
+                  </header>
 
-                  return (
-                    <div
-                      key={group.id}
-                      className={`nav-mega-col min-w-0 rounded-xl border p-5 lg:p-6 transition-colors duration-200 ${
-                        isHighlighted
-                          ? "border-orange/35 bg-orange/[0.04]"
-                          : "border-white/8 bg-white/[0.02]"
-                      }`}
-                    >
-                      <div className="mb-4 border-b border-white/8 pb-4">
-                        <p className="text-white font-semibold text-base lg:text-lg">
-                          {group.label}
-                        </p>
-                        {group.description ? (
-                          <p className="mt-1.5 text-sm text-muted leading-relaxed">
-                            {group.description}
-                          </p>
-                        ) : null}
-                      </div>
+                  <div
+                    className={`nav-mega-grid grid gap-8 lg:gap-12 ${
+                      activeGroup.columns.length === 1
+                        ? "grid-cols-1 max-w-md"
+                        : activeGroup.columns.length === 2
+                          ? "grid-cols-2"
+                          : "grid-cols-3"
+                    }`}
+                  >
+                    {activeGroup.columns.map((column) => (
+                      <div
+                        key={`${activeGroup.id}-${column.title}`}
+                        className="nav-mega-col min-w-0 rounded-xl border border-white/8 bg-white/[0.02] p-5 lg:p-6"
+                      >
+                        <div className="mb-4 border-b border-white/8 pb-4">
+                          <p className="text-white font-semibold text-base">{column.title}</p>
+                          {column.description ? (
+                            <p className="mt-1.5 text-sm text-muted leading-relaxed">
+                              {column.description}
+                            </p>
+                          ) : null}
+                        </div>
 
-                      <ul className="space-y-0.5">
-                        {group.items.map((item) => (
-                          <li key={`${group.id}-${item.label}-${item.serviceTab ?? ""}`}>
-                            <Link
-                              href={navItemHref(item, onHome)}
-                              className="nav-mega-link flex min-h-[40px] items-center rounded-lg px-2.5 py-2 text-sm text-muted-secondary transition-colors hover:bg-white/5 hover:text-orange"
-                              onClick={(e) => {
-                                onClose();
-                                onSelect(e, item);
-                              }}
+                        <ul className="space-y-0.5">
+                          {column.items.map((item) => (
+                            <li
+                              key={`${activeGroup.id}-${column.title}-${item.label}-${item.serviceTab ?? ""}`}
                             >
-                              {item.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
+                              <Link
+                                href={navItemHref(item, onHome)}
+                                className="nav-mega-link flex min-h-[40px] items-center rounded-lg px-2.5 py-2 text-sm text-muted-secondary transition-colors hover:bg-white/5 hover:text-orange"
+                                onClick={(e) => {
+                                  onClose();
+                                  onSelect(e, item);
+                                }}
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 }

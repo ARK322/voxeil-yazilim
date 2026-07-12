@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import { NavMegaMenuPanel, NavMegaMenuTriggers } from "@/components/layout/NavMegaMenu";
-import { navGroups, sectionAnchors, sectionHref, navItemHref, type NavLinkItem } from "@/lib/sections";
+import { navGroups, sectionAnchors, sectionHref, navItemHref, getNavGroupItems, type NavLinkItem } from "@/lib/sections";
 import { scrollToNavTarget } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
 
@@ -216,7 +216,7 @@ export default function Navbar() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden pb-2"
                         >
-                          {group.items.map((item) => (
+                          {getNavGroupItems(group).map((item) => (
                             <li key={`${group.id}-${item.label}-${item.serviceTab ?? ""}`}>
                               <Link
                                 href={navItemHref(item, onHome)}
