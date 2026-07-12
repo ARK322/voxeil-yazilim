@@ -73,11 +73,11 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
           </p>
 
           <div className="hero-finale__actions">
-            <a href="/iletisim/" className="site-btn-primary">
+            <a href="#iletisim" className="site-btn-primary">
               Görüşme Planla
               <span aria-hidden="true">→</span>
             </a>
-            <a href="/hizmetler/" className="site-btn-ghost whitespace-nowrap">
+            <a href="#hizmetlerimiz" className="site-btn-ghost whitespace-nowrap">
               Hizmetlerimiz
               <span aria-hidden="true">↗</span>
             </a>

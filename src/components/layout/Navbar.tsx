@@ -3,15 +3,19 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { mainNavItems, sectionPages } from "@/lib/section-pages";
+import { mainNavItems, sectionAnchors, sectionHref } from "@/lib/sections";
+import { scrollToSection } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
 
 const linkClassName =
   "text-muted-secondary hover:text-orange transition-colors duration-200 text-[1.0625rem] font-medium relative group py-2 inline-block cursor-pointer whitespace-nowrap";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
@@ -32,15 +36,29 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen, closeMobileMenu]);
 
+  const handleSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string
+  ) => {
+    if (!onHome) return;
+
+    e.preventDefault();
+    closeMobileMenu();
+    scrollToSection(sectionId);
+    window.history.replaceState(null, "", `#${sectionId}`);
+  };
+
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     closeMobileMenu();
 
-    if (window.location.pathname === "/") {
+    if (onHome) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.replaceState(null, "", "/");
     }
   };
 
+  const contactHref = sectionHref(sectionAnchors.iletisim, onHome);
   const showMobileMenu = isMobileMenuOpen;
 
   return (
@@ -61,7 +79,6 @@ export default function Navbar() {
               onClick={handleLogoClick}
               aria-label={`${siteConfig.brandName} ana sayfa`}
             >
-              {/* SEO: H1 metin içeriği — logo görseli dekoratif */}
               <span className="sr-only">Voxeil Yazılım ve Mühendislik</span>
               <Image
                 src="/logo.svg"
@@ -104,37 +121,41 @@ export default function Navbar() {
                   : "xl:flex-row xl:items-center xl:justify-center xl:gap-12"
               }`}
             >
-              {mainNavItems.map((item, index) => (
-                <motion.li
-                  key={item.href}
-                  initial={showMobileMenu ? { opacity: 0, y: -8 } : false}
-                  animate={showMobileMenu ? { opacity: 1, y: 0 } : undefined}
-                  transition={
-                    showMobileMenu ? { delay: index * 0.05, duration: 0.2 } : undefined
-                  }
-                >
-                  <Link
-                    href={item.href}
-                    onClick={closeMobileMenu}
-                    className={
-                      showMobileMenu
-                        ? "flex min-h-[44px] items-center w-full py-2 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
-                        : linkClassName
+              {mainNavItems.map((item, index) => {
+                const href = sectionHref(item.id, onHome);
+
+                return (
+                  <motion.li
+                    key={item.id}
+                    initial={showMobileMenu ? { opacity: 0, y: -8 } : false}
+                    animate={showMobileMenu ? { opacity: 1, y: 0 } : undefined}
+                    transition={
+                      showMobileMenu ? { delay: index * 0.05, duration: 0.2 } : undefined
                     }
                   >
-                    {item.label}
-                    {!showMobileMenu && (
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange transition-all duration-300 group-hover:w-full" />
-                    )}
-                  </Link>
-                </motion.li>
-              ))}
+                    <Link
+                      href={href}
+                      onClick={(e) => handleSectionClick(e, item.id)}
+                      className={
+                        showMobileMenu
+                          ? "flex min-h-[44px] items-center w-full py-2 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
+                          : linkClassName
+                      }
+                    >
+                      {item.label}
+                      {!showMobileMenu && (
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange transition-all duration-300 group-hover:w-full" />
+                      )}
+                    </Link>
+                  </motion.li>
+                );
+              })}
             </ul>
           </div>
 
           <Link
-            href={sectionPages.iletisim.path}
-            onClick={closeMobileMenu}
+            href={contactHref}
+            onClick={(e) => handleSectionClick(e, sectionAnchors.iletisim)}
             className={`site-btn-ghost whitespace-nowrap ${
               showMobileMenu
                 ? "col-span-2 row-start-3 mt-4 block w-full text-center xl:col-start-3 xl:col-span-1 xl:row-start-1 xl:mt-0 xl:w-auto"

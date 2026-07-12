@@ -6,7 +6,12 @@ import Link from "next/link";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import SocialLinks from "@/components/layout/SocialLinks";
 import TrustBadges from "@/components/TrustBadges";
-import { serviceRoutes, sectionRoutes } from "@/lib/routes";
+import {
+  serviceFooterLabels,
+  footerLinks,
+  sectionHref,
+  sectionAnchors,
+} from "@/lib/sections";
 import { siteConfig } from "@/lib/site";
 
 const socialTextLinks = [
@@ -43,7 +48,7 @@ export default function Footer() {
               <p className="text-gray-400 text-sm leading-relaxed">
                 {siteConfig.footerDescription}
               </p>
-              <Link href="/hakkimizda/" className="text-sm site-link">
+              <Link href={sectionHref(sectionAnchors.hakkimizda)} className="text-sm site-link">
                 Hakkımızda
               </Link>
             </motion.div>
@@ -56,13 +61,13 @@ export default function Footer() {
             >
               <p className="footer-col-title">Yazılım Hizmetleri</p>
               <ul className="space-y-2">
-                {serviceRoutes.map((route) => (
-                  <li key={route.href}>
+                {serviceFooterLabels.map((label) => (
+                  <li key={label}>
                     <Link
-                      href={route.href}
+                      href={sectionHref(sectionAnchors.hizmetlerimiz)}
                       className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
                     >
-                      {route.label}
+                      {label}
                     </Link>
                   </li>
                 ))}
@@ -77,10 +82,10 @@ export default function Footer() {
             >
               <p className="footer-col-title">Hızlı Linkler</p>
               <ul className="space-y-2">
-                {sectionRoutes.map((route) => (
-                  <li key={route.href}>
+                {footerLinks.map((route) => (
+                  <li key={route.id}>
                     <Link
-                      href={route.href}
+                      href={sectionHref(route.id)}
                       className="text-gray-400 hover:text-[#FF6B35] transition-colors text-sm"
                     >
                       {route.label}
