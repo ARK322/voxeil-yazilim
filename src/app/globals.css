@@ -80,6 +80,9 @@ body {
   max-width: 100%;
   min-height: 100%;
   min-height: 100dvh;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: auto;
 }
 
 a,
@@ -181,8 +184,8 @@ button,
 }
 
 .site-section__desc {
-  font-size: clamp(0.875rem, 1.25vw, 0.975rem);
-  line-height: 1.55;
+  font-size: clamp(0.9375rem, 1.25vw, 1rem);
+  line-height: 1.6;
   color: var(--text-muted);
   letter-spacing: var(--tracking-body);
   max-width: 40rem;
@@ -216,8 +219,6 @@ button,
 
 .site-card {
   background: var(--surface-card);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   transition: border-color 0.3s ease;
@@ -323,7 +324,7 @@ button,
 }
 
 .site-glow-text {
-  text-shadow: 0 0 12px var(--orange-glow), 0 0 24px var(--orange-glow-soft);
+  text-shadow: 0 0 8px var(--orange-glow-soft);
 }
 
 .site-glow-ring {

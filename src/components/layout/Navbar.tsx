@@ -76,7 +76,7 @@ export default function Navbar() {
       className="fixed top-0 inset-x-0 z-50 pt-[var(--safe-top)]"
       aria-label="Ana navigasyon"
     >
-      <div className="bg-black backdrop-blur-md border-b border-white/5">
+      <div className="bg-black border-b border-white/5">
         <div
           className={`nav-container relative grid grid-cols-[1fr_auto] items-center py-4 sm:py-5 xl:grid-cols-[auto_1fr_auto] xl:py-6 ${
             showMobileMenu ? "pb-[max(1rem,var(--safe-bottom))]" : ""

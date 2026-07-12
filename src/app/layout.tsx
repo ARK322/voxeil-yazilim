@@ -9,6 +9,8 @@ const exo2 = Exo_2({
   variable: "--font-exo2",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 export const viewport: Viewport = {
@@ -80,7 +82,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getJsonLdGraph()) }}
         />
       </head>
-      <body className={`${exo2.variable} antialiased overflow-x-clip`}>
+      <body className={`${exo2.variable} subpixel-antialiased overflow-x-clip`}>
         <Navbar />
         {children}
       </body>

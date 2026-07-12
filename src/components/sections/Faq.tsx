@@ -5,14 +5,17 @@ import { useState } from "react";
 import { FaChevronDown, FaCircleQuestion } from "react-icons/fa6";
 import { faqItems } from "@/lib/faq";
 
-const accordionSpring = { type: "spring" as const, stiffness: 320, damping: 32, mass: 0.8 };
+const accordionTransition = {
+  duration: 0.55,
+  ease: [0.4, 0, 0.2, 1] as const,
+};
 
 export default function Faq() {
   const [openIndex, setOpenIndex] = useState(0);
   const reducedMotion = useReducedMotion();
 
   return (
-    <section id="sss" className="site-section site-section--plain-bg relative overflow-x-clip">
+    <section id="sss" className="site-section relative overflow-x-clip">
       <div className="site-container relative">
         <header className="site-section__header">
           <motion.h2
@@ -42,23 +45,13 @@ export default function Faq() {
             return (
               <motion.div
                 key={item.question}
-                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] as const }}
                 viewport={{ once: true, margin: "-30px" }}
-                layout={!reducedMotion}
-                animate={
-                  isOpen && !reducedMotion
-                    ? {
-                        boxShadow: "0 0 28px rgba(232, 101, 48, 0.18)",
-                        borderColor: "rgba(232, 101, 48, 0.55)",
-                      }
-                    : {
-                        boxShadow: "0 0 0px rgba(232, 101, 48, 0)",
-                        borderColor: "var(--border)",
-                      }
-                }
-                className="site-card overflow-hidden"
+                className={`site-card overflow-hidden transition-[border-color,box-shadow] duration-500 ${
+                  isOpen ? "border-orange/55 shadow-[0_0_28px_rgba(232,101,48,0.18)]" : ""
+                }`}
               >
                 <motion.button
                   type="button"
@@ -67,17 +60,16 @@ export default function Faq() {
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${index}`}
                   whileHover={reducedMotion ? undefined : { backgroundColor: "rgba(255, 255, 255, 0.02)" }}
-                  whileTap={reducedMotion ? undefined : { scale: 0.995 }}
                   transition={{ duration: 0.2 }}
                 >
                   <span className="flex items-start gap-3 min-w-0">
                     <motion.span
                       animate={
                         isOpen && !reducedMotion
-                          ? { scale: 1.08, backgroundColor: "rgba(232, 101, 48, 0.18)" }
-                          : { scale: 1, backgroundColor: "rgba(232, 101, 48, 0.08)" }
+                          ? { backgroundColor: "rgba(232, 101, 48, 0.18)" }
+                          : { backgroundColor: "rgba(232, 101, 48, 0.08)" }
                       }
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] as const }}
                       className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-orange/30 text-orange"
                       aria-hidden="true"
                     >
@@ -88,7 +80,7 @@ export default function Faq() {
 
                   <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={reducedMotion ? { duration: 0.2 } : accordionSpring}
+                    transition={reducedMotion ? { duration: 0.2 } : accordionTransition}
                     className="shrink-0 text-orange"
                     aria-hidden="true"
                   >
@@ -103,14 +95,18 @@ export default function Faq() {
                       initial={reducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={reducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={reducedMotion ? { duration: 0.2 } : accordionSpring}
+                      transition={reducedMotion ? { duration: 0.2 } : accordionTransition}
                       className="overflow-hidden"
                     >
                       <motion.div
-                        initial={reducedMotion ? false : { opacity: 0, y: -6 }}
+                        initial={reducedMotion ? false : { opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={reducedMotion ? undefined : { opacity: 0, y: -4 }}
-                        transition={{ duration: 0.25, delay: reducedMotion ? 0 : 0.05 }}
+                        exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
+                        transition={
+                          reducedMotion
+                            ? { duration: 0.2 }
+                            : { duration: 0.4, delay: 0.1, ease: [0.4, 0, 0.2, 1] as const }
+                        }
                         className="border-t border-orange/15 px-5 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5"
                       >
                         <p className="leading-relaxed">{item.answer}</p>

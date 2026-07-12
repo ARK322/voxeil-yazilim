@@ -66,7 +66,7 @@ export default function NavDropdown({
         <ul
           id={menuId}
           role="menu"
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[13.5rem] rounded-lg border border-white/10 bg-black/95 backdrop-blur-md py-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.45)] z-50"
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[13.5rem] rounded-lg border border-white/10 bg-black py-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.45)] z-50"
         >
           {items.map((item) => (
             <li key={`${item.label}-${item.serviceTab ?? item.id}`} role="none">

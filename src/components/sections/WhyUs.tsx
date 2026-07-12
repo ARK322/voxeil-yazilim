@@ -102,7 +102,7 @@ function CounterSection() {
             className="site-card p-4 lg:p-5 flex flex-col"
           >
             <AnimatedCounter target={stat.value} suffix={stat.suffix} delay={index * 0.2} />
-            <div className="text-muted text-base lg:text-lg font-medium mb-2 text-center site-glow-text">
+            <div className="text-muted text-base lg:text-lg font-medium mb-2 text-center">
               {stat.label}
             </div>
             <p className="text-muted-secondary text-sm lg:text-base leading-relaxed flex-grow">

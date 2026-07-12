@@ -157,8 +157,7 @@ export default function Services() {
                   initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0,
-                    y: isActive ? 0 : 12,
-                    scale: isActive ? 1 : 0.98,
+                    y: isActive ? 0 : 8,
                   }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className={`${

@@ -185,21 +185,11 @@ function AboutCard({
 }
 
 export default function About() {
-  const reducedMotion = useReducedMotion();
   const [mission, services, whyUs] = aboutContent.sections;
 
   return (
     <section id="hakkimizda" className="site-section relative overflow-x-clip">
-      <motion.div
-        className="pointer-events-none absolute inset-x-0 top-1/3 h-64 bg-gradient-to-b from-orange/5 via-transparent to-transparent"
-        initial={reducedMotion ? false : { opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true }}
-        aria-hidden="true"
-      />
-
-      <div className="site-container relative">
+      <div className="site-container">
         <header className="site-section__header">
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
