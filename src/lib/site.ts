@@ -6,6 +6,7 @@ export const siteConfig = {
   title: "Voxeil Yazılım ve Mühendislik | Web, Mobil & Dijital Dönüşüm",
   description:
     "Voxeil, Ankara merkezli yazılım şirketi. Web, mobil, e-ticaret ve dijital dönüşümde uçtan uca yazılım geliştirme sunuyoruz. Ücretsiz keşif görüşmesi.",
+  logoAlt: "Voxeil Yazılım ve Mühendislik — Ankara yazılım şirketi logosu",
   footerDescription:
     "Voxeil, Ankara merkezli bir yazılım şirketidir. Web, mobil, e-ticaret ve dijital dönüşüm projelerinde iş ortaklarımıza uçtan uca yazılım çözümleri sunuyoruz.",
   keywords: [
@@ -37,6 +38,12 @@ export const siteConfig = {
     full: "Çankaya, 06690 Ankara, Türkiye",
   },
   openingHours: "Mo-Fr 09:00-18:00",
+  googleMapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=Çankaya+06690+Ankara+Türkiye",
+  geo: {
+    latitude: 39.9179,
+    longitude: 32.8627,
+  },
   social: {
     linkedin: "https://linkedin.com/company/voxeil",
     github: "https://github.com/voxeil",

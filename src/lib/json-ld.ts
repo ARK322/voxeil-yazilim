@@ -67,6 +67,12 @@ export function getJsonLdGraph() {
     parentOrganization: {
       "@id": `${siteConfig.url}/#organization`,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.latitude,
+      longitude: siteConfig.geo.longitude,
+    },
+    hasMap: siteConfig.googleMapsUrl,
     openingHours: siteConfig.openingHours,
     priceRange: "$$",
     areaServed: {

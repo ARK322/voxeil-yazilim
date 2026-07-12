@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import { siteConfig } from "@/lib/site";
 import { getJsonLdGraph } from "@/lib/json-ld";
 

@@ -126,7 +126,7 @@ export default function WhyUs() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Neden Biz?
+            Neden Voxeil Yazılım?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}

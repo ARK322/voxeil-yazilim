@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaCode, FaMobileAlt, FaShoppingCart, FaLightbulb, FaCloud } from "react-icons/fa";
 
@@ -9,6 +10,7 @@ const services = [
     id: 1,
     icon: FaCode,
     title: "Web Geliştirme",
+    href: "/hizmetler/web-gelistirme/",
     description: "Modern ve responsive web siteleri ile dijital varlığınızı güçlendirin. Kullanıcı deneyimini ön planda tutan, performans odaklı çözümler sunuyoruz.",
     features: [
       "Responsive Tasarım",
@@ -21,6 +23,7 @@ const services = [
     id: 2,
     icon: FaMobileAlt,
     title: "Mobil Uygulama",
+    href: "/hizmetler/mobil-uygulama/",
     description: "iOS ve Android platformları için yenilikçi mobil uygulamalar geliştiriyoruz. Hedef kitlenize her an ulaşın.",
     features: [
       "iOS & Android",
@@ -33,6 +36,7 @@ const services = [
     id: 3,
     icon: FaShoppingCart,
     title: "E-Ticaret Çözümleri",
+    href: "/hizmetler/e-ticaret/",
     description: "Güvenli ve kullanıcı dostu e-ticaret platformları ile satışlarınızı artırın. Ödeme entegrasyonları ve stok yönetimi dahil.",
     features: [
       "Güvenli Ödeme",
@@ -45,6 +49,7 @@ const services = [
     id: 4,
     icon: FaLightbulb,
     title: "Danışmanlık & Destek",
+    href: "/hizmetler/dijital-donusum/",
     description: "Yazılım ihtiyaçlarınızda uzman danışmanlık ve sürekli destek hizmetleri. Teknoloji yol haritanızı birlikte çizelim.",
     features: [
       "Teknik Danışmanlık",
@@ -57,6 +62,7 @@ const services = [
     id: 5,
     icon: FaCloud,
     title: "Bulut Çözümleri",
+    href: "/hizmetler/dijital-donusum/",
     description: "Ölçeklenebilir bulut altyapıları ile işinizi büyütün. AWS, Azure ve özel bulut çözümleri sunuyoruz.",
     features: [
       "AWS & Azure",
@@ -81,7 +87,7 @@ export default function Services() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Hizmetlerimiz
+            Yazılım Geliştirme Hizmetlerimiz
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -157,6 +163,13 @@ export default function Services() {
                           <p className="text-muted text-base sm:text-xl leading-relaxed">
                             {service.description}
                           </p>
+                          <Link
+                            href={service.href}
+                            className="inline-flex items-center gap-2 mt-4 text-orange hover:text-orange/80 text-sm font-medium transition-colors"
+                          >
+                            Detaylı bilgi
+                            <span aria-hidden="true">→</span>
+                          </Link>
                         </div>
                       </div>
 

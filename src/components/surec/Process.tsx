@@ -65,7 +65,7 @@ export default function Process() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Süreç
+            Yazılım Proje Sürecimiz
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}

@@ -5,41 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { mainNavItems, sectionPages } from "@/lib/section-pages";
 import { siteConfig } from "@/lib/site";
-
-const menuItems = [
-  "Hizmetlerimiz",
-  "Süreç",
-  "Neden Biz?",
-  "Ekibimiz",
-] as const;
-
-const idMap: Record<(typeof menuItems)[number], string> = {
-  Hizmetlerimiz: "hizmetlerimiz",
-  Süreç: "surec",
-  "Neden Biz?": "neden-biz",
-  Ekibimiz: "ekibimiz",
-};
-
-const FALLBACK_NAV_OFFSET = 92;
-
-function getHref(item: string) {
-  const targetId =
-    idMap[item as (typeof menuItems)[number]] ??
-    item.toLowerCase().replace(/\s+/g, "-");
-  return `#${targetId}`;
-}
-
-function getNavOffset() {
-  const nav = document.querySelector("nav");
-  return nav?.offsetHeight ?? FALLBACK_NAV_OFFSET;
-}
-
-function getScrollBehavior(): ScrollBehavior {
-  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  return coarsePointer || reducedMotion ? "auto" : "smooth";
-}
 
 const linkClassName =
   "text-muted-secondary hover:text-orange transition-colors duration-200 text-[1.0625rem] font-medium relative group py-2 inline-block cursor-pointer whitespace-nowrap";
@@ -65,42 +32,12 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen, closeMobileMenu]);
 
-  const scrollToElement = (element: HTMLElement) => {
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - getNavOffset();
-
-    window.scrollTo({
-      top: Math.max(0, offsetPosition),
-      behavior: getScrollBehavior(),
-    });
-  };
-
-  const handleSmoothScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    e.preventDefault();
-    closeMobileMenu();
-
-    const targetId = href.replace("#", "");
-    const element = document.getElementById(targetId);
-
-    if (element) {
-      scrollToElement(element);
-    } else {
-      setTimeout(() => {
-        const retryElement = document.getElementById(targetId);
-        if (retryElement) scrollToElement(retryElement);
-      }, 300);
-    }
-  };
-
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     closeMobileMenu();
 
     if (window.location.pathname === "/") {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: getScrollBehavior() });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -117,11 +54,12 @@ export default function Navbar() {
             showMobileMenu ? "pb-[max(1rem,var(--safe-bottom))]" : ""
           }`}
         >
-          <h1 className="col-start-1 row-start-1 m-0 shrink-0 leading-none">
+          <div className="col-start-1 row-start-1 m-0 shrink-0 leading-none">
             <Link
               href="/"
               className="block transition-opacity hover:opacity-80"
               onClick={handleLogoClick}
+              aria-label={`${siteConfig.brandName} ana sayfa`}
             >
               {/* SEO: H1 metin içeriği — logo görseli dekoratif */}
               <span className="sr-only">Voxeil Yazılım ve Mühendislik</span>
@@ -136,7 +74,7 @@ export default function Navbar() {
                 aria-hidden="true"
               />
             </Link>
-          </h1>
+          </div>
 
           <button
             type="button"
@@ -166,43 +104,37 @@ export default function Navbar() {
                   : "xl:flex-row xl:items-center xl:justify-center xl:gap-12"
               }`}
             >
-              {menuItems.map((item, index) => {
-                const href = getHref(item);
-
-                return (
-                  <motion.li
-                    key={item}
-                    initial={showMobileMenu ? { opacity: 0, y: -8 } : false}
-                    animate={showMobileMenu ? { opacity: 1, y: 0 } : undefined}
-                    transition={
+              {mainNavItems.map((item, index) => (
+                <motion.li
+                  key={item.href}
+                  initial={showMobileMenu ? { opacity: 0, y: -8 } : false}
+                  animate={showMobileMenu ? { opacity: 1, y: 0 } : undefined}
+                  transition={
+                    showMobileMenu ? { delay: index * 0.05, duration: 0.2 } : undefined
+                  }
+                >
+                  <Link
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className={
                       showMobileMenu
-                        ? { delay: index * 0.05, duration: 0.2 }
-                        : undefined
+                        ? "flex min-h-[44px] items-center w-full py-2 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
+                        : linkClassName
                     }
                   >
-                    <a
-                      href={href}
-                      onClick={(e) => handleSmoothScroll(e, href)}
-                      className={
-                        showMobileMenu
-                          ? "flex min-h-[44px] items-center w-full py-2 text-muted-secondary hover:text-orange border-b border-border/60 text-[0.9375rem] font-medium transition-colors"
-                          : linkClassName
-                      }
-                    >
-                      {item}
-                      {!showMobileMenu && (
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange transition-all duration-300 group-hover:w-full" />
-                      )}
-                    </a>
-                  </motion.li>
-                );
-              })}
+                    {item.label}
+                    {!showMobileMenu && (
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange transition-all duration-300 group-hover:w-full" />
+                    )}
+                  </Link>
+                </motion.li>
+              ))}
             </ul>
           </div>
 
-          <a
-            href="#iletisim"
-            onClick={(e) => handleSmoothScroll(e, "#iletisim")}
+          <Link
+            href={sectionPages.iletisim.path}
+            onClick={closeMobileMenu}
             className={`site-btn-ghost whitespace-nowrap ${
               showMobileMenu
                 ? "col-span-2 row-start-3 mt-4 block w-full text-center xl:col-start-3 xl:col-span-1 xl:row-start-1 xl:mt-0 xl:w-auto"
@@ -210,7 +142,7 @@ export default function Navbar() {
             }`}
           >
             Bize Ulaşın
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -1,12 +1,13 @@
 export const GOOGLE_FORM_ACTION =
   "https://docs.google.com/forms/d/e/1FAIpQLSfw7FKLn0yfDuwG44SzeC19RoAZng52t4CPyuk56nkM0DTl8g/formResponse";
 
-export type ContactFormPayload = {
-  name: string;
-  emailOrPhone: string;
-  message: string;
-  website?: string;
-};
+export const GOOGLE_FORM_FIELDS = {
+  name: "entry.2035581240",
+  emailOrPhone: "entry.9241696",
+  message: "entry.1907766424",
+} as const;
+
+export const GOOGLE_FORM_TARGET = "voxeil-google-form";
 
 export function validateEmailOrPhone(value: string): boolean {
   const trimmed = value.trim();
@@ -19,37 +20,32 @@ export function validateEmailOrPhone(value: string): boolean {
   return emailRegex.test(trimmed) || phoneRegex.test(cleanedValue);
 }
 
-export function sanitizeContactPayload(body: unknown):
-  | { ok: true; data: ContactFormPayload }
-  | { ok: false; error: string } {
-  if (!body || typeof body !== "object") {
-    return { ok: false, error: "Geçersiz istek." };
-  }
-
-  const raw = body as Record<string, unknown>;
-  const name = typeof raw.name === "string" ? raw.name.trim() : "";
-  const emailOrPhone = typeof raw.emailOrPhone === "string" ? raw.emailOrPhone.trim() : "";
-  const message = typeof raw.message === "string" ? raw.message.trim() : "";
-  const website = typeof raw.website === "string" ? raw.website.trim() : "";
+export function validateContactFields(input: {
+  name: string;
+  emailOrPhone: string;
+  message: string;
+  website?: string;
+}): string | null {
+  const name = input.name.trim();
+  const emailOrPhone = input.emailOrPhone.trim();
+  const message = input.message.trim();
+  const website = input.website?.trim() ?? "";
 
   if (website) {
-    return { ok: false, error: "Spam tespit edildi." };
+    return "Spam tespit edildi.";
   }
 
   if (!name || name.length > 120) {
-    return { ok: false, error: "Geçerli bir ad soyad giriniz." };
+    return "Geçerli bir ad soyad giriniz.";
   }
 
   if (!validateEmailOrPhone(emailOrPhone)) {
-    return { ok: false, error: "Geçerli bir e-posta adresi veya telefon numarası giriniz." };
+    return "Geçerli bir e-posta adresi veya telefon numarası giriniz.";
   }
 
   if (!message || message.length < 10 || message.length > 4000) {
-    return { ok: false, error: "Mesaj en az 10, en fazla 4000 karakter olmalıdır." };
+    return "Mesaj en az 10, en fazla 4000 karakter olmalıdır.";
   }
 
-  return {
-    ok: true,
-    data: { name, emailOrPhone, message },
-  };
+  return null;
 }

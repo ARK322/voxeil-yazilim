@@ -3,14 +3,14 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock } from "react-icons/fa";
-import SocialLinks from "@/components/SocialLinks";
-import { sanitizeContactPayload, validateEmailOrPhone } from "@/lib/contact-form";
+import SocialLinks from "@/components/layout/SocialLinks";
 import {
-  checkClientRateLimit,
-  formatRetryAfter,
-  getClientRateLimitMessage,
-  recordClientSubmission,
-} from "@/lib/rate-limit.client";
+  GOOGLE_FORM_ACTION,
+  GOOGLE_FORM_FIELDS,
+  GOOGLE_FORM_TARGET,
+  validateContactFields,
+  validateEmailOrPhone,
+} from "@/lib/contact-form";
 import { siteConfig } from "@/lib/site";
 
 export default function Contact() {
@@ -35,7 +35,7 @@ export default function Contact() {
     return false;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError("");
 
@@ -43,78 +43,37 @@ export default function Contact() {
     const formData = new FormData(form);
 
     const honeypot = formData.get("website") as string;
-    if (honeypot) {
-      return;
-    }
+    const name = (formData.get(GOOGLE_FORM_FIELDS.name) as string)?.trim();
+    const emailOrPhoneValue = (formData.get(GOOGLE_FORM_FIELDS.emailOrPhone) as string)?.trim();
+    const message = (formData.get(GOOGLE_FORM_FIELDS.message) as string)?.trim();
 
-    const name = (formData.get("name") as string)?.trim();
-    const emailOrPhoneValue = (formData.get("emailOrPhone") as string)?.trim();
-    const message = (formData.get("message") as string)?.trim();
-
-    const parsed = sanitizeContactPayload({
+    const validationError = validateContactFields({
       name,
       emailOrPhone: emailOrPhoneValue,
       message,
       website: honeypot,
     });
 
-    if (!parsed.ok) {
-      if (parsed.error.includes("e-posta") || parsed.error.includes("telefon")) {
-        setEmailOrPhoneError(parsed.error);
+    if (validationError) {
+      if (validationError.includes("e-posta") || validationError.includes("telefon")) {
+        setEmailOrPhoneError(validationError);
       } else {
-        setSubmitError(parsed.error);
+        setSubmitError(validationError);
       }
-      return;
-    }
-
-    const clientLimit = checkClientRateLimit();
-    if (!clientLimit.allowed) {
-      setSubmitError(getClientRateLimitMessage(clientLimit));
       return;
     }
 
     setIsSubmitting(true);
+    form.submit();
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          emailOrPhone: emailOrPhoneValue,
-          message,
-          website: honeypot,
-        }),
-      });
+    setSubmitSuccess(true);
+    form.reset();
+    setEmailOrPhone("");
+    setIsSubmitting(false);
 
-      const data = (await response.json().catch(() => null)) as
-        | { error?: string; retryAfterMs?: number }
-        | null;
-
-      if (!response.ok) {
-        if (response.status === 429 && data?.retryAfterMs) {
-          setSubmitError(
-            `Çok fazla istek gönderildi. ${formatRetryAfter(data.retryAfterMs)} sonra tekrar deneyin.`,
-          );
-        } else {
-          setSubmitError(data?.error ?? "Form gönderilemedi. Lütfen tekrar deneyin.");
-        }
-        return;
-      }
-
-      recordClientSubmission();
-      setSubmitSuccess(true);
-      form.reset();
-      setEmailOrPhone("");
-
-      window.setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    } catch {
-      setSubmitError("Bağlantı hatası. Lütfen tekrar deneyin.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    window.setTimeout(() => {
+      setSubmitSuccess(false);
+    }, 5000);
   };
 
   return (
@@ -128,7 +87,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            İletişim
+            Ankara Yazılım Şirketi İletişim
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -202,7 +161,14 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-white font-semibold mb-1">Adres</p>
-                  <p className="text-muted">{siteConfig.address.full}</p>
+                  <a
+                    href={siteConfig.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted hover:text-orange transition-colors"
+                  >
+                    {siteConfig.address.full}
+                  </a>
                 </div>
               </motion.div>
 
@@ -249,7 +215,21 @@ export default function Contact() {
                 Hızlı İletişim Formu
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              <iframe
+                name={GOOGLE_FORM_TARGET}
+                title="Form gönderim hedefi"
+                className="hidden"
+                tabIndex={-1}
+              />
+
+              <form
+                action={GOOGLE_FORM_ACTION}
+                method="POST"
+                target={GOOGLE_FORM_TARGET}
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                noValidate
+              >
                 <input
                   type="text"
                   name="website"
@@ -266,7 +246,7 @@ export default function Contact() {
                   <input
                     type="text"
                     id="contact-name"
-                    name="name"
+                    name={GOOGLE_FORM_FIELDS.name}
                     required
                     maxLength={120}
                     className="site-input"
@@ -283,7 +263,7 @@ export default function Contact() {
                   <input
                     type="text"
                     id="contact-email-phone"
-                    name="emailOrPhone"
+                    name={GOOGLE_FORM_FIELDS.emailOrPhone}
                     value={emailOrPhone}
                     onChange={(e) => {
                       setEmailOrPhone(e.target.value);
@@ -315,7 +295,7 @@ export default function Contact() {
                   </label>
                   <textarea
                     id="contact-message"
-                    name="message"
+                    name={GOOGLE_FORM_FIELDS.message}
                     required
                     minLength={10}
                     maxLength={4000}

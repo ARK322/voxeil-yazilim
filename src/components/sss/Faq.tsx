@@ -19,7 +19,7 @@ export default function Faq() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Sık Sorulan Sorular
+            Yazılım Hizmetleri SSS
           </motion.h2>
         </header>
 

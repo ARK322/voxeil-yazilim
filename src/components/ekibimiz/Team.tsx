@@ -34,7 +34,7 @@ export default function Team() {
             viewport={{ once: true }}
             className="site-section__title"
           >
-            Ekibimiz
+            Voxeil Yazılım Ekibi
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}

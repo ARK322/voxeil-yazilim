@@ -54,17 +54,18 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
             Otomasyon
           </span>
 
-          {/* SEO/A11y iyileştirmesi: aria-label — animasyon öncesi tam başlık metni erişilebilir */}
-          <p
+          <h1
             className="hero-finale__title"
-            aria-label="Dijital dönüşümünüzü birlikte başlatalım"
           >
+            <span className="sr-only">
+              Ankara Yazılım Şirketi — Web, Mobil ve Dijital Dönüşüm.{" "}
+            </span>
             <span className="hero-finale__title-bold">Dijital</span>
             <br />
             <span className="hero-finale__title-bold">dönüşümünüzü</span>
             <br />
             <span className="hero-finale__title-light">birlikte başlatalım</span>
-          </p>
+          </h1>
 
           <p className="hero-finale__body">
             30 dakikalık bir keşif görüşmesi ile başlayalım. Size özel bir yol haritası
@@ -72,11 +73,11 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
           </p>
 
           <div className="hero-finale__actions">
-            <a href="#iletisim" className="site-btn-primary">
+            <a href="/iletisim/" className="site-btn-primary">
               Görüşme Planla
               <span aria-hidden="true">→</span>
             </a>
-            <a href="#hizmetlerimiz" className="site-btn-ghost whitespace-nowrap">
+            <a href="/hizmetler/" className="site-btn-ghost whitespace-nowrap">
               Hizmetlerimiz
               <span aria-hidden="true">↗</span>
             </a>
