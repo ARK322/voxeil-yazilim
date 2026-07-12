@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
-import NavDropdown from "@/components/layout/NavDropdown";
+import { NavMegaMenuPanel, NavMegaMenuTriggers } from "@/components/layout/NavMegaMenu";
 import { navGroups, sectionAnchors, sectionHref, navItemHref, type NavLinkItem } from "@/lib/sections";
 import { scrollToNavTarget } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
@@ -16,11 +16,30 @@ export default function Navbar() {
   const onHome = pathname === "/";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [activeMegaGroupId, setActiveMegaGroupId] = useState<string | null>(null);
 
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
     setOpenAccordion(null);
   }, []);
+
+  const closeMegaMenu = useCallback(() => {
+    setMegaMenuOpen(false);
+    setActiveMegaGroupId(null);
+  }, []);
+
+  const toggleMegaGroup = useCallback(
+    (groupId: string) => {
+      if (megaMenuOpen && activeMegaGroupId === groupId) {
+        closeMegaMenu();
+        return;
+      }
+      setMegaMenuOpen(true);
+      setActiveMegaGroupId(groupId);
+    },
+    [megaMenuOpen, activeMegaGroupId, closeMegaMenu]
+  );
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -38,6 +57,21 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen, closeMobileMenu]);
 
+  useEffect(() => {
+    if (!megaMenuOpen) return;
+
+    const onEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMegaMenu();
+    };
+
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [megaMenuOpen, closeMegaMenu]);
+
+  useEffect(() => {
+    closeMegaMenu();
+  }, [pathname, closeMegaMenu]);
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     item: NavLinkItem
@@ -49,6 +83,7 @@ export default function Navbar() {
 
     e.preventDefault();
     closeMobileMenu();
+    closeMegaMenu();
     scrollToNavTarget(item.id, item.serviceTab);
   };
 
@@ -61,6 +96,7 @@ export default function Navbar() {
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     closeMobileMenu();
+    closeMegaMenu();
 
     if (onHome) {
       e.preventDefault();
@@ -76,7 +112,7 @@ export default function Navbar() {
       className="fixed top-0 inset-x-0 z-50 pt-[var(--safe-top)]"
       aria-label="Ana navigasyon"
     >
-      <div className="bg-black border-b border-white/5">
+      <div className="relative bg-black border-b border-white/5">
         <div
           className={`nav-container relative grid grid-cols-[1fr_auto] items-center py-4 sm:py-5 xl:grid-cols-[auto_1fr_auto] xl:py-6 ${
             showMobileMenu ? "pb-[max(1rem,var(--safe-bottom))]" : ""
@@ -105,8 +141,11 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="col-start-2 row-start-1 shrink-0 flex items-center justify-center min-w-[44px] min-h-[44px] text-muted-secondary hover:text-orange transition-colors rounded-lg xl:hidden"
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="col-start-2 row-start-1 justify-self-end shrink-0 flex items-center justify-center min-w-[44px] min-h-[44px] text-muted-secondary hover:text-orange transition-colors rounded-lg xl:hidden"
+            onClick={() => {
+              closeMegaMenu();
+              setIsMobileMenuOpen((open) => !open);
+            }}
             aria-expanded={isMobileMenuOpen}
             aria-controls="primary-nav-menu"
             aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
@@ -124,18 +163,15 @@ export default function Navbar() {
               showMobileMenu ? "row-start-2 pt-2" : "hidden xl:block"
             }`}
           >
-            {/* Desktop: dropdowns */}
-            <ul className="hidden xl:flex xl:flex-row xl:items-center xl:justify-center xl:gap-10">
-              {navGroups.map((group) => (
-                <NavDropdown
-                  key={group.id}
-                  label={group.label}
-                  items={group.items}
-                  onHome={onHome}
-                  onSelect={handleNavClick}
-                />
-              ))}
-            </ul>
+            {/* Desktop: mega menü tetikleyicileri */}
+            <div className="hidden xl:flex xl:justify-center">
+              <NavMegaMenuTriggers
+                groups={navGroups}
+                open={megaMenuOpen}
+                activeGroupId={activeMegaGroupId}
+                onToggleGroup={toggleMegaGroup}
+              />
+            </div>
 
             {/* Mobile: accordion */}
             <ul className={`flex flex-col gap-1 xl:hidden ${showMobileMenu ? "" : "hidden"}`}>
@@ -197,21 +233,46 @@ export default function Navbar() {
                   </motion.li>
                 );
               })}
+
+              {showMobileMenu && (
+                <motion.li
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navGroups.length * 0.05 + 0.05, duration: 0.2 }}
+                  className="pt-4 mt-2"
+                >
+                  <Link
+                    href={contactHref}
+                    onClick={(e) => handleSectionClick(e, sectionAnchors.iletisim)}
+                    className="site-btn-primary w-full"
+                  >
+                    Bize Ulaşın
+                  </Link>
+                </motion.li>
+              )}
             </ul>
           </div>
 
-          <Link
-            href={contactHref}
-            onClick={(e) => handleSectionClick(e, sectionAnchors.iletisim)}
-            className={`site-btn-ghost whitespace-nowrap ${
-              showMobileMenu
-                ? "col-span-2 row-start-3 mt-4 block w-full text-center xl:col-start-3 xl:col-span-1 xl:row-start-1 xl:mt-0 xl:w-auto"
-                : "hidden xl:inline-flex col-start-3 row-start-1 shrink-0"
-            }`}
-          >
-            Bize Ulaşın
-          </Link>
+          {/* Desktop CTA */}
+          <div className="hidden xl:flex col-start-3 row-start-1 shrink-0 items-center">
+            <Link
+              href={contactHref}
+              onClick={(e) => handleSectionClick(e, sectionAnchors.iletisim)}
+              className="site-btn-ghost whitespace-nowrap"
+            >
+              Bize Ulaşın
+            </Link>
+          </div>
         </div>
+
+        <NavMegaMenuPanel
+          groups={navGroups}
+          open={megaMenuOpen}
+          activeGroupId={activeMegaGroupId}
+          onClose={closeMegaMenu}
+          onHome={onHome}
+          onSelect={handleNavClick}
+        />
       </div>
 
       <AnimatePresence>

@@ -387,6 +387,49 @@ button,
   padding-right: max(var(--nav-px), calc(var(--nav-px) + var(--safe-right)));
 }
 
+/* ——— Desktop mega menü ——— */
+.nav-mega-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: calc(var(--safe-top) + var(--nav-height));
+  z-index: 40;
+  border: none;
+  padding: 0;
+  cursor: default;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.nav-mega-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 50;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.98);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.55);
+}
+
+.nav-mega-trigger {
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+
+.nav-mega-link {
+  text-decoration: none;
+}
+
+@media (max-width: 1279px) {
+  .nav-mega-backdrop,
+  .nav-mega-panel {
+    display: none !important;
+  }
+}
+
 /* Koyu turuncu grid + seyrek nokta deseni */
 .isometric-dots {
   background-color: var(--page-bg);

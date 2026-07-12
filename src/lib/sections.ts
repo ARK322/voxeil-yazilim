@@ -24,6 +24,8 @@ export type NavLinkItem = {
 export type NavGroup = {
   id: string;
   label: string;
+  /** Mega menü sütun açıklaması */
+  description?: string;
   items: NavLinkItem[];
 };
 
@@ -62,16 +64,18 @@ const serviceFooterItems: NavLinkItem[] = serviceNavTabs.map((tab) => ({
   serviceTab: tab.tabIndex,
 }));
 
-/** Yazılım şirketi nav grupları — header dropdown + mobil accordion */
+/** Yazılım şirketi nav grupları — header mega menü + mobil accordion */
 export const navGroups: NavGroup[] = [
   {
     id: "hizmetler",
     label: "Hizmetler",
+    description: "Web, mobil, e-ticaret ve bulut altyapısı hizmetlerimiz.",
     items: serviceNavItems,
   },
   {
     id: "sirket",
     label: "Şirket",
+    description: "Sürecimiz, ekibimiz ve Voxeil hakkında bilgi edinin.",
     items: [
       { label: "Proje Süreci", id: sectionAnchors.surec },
       { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz },
@@ -82,6 +86,7 @@ export const navGroups: NavGroup[] = [
   {
     id: "cozumler",
     label: "Çözümler",
+    description: "Sektörel yazılım, teknoloji yığını ve sık sorulan sorular.",
     items: [
       { label: "Sektörel Yazılım", id: sectionAnchors.endustriyelCozumler },
       { label: "Teknoloji Stack", id: sectionAnchors.teknolojiler },
