@@ -140,10 +140,6 @@ button,
   object-position: center center;
 }
 
-.site-section--plain-bg {
-  background-color: var(--page-bg);
-}
-
 .service-panel {
   min-height: 0;
 }

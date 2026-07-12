@@ -93,7 +93,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="hizmetlerimiz" className="site-section site-section--plain-bg relative z-20 overflow-x-clip">
+    <section id="hizmetlerimiz" className="site-section relative z-20 overflow-x-clip">
       <div className="site-container">
         <header className="site-section__header">
           <motion.h2
