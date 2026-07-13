@@ -1,0 +1,11 @@
+.site-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  transition: border-color 0.3s ease;
+}
+
+.site-card--hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 0 28px var(--orange-glow-soft);
+}

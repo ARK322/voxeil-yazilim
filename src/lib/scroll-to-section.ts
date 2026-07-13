@@ -18,7 +18,7 @@ function getScrollBehavior(): ScrollBehavior {
 
 export function scrollToSection(targetId: string) {
   const element = document.getElementById(targetId);
-  if (!element) return;
+  if (!element) return false;
 
   const elementPosition = element.getBoundingClientRect().top;
   const offsetPosition = elementPosition + window.pageYOffset - getNavOffset();
@@ -27,13 +27,34 @@ export function scrollToSection(targetId: string) {
     top: Math.max(0, offsetPosition),
     behavior: getScrollBehavior(),
   });
+
+  return true;
+}
+
+export function scrollToSectionWithRetry(
+  targetId: string,
+  options?: { maxAttempts?: number; intervalMs?: number }
+) {
+  const { maxAttempts = 30, intervalMs = 100 } = options ?? {};
+
+  if (scrollToSection(targetId)) return () => {};
+
+  let attempts = 0;
+  const timerId = window.setInterval(() => {
+    attempts += 1;
+    if (scrollToSection(targetId) || attempts >= maxAttempts) {
+      window.clearInterval(timerId);
+    }
+  }, intervalMs);
+
+  return () => window.clearInterval(timerId);
 }
 
 export function scrollToNavTarget(sectionId: SectionId, serviceTab?: number) {
   if (serviceTab !== undefined) {
     dispatchServiceTab(serviceTab);
   }
-  scrollToSection(sectionId);
+  return scrollToSectionWithRetry(sectionId);
 }
 
 export function parseNavHash(

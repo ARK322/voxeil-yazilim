@@ -28,15 +28,17 @@ export type TrustBadge = TrustBadgeEmbed | TrustBadgeCardConfig;
 /** Footer rozetleri — yeni sertifika aldıkça bu listeye ekle. */
 export const trustBadges: TrustBadge[] = [
   {
-    type: "embed",
+    type: "card",
     id: "tepeseo-silver",
-    label: "TEPESEO Gümüş SEO Rozeti",
+    label: "TEPESEO Gümüş SEO Rozeti — Doğrulanmış Site",
     provider: "TEPESEO",
     providerUrl: "https://tepeseo.com",
-    containerId: "tepeseo-badge",
-    scriptSrc:
-      "https://tepeseo.com/rozet/Fvh3Xa0j6dVwkn3yGgkhnJHnM3ERbf2YtAATjjgiSNJd3Fx0/embed.js",
-    profileUrl: "https://tepeseo.com/rozet/Fvh3Xa0j6dVwkn3yGgkhnJHnM3ERbf2YtAATjjgiSNJd3Fx0",
+    href: "https://tepeseo.com/rozet/Fvh3Xa0j6dVwkn3yGgkhnJHnM3ERbf2YtAATjjgiSNJd3Fx0",
+    tierLabel: "Gümüş Rozet",
+    accentHex: "#9CA3AF",
+    accentBorder: "#6B7280",
+    score: "62",
+    scoreSuffix: "/100",
   },
   {
     type: "card",

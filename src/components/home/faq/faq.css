@@ -1,0 +1,16 @@
+.faq-card--open {
+  border-color: var(--orange-a55);
+  box-shadow: 0 0 28px var(--faq-open-glow);
+}
+
+.faq-trigger {
+  transition: background 0.2s ease;
+}
+
+.faq-trigger:hover {
+  background: var(--white-a02);
+}
+
+.faq-answer {
+  border-top: 1px solid var(--faq-answer-border);
+}

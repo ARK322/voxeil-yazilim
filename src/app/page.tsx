@@ -1,28 +1,24 @@
-import HeroSection from "@/components/hero/HeroSection";
-import SectionDivider from "@/components/layout/SectionDivider";
-import HashScrollHandler from "@/components/layout/HashScrollHandler";
-import Footer from "@/components/layout/Footer";
-import dynamic from "next/dynamic";
-
-const Services = dynamic(() => import("@/components/sections/Services"));
-const Process = dynamic(() => import("@/components/sections/Process"));
-const IndustrialSolutions = dynamic(() => import("@/components/sections/IndustrialSolutions"));
-const WhyUs = dynamic(() => import("@/components/sections/WhyUs"));
-const About = dynamic(() => import("@/components/sections/About"));
-const Team = dynamic(() => import("@/components/sections/Team"));
-const Technologies = dynamic(() => import("@/components/sections/Technologies"));
-const Faq = dynamic(() => import("@/components/sections/Faq"));
-const Contact = dynamic(() => import("@/components/sections/Contact"));
+import HeroSection from "@/components/home/hero/HeroSection";
+import SectionDivider from "@/components/home/section-divider/SectionDivider";
+import SiteBackground from "@/components/layout/background/SiteBackground";
+import HashScrollHandler from "@/components/layout/hash-scroll/HashScrollHandler";
+import Footer from "@/components/layout/footer/Footer";
+import Services from "@/components/home/services/Services";
+import Process from "@/components/home/process/Process";
+import IndustrialSolutions from "@/components/home/industrial-solutions/IndustrialSolutions";
+import WhyUs from "@/components/home/why-us/WhyUs";
+import About from "@/components/home/about/About";
+import Team from "@/components/home/team/Team";
+import Technologies from "@/components/home/technologies/Technologies";
+import Faq from "@/components/home/faq/Faq";
+import Contact from "@/components/home/contact/Contact";
 
 export default function Home() {
   return (
     <>
       <HashScrollHandler />
 
-      <div className="fixed inset-0 isometric-dots -z-10">
-        <div className="glow-orange-top-left" />
-        <div className="glow-orange-bottom-right" />
-      </div>
+      <SiteBackground />
 
       <div className="relative z-10 overflow-x-clip max-w-full">
         <HeroSection />

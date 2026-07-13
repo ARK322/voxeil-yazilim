@@ -1,0 +1,25 @@
+.service-panel {
+  min-height: 0;
+}
+
+.service-panel__grid {
+  align-items: stretch;
+}
+
+.service-panel__icon {
+  font-size: clamp(4.5rem, 16vw, 8rem);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.service-panel__feature {
+  min-width: 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--service-feature-border);
+  background: var(--service-feature-bg);
+  transition: border-color 0.3s ease;
+}
+
+.service-panel__feature:hover {
+  border-color: var(--service-feature-border-hover);
+}

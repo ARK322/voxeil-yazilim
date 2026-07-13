@@ -12,7 +12,7 @@ export default function NotFound() {
       <p className="text-orange text-sm font-semibold tracking-widest uppercase mb-4">
         404
       </p>
-      <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+      <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
         Sayfa bulunamadı
       </h1>
       <p className="text-muted max-w-md mb-8">

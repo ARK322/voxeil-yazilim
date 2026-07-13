@@ -1,0 +1,105 @@
+.site-btn-primary,
+.site-btn-ghost,
+.site-icon-btn,
+.site-btn-tab {
+  border: 1px solid var(--btn-border);
+  letter-spacing: var(--tracking-ui);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.site-btn-primary,
+.site-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.site-btn-primary {
+  padding: 0.875rem 2rem;
+  background: var(--orange);
+  color: var(--text-primary);
+}
+
+.site-btn-primary--md,
+.site-btn-ghost.site-btn--md {
+  font-size: 0.9375rem;
+}
+
+.site-btn-primary:hover:not(:disabled) {
+  background: var(--orange-hover);
+  border-color: var(--btn-border-hover);
+  box-shadow: 0 8px 28px var(--orange-glow);
+}
+
+.site-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.site-btn-ghost {
+  padding: 0.75rem 1.375rem;
+  background: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  font-size: 0.875rem;
+}
+
+.site-btn-ghost:hover {
+  border-color: var(--btn-border-hover-strong);
+  color: var(--text-primary);
+  background: var(--btn-ghost-bg-hover);
+}
+
+.site-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 9999px;
+  background: var(--orange);
+  color: var(--text-primary);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.site-icon-btn:hover {
+  background: var(--orange-hover);
+  border-color: var(--btn-border-hover);
+  box-shadow: 0 4px 20px var(--orange-glow-soft);
+}
+
+.site-btn-tab {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  background: var(--btn-tab-bg);
+  color: var(--text-secondary);
+}
+
+.site-btn-tab:hover {
+  color: var(--text-primary);
+  border-color: var(--btn-border-hover);
+}
+
+.site-btn-tab--active {
+  background: var(--orange);
+  color: var(--text-primary);
+  border-color: var(--btn-border-active);
+  box-shadow: 0 4px 24px var(--orange-glow);
+}
+
+.site-glow-text {
+  text-shadow: 0 0 8px var(--orange-glow-soft);
+}
+
+.site-glow-ring {
+  box-shadow: 0 0 20px var(--orange-glow-soft);
+}

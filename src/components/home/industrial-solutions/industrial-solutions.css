@@ -1,0 +1,4 @@
+.shape-image-transform {
+  transform: rotate(-6deg) scale(1.08);
+  object-position: center center;
+}

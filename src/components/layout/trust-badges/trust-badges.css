@@ -1,0 +1,95 @@
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+}
+
+.trust-badge-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 6px;
+  background: var(--trust-gradient);
+  border: 1px solid var(--white-a10);
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.trust-badges .trust-badge-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--white-a20);
+  box-shadow: var(--shadow-md);
+}
+
+.trust-badge-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trust-badge-card--green .trust-badge-card__icon,
+.trust-badge-card--scamadviser .trust-badge-card__icon {
+  background: var(--trust-icon-gradient);
+}
+
+.trust-badge-card--tepeseo-silver .trust-badge-card__icon {
+  background: var(--trust-silver-gradient);
+}
+
+.trust-badge-card__meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.trust-badge-card__provider {
+  font-size: 10px;
+  color: var(--white-a50);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.trust-badge-card__tier {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trust-badge-card--green .trust-badge-card__tier,
+.trust-badge-card--scamadviser .trust-badge-card__tier {
+  color: var(--green-500);
+}
+
+.trust-badge-card--tepeseo-silver .trust-badge-card__tier {
+  color: var(--trust-silver);
+}
+
+.trust-badge-card__score-wrap {
+  margin-left: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.trust-badge-card__score {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.trust-badge-card__suffix {
+  font-size: 8px;
+  color: var(--white-a40);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

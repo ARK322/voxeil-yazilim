@@ -1,4 +1,6 @@
-import { serviceNavTabs, serviceTabHash } from "@/lib/services";
+import { serviceNavTabs } from "@/lib/services";
+import { solutionsHub } from "@/components/solutions/content";
+import { projectsHub } from "@/components/projects/content";
 
 export const sectionAnchors = {
   hizmetlerimiz: "hizmetlerimiz",
@@ -10,14 +12,31 @@ export const sectionAnchors = {
   teknolojiler: "teknolojiler",
   sss: "sss",
   iletisim: "iletisim",
+  projeler: "projeler",
 } as const;
 
 export type SectionId = (typeof sectionAnchors)[keyof typeof sectionAnchors];
 
+export const pagePaths = {
+  webGelistirme: "/hizmetler/web-gelistirme/",
+  mobilUygulama: "/hizmetler/mobil-uygulama/",
+  eTicaret: "/hizmetler/e-ticaret/",
+  danismanlik: "/hizmetler/danismanlik/",
+  bulut: "/hizmetler/bulut/",
+  backendMicroservices: "/hizmetler/backend-microservices/",
+  hakkimizda: "/hakkimizda/",
+  nedenBiz: "/neden-biz/",
+  surec: "/surec/",
+  ekibimiz: "/ekibimiz/",
+  teknolojiler: "/teknolojiler/",
+  sss: "/sss/",
+  iletisim: "/iletisim/",
+} as const;
+
 export type NavLinkItem = {
   label: string;
   id: SectionId;
-  /** Hizmetler bölümünde açılacak sekme (0–4) */
+  href?: string;
   serviceTab?: number;
 };
 
@@ -30,9 +49,7 @@ export type NavMegaColumn = {
 export type NavGroup = {
   id: string;
   label: string;
-  /** Panel üst açıklaması */
   description?: string;
-  /** Mega menü panelindeki sütunlar — yalnızca bu gruba ait */
   columns: NavMegaColumn[];
 };
 
@@ -46,27 +63,52 @@ export function getNavGroupItems(group: NavGroup): NavLinkItem[] {
 }
 
 export function sectionHref(id: string, onHome = false) {
+  if (id === sectionAnchors.iletisim) {
+    return pagePaths.iletisim;
+  }
   return onHome ? `#${id}` : `/#${id}`;
 }
 
 export function navItemHref(item: NavLinkItem, onHome = false) {
+  if (item.href) {
+    return item.href;
+  }
   if (item.serviceTab !== undefined) {
     const tab = serviceNavTabs[item.serviceTab];
     if (tab) {
-      const hash = serviceTabHash(tab.slug);
+      const hash = `hizmet-${tab.slug}`;
       return onHome ? `#${hash}` : `/#${hash}`;
     }
   }
   return sectionHref(item.id, onHome);
 }
 
-const serviceFooterItems: NavLinkItem[] = serviceNavTabs.map((tab) => ({
-  label: tab.label,
-  id: sectionAnchors.hizmetlerimiz,
-  serviceTab: tab.tabIndex,
+const serviceFooterItems: NavLinkItem[] = [
+  { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz, href: pagePaths.webGelistirme },
+  { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz, href: pagePaths.mobilUygulama },
+  { label: "E-Ticaret Çözümleri", id: sectionAnchors.hizmetlerimiz, href: pagePaths.eTicaret },
+  { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz, href: pagePaths.danismanlik },
+  { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz, href: pagePaths.bulut },
+  {
+    label: "Backend & Microservices",
+    id: sectionAnchors.hizmetlerimiz,
+    href: pagePaths.backendMicroservices,
+  },
+];
+
+const sectorNavItems: NavLinkItem[] = solutionsHub.items.map((item) => ({
+  label: item.title,
+  id: sectionAnchors.endustriyelCozumler,
+  href: `${solutionsHub.basePath}${item.slug}/`,
 }));
 
-/** Yazılım şirketi nav grupları — header mega menü + mobil accordion */
+const projectNavItems: NavLinkItem[] = projectsHub.items.map((item) => ({
+  label: item.title,
+  id: sectionAnchors.projeler,
+  href: `${projectsHub.basePath}${item.slug}/`,
+}));
+
+/** Header mega menü — 4 grup */
 export const navGroups: NavGroup[] = [
   {
     id: "hizmetler",
@@ -74,96 +116,98 @@ export const navGroups: NavGroup[] = [
     description: "Web, mobil, e-ticaret ve bulut altyapısı hizmetlerimiz.",
     columns: [
       {
-        title: "Genel",
-        description: "Tüm hizmetlerimize genel bakış.",
-        items: [{ label: "Tüm Hizmetler", id: sectionAnchors.hizmetlerimiz }],
-      },
-      {
         title: "Uygulama Geliştirme",
         description: "Web, mobil ve e-ticaret projeleri.",
         items: [
-          { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz, serviceTab: 0 },
-          { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz, serviceTab: 1 },
-          { label: "E-Ticaret Çözümleri", id: sectionAnchors.hizmetlerimiz, serviceTab: 2 },
+          { label: "Web Geliştirme", id: sectionAnchors.hizmetlerimiz, href: pagePaths.webGelistirme },
+          { label: "Mobil Uygulama", id: sectionAnchors.hizmetlerimiz, href: pagePaths.mobilUygulama },
+          { label: "E-Ticaret Çözümleri", id: sectionAnchors.hizmetlerimiz, href: pagePaths.eTicaret },
         ],
       },
       {
-        title: "Danışmanlık & Altyapı",
-        description: "Teknik destek, bulut ve DevOps.",
+        title: "Altyapı & Danışmanlık",
+        description: "Teknik destek, bulut ve backend sistemleri.",
         items: [
-          { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz, serviceTab: 3 },
-          { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz, serviceTab: 4 },
+          { label: "Danışmanlık & Destek", id: sectionAnchors.hizmetlerimiz, href: pagePaths.danismanlik },
+          { label: "Bulut Çözümleri", id: sectionAnchors.hizmetlerimiz, href: pagePaths.bulut },
+          {
+            label: "Backend & Microservices",
+            id: sectionAnchors.hizmetlerimiz,
+            href: pagePaths.backendMicroservices,
+          },
         ],
-      },
-    ],
-  },
-  {
-    id: "sirket",
-    label: "Şirket",
-    description: "Sürecimiz, ekibimiz ve Voxeil hakkında bilgi edinin.",
-    columns: [
-      {
-        title: "Süreç",
-        description: "Projeye nasıl başlıyoruz?",
-        items: [{ label: "Proje Süreci", id: sectionAnchors.surec }],
-      },
-      {
-        title: "Kurumsal",
-        description: "Voxeil'i tanıyın.",
-        items: [
-          { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz },
-          { label: "Hakkımızda", id: sectionAnchors.hakkimizda },
-        ],
-      },
-      {
-        title: "Ekip",
-        description: "Projelerinizi kimler yürütüyor?",
-        items: [{ label: "Ekibimiz", id: sectionAnchors.ekibimiz }],
       },
     ],
   },
   {
     id: "cozumler",
     label: "Çözümler",
-    description: "Sektörel yazılım, teknoloji yığını ve sık sorulan sorular.",
+    description: "Endüstriye özel yazılım çözümleri ve sektörel uygulamalar.",
     columns: [
       {
         title: "Sektörler",
-        description: "Endüstriye özel yazılım çözümleri.",
-        items: [{ label: "Sektörel Yazılım", id: sectionAnchors.endustriyelCozumler }],
+        description: "Dikey yazılım çözümlerimiz.",
+        items: sectorNavItems.slice(0, 4),
       },
       {
-        title: "Teknoloji",
-        description: "Kullandığımız stack ve araçlar.",
-        items: [{ label: "Teknoloji Stack", id: sectionAnchors.teknolojiler }],
+        title: "Diğer Sektörler",
+        description: "Kalan sektör sayfalarına hızlı erişim.",
+        items: sectorNavItems.slice(4),
       },
+    ],
+  },
+  {
+    id: "kurumsal",
+    label: "Kurumsal",
+    description: "Voxeil'i tanıyın — ekip, süreç ve çalışma modelimiz.",
+    columns: [
       {
-        title: "Destek",
-        description: "Sık sorulan sorular ve yanıtlar.",
-        items: [{ label: "SSS", id: sectionAnchors.sss }],
+        title: "Voxeil",
+        description: "Kimiz, nasıl çalışıyoruz?",
+        items: [
+          { label: "Hakkımızda", id: sectionAnchors.hakkimizda, href: pagePaths.hakkimizda },
+          { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz, href: pagePaths.nedenBiz },
+          { label: "Proje Süreci", id: sectionAnchors.surec, href: pagePaths.surec },
+          { label: "Ekibimiz", id: sectionAnchors.ekibimiz, href: pagePaths.ekibimiz },
+        ],
+      },
+    ],
+  },
+  {
+    id: "projeler",
+    label: "Projeler",
+    description: "Seçili yazılım projelerimizden örnekler.",
+    columns: [
+      {
+        title: "Referanslar",
+        description: "Web, mobil ve kurumsal projeler.",
+        items: projectNavItems,
       },
     ],
   },
 ] as const;
 
-/**
- * Footer link sütunları (Marka + bu 2 + İletişim = 4 sütun).
- */
+/** Footer link sütunları (Marka + bu 3 + İletişim = 5 sütun lg'de) */
 export const footerLinkColumns: FooterLinkColumn[] = [
   {
     title: "Hizmetler",
     items: serviceFooterItems,
   },
   {
-    title: "Şirket",
+    title: "Kurumsal",
     items: [
-      { label: "Proje Süreci", id: sectionAnchors.surec },
-      { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz },
-      { label: "Hakkımızda", id: sectionAnchors.hakkimizda },
-      { label: "Ekibimiz", id: sectionAnchors.ekibimiz },
-      { label: "Sektörel Yazılım", id: sectionAnchors.endustriyelCozumler },
-      { label: "Teknoloji Stack", id: sectionAnchors.teknolojiler },
-      { label: "SSS", id: sectionAnchors.sss },
+      { label: "Hakkımızda", id: sectionAnchors.hakkimizda, href: pagePaths.hakkimizda },
+      { label: "Neden Voxeil?", id: sectionAnchors.nedenBiz, href: pagePaths.nedenBiz },
+      { label: "Proje Süreci", id: sectionAnchors.surec, href: pagePaths.surec },
+      { label: "Ekibimiz", id: sectionAnchors.ekibimiz, href: pagePaths.ekibimiz },
+    ] satisfies NavLinkItem[],
+  },
+  {
+    title: "Keşfet",
+    items: [
+      { label: "Endüstriyel Çözümler", id: sectionAnchors.endustriyelCozumler },
+      { label: "Teknoloji Stack", id: sectionAnchors.teknolojiler, href: pagePaths.teknolojiler },
+      { label: "SSS", id: sectionAnchors.sss, href: pagePaths.sss },
     ] satisfies NavLinkItem[],
   },
 ] as const;

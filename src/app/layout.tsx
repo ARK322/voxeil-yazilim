@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
+import "@/components/shared/shared.css";
+import "@/components/layout/layout.css";
+import Navbar from "@/components/layout/navbar/Navbar";
+import RouteScrollRecovery from "@/components/layout/hash-scroll/RouteScrollRecovery";
 import { siteConfig } from "@/lib/site";
 import { getJsonLdGraph } from "@/lib/json-ld";
 
@@ -44,6 +47,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
+    images: [{ url: "/logo.svg", alt: siteConfig.logoAlt }],
   },
   twitter: {
     card: "summary_large_image",
@@ -51,6 +55,7 @@ export const metadata: Metadata = {
     creator: "@voxeil",
     title: siteConfig.title,
     description: siteConfig.description,
+    images: ["/logo.svg"],
   },
   robots: {
     index: true,
@@ -64,7 +69,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/logo.svg", type: "image/svg+xml" }],
   },
 };
 
@@ -83,6 +88,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${exo2.variable} subpixel-antialiased overflow-x-clip`}>
+        <RouteScrollRecovery />
         <Navbar />
         {children}
       </body>
