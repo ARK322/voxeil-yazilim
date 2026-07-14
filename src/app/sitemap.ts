@@ -6,6 +6,8 @@ import { siteConfig } from "@/lib/site";
 
 const staticPaths = [
   "/",
+  "/hizmetler/",
+  "/cozumler/",
   "/hakkimizda/",
   "/neden-biz/",
   "/surec/",

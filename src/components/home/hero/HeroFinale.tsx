@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { forwardRef } from "react";
+import { pagePaths } from "@/lib/sections";
 import { useEditorTilt } from "./useEditorTilt";
 
 const CODE_LINES: Array<Array<[string, string]>> = [
@@ -73,14 +75,14 @@ const HeroFinale = forwardRef<HTMLDivElement>((_, ref) => {
           </p>
 
           <div className="hero-finale__actions">
-            <a href="#iletisim" className="site-btn-primary site-btn-primary--md">
+            <Link href={pagePaths.iletisim} className="site-btn-primary site-btn-primary--md">
               Görüşme Planla
               <span aria-hidden="true">→</span>
-            </a>
-            <a href="#hizmetlerimiz" className="site-btn-ghost site-btn--md whitespace-nowrap">
+            </Link>
+            <Link href={pagePaths.hizmetler} className="site-btn-ghost site-btn--md whitespace-nowrap">
               Hizmetlerimiz
               <span aria-hidden="true">↗</span>
-            </a>
+            </Link>
           </div>
 
           <p className="hero-finale__status">

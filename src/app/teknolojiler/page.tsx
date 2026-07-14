@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ContentPage from "@/components/shared/templates/ContentPage";
+import TechnologiesPage from "@/components/resources/TechnologiesPage";
 import { technologiesPage } from "@/components/resources/content";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -9,6 +9,6 @@ export const metadata: Metadata = pageMetadata(
   "/teknolojiler/"
 );
 
-export default function TechnologiesPage() {
-  return <ContentPage page={technologiesPage} />;
+export default function TechnologiesRoutePage() {
+  return <TechnologiesPage />;
 }

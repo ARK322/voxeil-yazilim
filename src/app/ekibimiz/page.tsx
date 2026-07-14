@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import ContentPage from "@/components/shared/templates/ContentPage";
+import TeamPage from "@/components/company/team/TeamPage";
 import { getCompanyPage } from "@/components/company/content";
 import { pageMetadata } from "@/lib/page-metadata";
 
-const slug = "ekibimiz";
-const page = getCompanyPage(slug)!;
+const page = getCompanyPage("ekibimiz")!;
 
 export const metadata: Metadata = pageMetadata(page.title, page.description, "/ekibimiz/");
 
-export default function TeamPage() {
-  return <ContentPage page={page} />;
+export default function TeamRoutePage() {
+  return <TeamPage />;
 }

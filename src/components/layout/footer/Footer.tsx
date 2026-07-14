@@ -77,7 +77,7 @@ export default function Footer() {
                   {column.items.map((item) => (
                     <li key={`${column.title}-${item.label}-${item.serviceTab ?? ""}`}>
                       <Link
-                        href={navItemHref(item, onHome)}
+                        href={navItemHref(item)}
                         onClick={(e) => handleFooterLink(e, item)}
                         className={footerLinkClass}
                       >

@@ -41,7 +41,8 @@
   top: 100%;
   z-index: 50;
   overflow: hidden;
-  background: var(--black-a98);
+  /* Fully opaque — must not show hero/page content through the panel */
+  background-color: var(--background);
   border-top: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-nav);
 }

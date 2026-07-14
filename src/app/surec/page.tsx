@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import ContentPage from "@/components/shared/templates/ContentPage";
+import ProcessPage from "@/components/company/process/ProcessPage";
 import { getCompanyPage } from "@/components/company/content";
 import { pageMetadata } from "@/lib/page-metadata";
 
-const slug = "surec";
-const page = getCompanyPage(slug)!;
+const page = getCompanyPage("surec")!;
 
 export const metadata: Metadata = pageMetadata(page.title, page.description, "/surec/");
 
-export default function ProcessPage() {
-  return <ContentPage page={page} />;
+export default function ProcessRoutePage() {
+  return <ProcessPage />;
 }

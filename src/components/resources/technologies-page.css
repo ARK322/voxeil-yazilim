@@ -31,13 +31,3 @@
     grid-template-columns: repeat(10, minmax(0, 1fr));
   }
 }
-
-.tech-icon-fallback {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: 0.75rem;
-  color: var(--text-subtle);
-}

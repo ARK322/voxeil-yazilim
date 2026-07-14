@@ -8,6 +8,14 @@ html:has(.hero-root--initializing),
 body:has(.hero-root--initializing) {
   overflow: hidden;
   overscroll-behavior: none;
+  height: 100%;
+  touch-action: none;
+}
+
+.hero-root--initializing {
+  height: var(--hero-vh-px, 100svh) !important;
+  max-height: var(--hero-vh-px, 100svh);
+  overflow: hidden;
 }
 
 .hero-root {

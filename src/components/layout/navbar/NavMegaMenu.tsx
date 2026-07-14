@@ -105,9 +105,9 @@ export function NavMegaMenuPanel({
             id={`nav-mega-panel-${activeGroup.id}`}
             role="region"
             aria-label={`${activeGroup.label} menüsü`}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
             transition={panelTransition}
             className="nav-mega-panel"
           >
@@ -115,9 +115,9 @@ export function NavMegaMenuPanel({
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={activeGroup.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
+                  initial={{ y: 8 }}
+                  animate={{ y: 0 }}
+                  exit={{ y: -6 }}
                   transition={contentTransition}
                 >
                   {activeGroup.description ? (
@@ -157,7 +157,7 @@ export function NavMegaMenuPanel({
                               key={`${activeGroup.id}-${column.title}-${item.label}-${item.serviceTab ?? ""}`}
                             >
                               <Link
-                                href={navItemHref(item, onHome)}
+                                href={navItemHref(item)}
                                 className="nav-mega-link group/link flex min-h-[38px] items-center gap-2 rounded-md py-1.5 text-sm text-muted-secondary transition-colors hover:text-orange"
                                 onClick={(e) => {
                                   onClose();

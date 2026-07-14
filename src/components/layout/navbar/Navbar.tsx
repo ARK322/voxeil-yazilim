@@ -237,7 +237,7 @@ export default function Navbar() {
                           {getNavGroupItems(group).map((item) => (
                             <li key={`${group.id}-${item.label}-${item.serviceTab ?? ""}`}>
                               <Link
-                                href={navItemHref(item, onHome)}
+                                href={navItemHref(item)}
                                 onClick={(e) => handleNavClick(e, item)}
                                 className="flex min-h-[40px] items-center pl-3 text-sm text-muted-secondary hover:text-orange transition-colors"
                               >

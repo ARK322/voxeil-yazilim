@@ -3,9 +3,9 @@ import type { HubContent, PageContent } from "@/types/content";
 export const servicesHub: HubContent = {
   title: "Yazılım Geliştirme Hizmetleri",
   description:
-    "Web, mobil, e-ticaret, backend ve bulut altyapısı hizmetlerimizi keşfedin. Placeholder içerik — düzenlenecek.",
+    "Web, mobil, e-ticaret, backend ve bulut altyapısı hizmetlerimizi keşfedin. Uçtan uca yazılım geliştirme ve danışmanlık.",
   intro:
-    "Voxeil olarak uçtan uca yazılım geliştirme, danışmanlık ve DevOps hizmetleri sunuyoruz. Aşağıdaki hizmet sayfalarından detaylara ulaşabilirsiniz.",
+    "Voxeil olarak stratejiden canlıya almaya kadar uçtan uca yazılım geliştirme, danışmanlık ve DevOps hizmetleri sunuyoruz. Modern web teknolojileri, mobil uygulamalar ve bulut altyapıları ile işletmenizin dijital varlığını güçlendiriyoruz.",
   basePath: "/hizmetler/",
   items: [
     {

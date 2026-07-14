@@ -167,7 +167,8 @@ html {
 }
 
 body {
-  background: var(--background);
+  /* Transparent so SiteBackground grid/glow shows through page sections */
+  background: transparent;
   color: var(--foreground);
   font-family: var(--font-exo2), Arial, Helvetica, sans-serif;
   letter-spacing: var(--tracking-body);

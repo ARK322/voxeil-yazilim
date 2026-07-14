@@ -18,6 +18,8 @@ export const sectionAnchors = {
 export type SectionId = (typeof sectionAnchors)[keyof typeof sectionAnchors];
 
 export const pagePaths = {
+  hizmetler: "/hizmetler/",
+  cozumler: "/cozumler/",
   webGelistirme: "/hizmetler/web-gelistirme/",
   mobilUygulama: "/hizmetler/mobil-uygulama/",
   eTicaret: "/hizmetler/e-ticaret/",
@@ -62,25 +64,33 @@ export function getNavGroupItems(group: NavGroup): NavLinkItem[] {
   return group.columns.flatMap((column) => column.items);
 }
 
-export function sectionHref(id: string, onHome = false) {
-  if (id === sectionAnchors.iletisim) {
-    return pagePaths.iletisim;
-  }
-  return onHome ? `#${id}` : `/#${id}`;
+const sectionPagePaths: Partial<Record<SectionId, string>> = {
+  [sectionAnchors.hizmetlerimiz]: pagePaths.hizmetler,
+  [sectionAnchors.endustriyelCozumler]: pagePaths.cozumler,
+  [sectionAnchors.teknolojiler]: pagePaths.teknolojiler,
+  [sectionAnchors.sss]: pagePaths.sss,
+  [sectionAnchors.iletisim]: pagePaths.iletisim,
+  [sectionAnchors.hakkimizda]: pagePaths.hakkimizda,
+  [sectionAnchors.nedenBiz]: pagePaths.nedenBiz,
+  [sectionAnchors.surec]: pagePaths.surec,
+  [sectionAnchors.ekibimiz]: pagePaths.ekibimiz,
+};
+
+export function sectionHref(id: string) {
+  return sectionPagePaths[id as SectionId] ?? `/${id}/`;
 }
 
-export function navItemHref(item: NavLinkItem, onHome = false) {
+export function navItemHref(item: NavLinkItem) {
   if (item.href) {
     return item.href;
   }
   if (item.serviceTab !== undefined) {
     const tab = serviceNavTabs[item.serviceTab];
     if (tab) {
-      const hash = `hizmet-${tab.slug}`;
-      return onHome ? `#${hash}` : `/#${hash}`;
+      return pagePaths.hizmetler;
     }
   }
-  return sectionHref(item.id, onHome);
+  return sectionHref(item.id);
 }
 
 const serviceFooterItems: NavLinkItem[] = [
@@ -205,7 +215,7 @@ export const footerLinkColumns: FooterLinkColumn[] = [
   {
     title: "Keşfet",
     items: [
-      { label: "Endüstriyel Çözümler", id: sectionAnchors.endustriyelCozumler },
+      { label: "Endüstriyel Çözümler", id: sectionAnchors.endustriyelCozumler, href: pagePaths.cozumler },
       { label: "Teknoloji Stack", id: sectionAnchors.teknolojiler, href: pagePaths.teknolojiler },
       { label: "SSS", id: sectionAnchors.sss, href: pagePaths.sss },
     ] satisfies NavLinkItem[],

@@ -2,9 +2,9 @@ import type { HubContent, PageContent } from "@/types/content";
 
 export const solutionsHub: HubContent = {
   title: "Yazılım Çözümleri",
-  description: "Sektörel yazılım çözümleri ve dikey uygulamalar — placeholder.",
+  description: "Üretim, sağlık, finans, eğitim, lojistik ve turizm için sektörel yazılım çözümleri.",
   intro:
-    "Farklı sektörler için özelleştirilmiş yazılım çözümleri geliştiriyoruz. Sektörel sayfalar placeholder içerik taşır.",
+    "Farklı endüstri kollarına özel yazılım çözümleri sunuyoruz. Sektörünüze özgü ihtiyaçlarınızı anlayarak, size en uygun dijital dönüşüm yolunu birlikte çiziyoruz.",
   basePath: "/cozumler/sektorel/",
   items: [
     { slug: "uretim", title: "Üretim", excerpt: "Üretim planlama, IoT entegrasyonu ve operasyon panelleri." },

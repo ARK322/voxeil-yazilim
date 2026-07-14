@@ -3,8 +3,8 @@ import type { PageContent } from "@/types/content";
 export const technologiesPage: PageContent = {
   slug: "teknolojiler",
   title: "Teknoloji Stack",
-  description: "Voxeil teknoloji yığını — placeholder içerik.",
-  hero: "Modern web, mobil ve bulut teknolojileri ile sürdürülebilir yazılım projeleri geliştiriyoruz.",
+  description: "Voxeil teknoloji yığını: React, Next.js, TypeScript, Node.js, bulut ve DevOps araçları.",
+  hero: "Modern stack ile ölçeklenebilir, güvenli ve sürdürülebilir çözümler geliştiriyoruz.",
   sections: [
     {
       heading: "Frontend",
@@ -22,7 +22,7 @@ export const technologiesPage: PageContent = {
 export const faqPageContent: PageContent = {
   slug: "sss",
   title: "Sık Sorulan Sorular",
-  description: "Voxeil hakkında sık sorulan sorular — placeholder.",
-  hero: "Proje süreci, hizmet kapsamı ve destek modelimiz hakkında sık sorulan sorular.",
+  description: "Proje süreci, backend mimarisi, destek kapsamı ve çalışma modelimiz hakkında sık sorulan sorular.",
+  hero: "Proje süreci, hizmet kapsamı, backend mimarisi ve destek modelimiz hakkında en sık sorulan sorular.",
   sections: [],
 };

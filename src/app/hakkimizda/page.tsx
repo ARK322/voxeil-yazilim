@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import ContentPage from "@/components/shared/templates/ContentPage";
+import AboutPage from "@/components/company/about/AboutPage";
 import { getCompanyPage } from "@/components/company/content";
 import { pageMetadata } from "@/lib/page-metadata";
 
-const slug = "hakkimizda";
-const page = getCompanyPage(slug)!;
+const page = getCompanyPage("hakkimizda")!;
 
 export const metadata: Metadata = pageMetadata(page.title, page.description, "/hakkimizda/");
 
-export default function AboutPage() {
-  return <ContentPage page={page} />;
+export default function AboutRoutePage() {
+  return <AboutPage />;
 }

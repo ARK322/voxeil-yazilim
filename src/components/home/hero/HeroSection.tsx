@@ -107,13 +107,40 @@ export default function HeroSection() {
   useEffect(() => {
     if (!isScrollReady) {
       window.scrollTo(0, 0);
-      return;
+
+      const lockScroll = (event: Event) => {
+        event.preventDefault();
+      };
+
+      const lockKeys = (event: KeyboardEvent) => {
+        const keys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " ", "Spacebar"];
+        if (keys.includes(event.key)) {
+          event.preventDefault();
+        }
+      };
+
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      window.addEventListener("wheel", lockScroll, { passive: false });
+      window.addEventListener("touchmove", lockScroll, { passive: false });
+      window.addEventListener("keydown", lockKeys);
+
+      return () => {
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+        window.removeEventListener("wheel", lockScroll);
+        window.removeEventListener("touchmove", lockScroll);
+        window.removeEventListener("keydown", lockKeys);
+        window.scrollTo(0, 0);
+      };
     }
 
     requestAnimationFrame(() => ScrollTrigger.refresh());
   }, [isScrollReady]);
 
   useEffect(() => {
+    if (!isScrollReady) return;
+
     const desktopQuery = window.matchMedia(DESKTOP_SCROLL_QUERY);
     let lenis: Lenis | null = null;
 
@@ -176,7 +203,7 @@ export default function HeroSection() {
       desktopQuery.removeEventListener("change", onBreakpointChange);
       destroyLenis();
     };
-  }, []);
+  }, [isScrollReady]);
 
   return (
     <div
