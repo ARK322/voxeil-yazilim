@@ -108,26 +108,6 @@
   text-align: left;
 }
 
-.about-founder__name {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.about-founder__role {
-  margin: 0.25rem 0 0.75rem;
-  font-size: 0.875rem;
-  color: var(--color-orange);
-}
-
-.about-founder__bio {
-  margin: 0 0 0.9rem;
-  font-size: 0.925rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-}
-
 .story-row {
   display: grid;
   gap: 0.45rem 1.25rem;

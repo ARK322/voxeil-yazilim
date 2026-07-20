@@ -5,7 +5,7 @@ export const companyPages: Record<string, PageContent> = {
     slug: "hakkimizda",
     title: "Hakkımızda",
     description:
-      "Voxeil Yazılım ve Mühendislik: Ankara merkezli yazılım stüdyosu. Misyon, vizyon, değerler, hizmet alanları ve kurucu ekip.",
+      "Voxeil Yazılım ve Mühendislik: Ankara merkezli yazılım stüdyosu. Misyon, vizyon, değerler ve hizmet alanları.",
     hero: "Ankara merkezli yazılım ve mühendislik stüdyomuzla web, mobil, e-ticaret, bulut ve dijital dönüşüm projelerinde uçtan uca çözümler üretiyoruz.",
     sections: [],
   },

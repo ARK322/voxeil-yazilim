@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   FaBullseye,
   FaCode,
@@ -101,27 +100,6 @@ const storyPoints = [
   },
 ];
 
-const founders = [
-  {
-    name: "Bülent KOÇ",
-    role: "Backend Geliştirici & Uygulama Mimarı",
-    bio: "Ölçeklenebilir backend sistemleri, API tasarımları ve uygulama mimarisi odaklı çalışır.",
-    links: [
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/bülent-deniz-koç-15a498301/" },
-      { label: "GitHub", href: "https://github.com/budeko" },
-    ],
-  },
-  {
-    name: "Ahmed Resul KURT",
-    role: "UI/UX Tasarımcı & DevOps Mühendisi",
-    bio: "Ürün arayüzlerini kullanıcı odaklı tasarlar; dağıtım ve altyapı süreçlerini güvenli hale getirir.",
-    links: [
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmed-resul-kurt-86bb17234/" },
-      { label: "GitHub", href: "https://github.com/ARK322" },
-    ],
-  },
-];
-
 export default function AboutPage() {
   return (
     <SitePageLayout>
@@ -204,34 +182,6 @@ export default function AboutPage() {
                     </div>
                     <p>{point.body}</p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CompanyBlock>
-
-          <CompanyBlock
-            title="Kurucu ekip"
-            intro="Backend mimarisi ile ürün deneyimi / DevOps aynı masada."
-            titleId="about-founders"
-          >
-            <div className="company-grid-2">
-              {founders.map((person) => (
-                <div key={person.name} className="company-item company-item--rule">
-                  <h3 className="about-founder__name">{person.name}</h3>
-                  <p className="about-founder__role">{person.role}</p>
-                  <p className="about-founder__bio">{person.bio}</p>
-                  <ul className="company-link-row">
-                    {person.links.map((link) => (
-                      <li key={link.href}>
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                    <li>
-                      <Link href="/ekibimiz/">Ekip sayfası →</Link>
-                    </li>
-                  </ul>
                 </div>
               ))}
             </div>
