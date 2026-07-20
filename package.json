@@ -27,7 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.0",
-    "simple-icons": "^16.25.0",
+    "simple-icons": "^16.27.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
