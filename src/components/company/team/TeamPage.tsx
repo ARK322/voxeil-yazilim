@@ -230,7 +230,7 @@ export default function TeamPage() {
           <CompanyCta
             text="Ekibimizle tanışmak veya projeniz için keşif görüşmesi planlamak ister misiniz?"
             secondaryHref="/hakkimizda/"
-            secondary
+            secondaryLabel="Hakkımızda"
           />
         </div>
       </article>

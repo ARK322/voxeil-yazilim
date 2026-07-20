@@ -240,7 +240,8 @@ export default function AboutPage() {
           <CompanyCta
             text="Projeniz için ücretsiz keşif görüşmesi planlayın. Kapsam, risk ve ilk sprint netleşsin."
             secondaryHref="/neden-biz/"
-            secondary/>
+            secondaryLabel="Neden Voxeil?"
+          />
         </div>
       </article>
     </SitePageLayout>

@@ -171,7 +171,7 @@ export default function WhyUsPage() {
           <CompanyCta
             text="Projeniz için ücretsiz keşif görüşmesi planlayın. Yol haritasını birlikte çıkaralım."
             secondaryHref="/surec/"
-            secondary
+            secondaryLabel="Proje süreci"
           />
         </div>
       </article>

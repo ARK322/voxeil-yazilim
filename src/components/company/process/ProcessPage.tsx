@@ -166,7 +166,7 @@ export default function ProcessPage() {
           <CompanyCta
             text="Süreci projenize uyarlamak için ücretsiz keşif görüşmesi planlayın."
             secondaryHref="/neden-biz/"
-            secondary
+            secondaryLabel="Neden Voxeil?"
           />
         </div>
       </article>
