@@ -2,3 +2,53 @@
   transform: rotate(-6deg) scale(1.08);
   object-position: center center;
 }
+
+.solutions-layout {
+  display: grid;
+  gap: 2rem 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .solutions-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+.solutions-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.solutions-visual__frame {
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 960px) {
+  .solutions-visual__frame {
+    max-width: none;
+    height: 22rem;
+    aspect-ratio: auto;
+  }
+}
+
+.solutions-link {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.solutions-link:hover {
+  border-top-color: color-mix(in srgb, var(--orange) 55%, transparent);
+}
+
+.solutions-link:hover h3 {
+  color: var(--color-orange);
+}
+
+.solutions-link h3 {
+  transition: color 0.2s ease;
+}

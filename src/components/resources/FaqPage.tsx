@@ -1,19 +1,43 @@
+import { FaCircleQuestion, FaComments } from "react-icons/fa6";
 import FaqAccordion from "@/components/resources/FaqAccordion";
-import PageCta from "@/components/shared/templates/PageCta";
-import PageHero from "@/components/shared/templates/PageHero";
 import SitePageLayout from "@/components/shared/templates/SitePageLayout";
+import {
+  CompanyBlock,
+  CompanyCta,
+  CompanyHero,
+} from "@/components/company/CompanyShell";
 import { faqPageContent } from "@/components/resources/content";
+import "@/components/company/company.css";
 
 export default function FaqPage() {
   return (
     <SitePageLayout>
-      <section className="site-section relative overflow-x-clip">
-        <div className="site-container max-w-5xl mx-auto">
-          <PageHero title={faqPageContent.title} description={faqPageContent.hero} />
-          <FaqAccordion />
-          <PageCta />
+      <article className="company-page">
+        <div className="company-shell">
+          <CompanyHero
+            title={faqPageContent.title}
+            lead={faqPageContent.hero}
+            meta={[
+              { label: "Süreç & kapsam", Icon: FaCircleQuestion },
+              { label: "Destek modeli", Icon: FaComments },
+            ]}
+          />
+
+          <CompanyBlock
+            title="Merak edilenler"
+            intro="Cevabını bulamadığınız bir soru varsa iletişime geçin — kısa sürede dönüş yaparız."
+            titleId="faq-list"
+          >
+            <FaqAccordion />
+          </CompanyBlock>
+
+          <CompanyCta
+            text="Projeniz için ücretsiz keşif görüşmesi planlayın. Sorularınızı birlikte netleştirelim."
+            secondaryHref="/iletisim/"
+            secondaryLabel="İletişim"
+          />
         </div>
-      </section>
+      </article>
     </SitePageLayout>
   );
 }

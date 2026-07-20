@@ -1,7 +1,18 @@
-import PageCta from "@/components/shared/templates/PageCta";
-import PageHero from "@/components/shared/templates/PageHero";
+import {
+  FaCloud,
+  FaCode,
+  FaDatabase,
+} from "react-icons/fa";
 import SitePageLayout from "@/components/shared/templates/SitePageLayout";
+import {
+  CompanyBlock,
+  CompanyCta,
+  CompanyHero,
+  CompanyIcon,
+} from "@/components/company/CompanyShell";
 import { technologiesPage } from "@/components/resources/content";
+import "@/components/company/company.css";
+import "@/components/company/company-sections.css";
 import "./technologies-page.css";
 
 type Technology = {
@@ -55,73 +66,92 @@ const stackGroups = [
     title: "Frontend & UI",
     body: "React ekosistemi, TypeScript ve modern CSS ile performanslı, erişilebilir arayüzler.",
     items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    Icon: FaCode,
   },
   {
     title: "Backend & Veri",
     body: "Ölçeklenebilir API katmanları, güvenli kimlik doğrulama ve veri modelleme.",
     items: ["Node.js", "PostgreSQL", "Redis", "GraphQL", "Microservices"],
+    Icon: FaDatabase,
   },
   {
     title: "Bulut & DevOps",
     body: "Production ortamları için CI/CD, container orchestration ve izleme altyapısı.",
     items: ["AWS", "Azure", "Docker", "Kubernetes", "GitHub Actions"],
+    Icon: FaCloud,
   },
 ];
 
 export default function TechnologiesPage() {
   return (
     <SitePageLayout>
-      <section className="site-section relative overflow-x-clip">
-        <div className="site-container max-w-5xl mx-auto">
-          <PageHero title={technologiesPage.title} description={technologiesPage.hero} />
+      <article className="company-page">
+        <div className="company-shell">
+          <CompanyHero
+            title={technologiesPage.title}
+            lead={technologiesPage.hero}
+            meta={[
+              { label: "Frontend & UI", Icon: FaCode },
+              { label: "Backend & Veri", Icon: FaDatabase },
+              { label: "Bulut & DevOps", Icon: FaCloud },
+            ]}
+          />
 
-          <div className="tech-grid-10 grid gap-1.5 sm:gap-3 max-w-full mx-auto mb-10 sm:mb-12">
-            {technologies.map((tech) => (
-              <div
-                key={tech.name}
-                className="site-card site-card--hover p-2 sm:p-3 flex flex-col items-center justify-center aspect-square min-w-0"
-              >
-                <div className="relative w-8 h-8 sm:w-12 sm:h-12 mb-1.5 sm:mb-3 flex items-center justify-center shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`/tech-icons/${tech.iconName}.svg`}
-                    alt={`${tech.name} logosu`}
-                    width={48}
-                    height={48}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-contain filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
-                  />
+          <CompanyBlock
+            title="Kullandığımız teknolojiler"
+            intro="Projenin ihtiyacına göre doğru aracı seçeriz — gösteriş için değil, sürdürülebilir sonuç için."
+            titleId="tech-grid"
+          >
+            <div className="tech-grid-10">
+              {technologies.map((tech) => (
+                <div key={tech.name} className="tech-cell">
+                  <div className="tech-cell__icon">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`/tech-icons/${tech.iconName}.svg`}
+                      alt={`${tech.name} logosu`}
+                      width={40}
+                      height={40}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <p className="tech-cell__name">{tech.name}</p>
                 </div>
-                <p className="text-muted-secondary text-[10px] sm:text-xs text-center font-medium leading-tight truncate w-full px-0.5">
-                  {tech.name}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </CompanyBlock>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-            {stackGroups.map((group) => (
-              <article key={group.title} className="site-card p-5 sm:p-6">
-                <h2 className="text-lg font-semibold text-white mb-2">{group.title}</h2>
-                <p className="text-muted text-sm sm:text-base leading-relaxed mb-4">{group.body}</p>
-                <ul className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-lg border border-orange/25 bg-black/40 px-2.5 py-1 text-xs text-muted-secondary"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+          <CompanyBlock
+            title="Stack yaklaşımımız"
+            intro="Her katmanda kanıtlanmış araçlarla hızlı, bakımı kolay sistemler kurarız."
+            titleId="tech-groups"
+          >
+            <div className="company-grid-3">
+              {stackGroups.map((group) => (
+                <div key={group.title} className="company-item company-item--rule">
+                  <div className="company-item__head">
+                    <CompanyIcon Icon={group.Icon} />
+                    <h3>{group.title}</h3>
+                  </div>
+                  <p>{group.body}</p>
+                  <ul className="tech-tags">
+                    {group.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </CompanyBlock>
 
-          <PageCta />
+          <CompanyCta
+            text="Stack seçimini projenize göre netleştirmek için ücretsiz keşif görüşmesi planlayın."
+            secondaryHref="/surec/"
+            secondaryLabel="Proje süreci"
+          />
         </div>
-      </section>
+      </article>
     </SitePageLayout>
   );
 }

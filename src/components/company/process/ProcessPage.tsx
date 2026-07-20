@@ -6,11 +6,18 @@ import {
   FaComments,
   FaPaintBrush,
   FaRocket,
+  FaSyncAlt,
 } from "react-icons/fa";
-import PageCta from "@/components/shared/templates/PageCta";
-import PageHero from "@/components/shared/templates/PageHero";
 import SitePageLayout from "@/components/shared/templates/SitePageLayout";
+import {
+  CompanyBlock,
+  CompanyCta,
+  CompanyHero,
+  CompanyIcon,
+} from "@/components/company/CompanyShell";
 import { getCompanyPage } from "@/components/company/content";
+import "@/components/company/company.css";
+import "@/components/company/company-sections.css";
 
 const page = getCompanyPage("surec")!;
 
@@ -19,7 +26,7 @@ const processSteps: Array<{
   title: string;
   description: string;
   deliverables: string[];
-  icon: IconType;
+  Icon: IconType;
 }> = [
   {
     id: 1,
@@ -31,7 +38,7 @@ const processSteps: Array<{
       "Önceliklendirilmiş backlog taslağı",
       "Teknik yaklaşım ve zaman tahmini",
     ],
-    icon: FaClipboardList,
+    Icon: FaClipboardList,
   },
   {
     id: 2,
@@ -43,7 +50,7 @@ const processSteps: Array<{
       "Yüksek sadakatli UI tasarımları",
       "Bileşen ve stil kararları",
     ],
-    icon: FaPaintBrush,
+    Icon: FaPaintBrush,
   },
   {
     id: 3,
@@ -55,7 +62,7 @@ const processSteps: Array<{
       "Modüler, gözden geçirilmiş kod",
       "Ortam ve dağıtım altyapısı",
     ],
-    icon: FaCode,
+    Icon: FaCode,
   },
   {
     id: 4,
@@ -67,7 +74,7 @@ const processSteps: Array<{
       "Performans / güvenlik kontrolü",
       "Yayın kontrol listesi",
     ],
-    icon: FaCheckDouble,
+    Icon: FaCheckDouble,
   },
   {
     id: 5,
@@ -79,104 +86,90 @@ const processSteps: Array<{
       "İzleme ve alarm kurulumu",
       "Bakım / destek modeli",
     ],
-    icon: FaRocket,
+    Icon: FaRocket,
   },
 ];
 
 const workingNotes = [
   {
-    icon: FaComments,
     title: "İletişim ritmi",
     body: "Kısa senkronlar, sprint demo’ları ve yazılı durum güncellemeleri ile ilerlemeyi sürekli görünür tutarız.",
+    Icon: FaComments,
   },
   {
-    icon: FaClipboardList,
     title: "Değişiklik yönetimi",
-    body: "Yeni istekler backlog’a alınır, etki analizi yapılır ve öncelikler birlikte yeniden sıralanır. Kapsam sürprizi olmaz.",
+    body: "Yeni istekler backlog’a alınır, etki analizi yapılır ve öncelikler birlikte yeniden sıralanır.",
+    Icon: FaSyncAlt,
   },
 ];
 
 export default function ProcessPage() {
   return (
     <SitePageLayout>
-      <section className="site-section relative overflow-x-clip">
-        <div className="site-container max-w-5xl mx-auto">
-          <PageHero title={page.title} description={page.hero} />
+      <article className="company-page">
+        <div className="company-shell">
+          <CompanyHero
+            title={page.title}
+            lead={page.hero}
+            meta={[
+              { label: "Keşiften canlıya", Icon: FaClipboardList },
+              { label: "Sprint bazlı", Icon: FaCode },
+              { label: "Görünür çıktılar", Icon: FaCheckDouble },
+            ]}
+          />
 
-          <div className="space-y-8 sm:space-y-10">
-            <div className="relative mx-auto max-w-3xl">
-              <div
-                className="absolute left-5 top-3 bottom-3 w-px bg-gradient-to-b from-orange/60 via-orange/20 to-transparent sm:left-6"
-                aria-hidden="true"
-              />
-
-              <ol className="relative flex flex-col gap-4 sm:gap-5">
-                {processSteps.map((step) => {
-                  const Icon = step.icon;
-                  return (
-                    <li key={step.id} className="relative flex gap-4 sm:gap-6">
-                      <div className="relative z-10 flex shrink-0 flex-col items-center">
-                        <div className="site-glow-ring flex h-10 w-10 items-center justify-center rounded-full border border-orange/35 bg-black sm:h-12 sm:w-12">
-                          <Icon className="text-sm text-orange sm:text-base" aria-hidden="true" />
-                        </div>
-                      </div>
-
-                      <article className="site-card site-card--hover min-w-0 flex-1 p-5 sm:p-6">
-                        <div className="mb-2 flex flex-wrap items-center gap-2 sm:gap-3">
-                          <span className="font-mono text-xs font-semibold tracking-widest text-orange/80">
-                            {String(step.id).padStart(2, "0")}
-                          </span>
-                          <h2 className="text-lg font-bold text-white sm:text-xl">{step.title}</h2>
-                        </div>
-                        <p className="text-sm leading-relaxed text-muted sm:text-base mb-4">
-                          {step.description}
-                        </p>
-                        <div>
-                          <p className="text-xs font-semibold uppercase tracking-wider text-orange/80 mb-2">
-                            Çıktılar
-                          </p>
-                          <ul className="space-y-1.5">
-                            {step.deliverables.map((item) => (
-                              <li
-                                key={item}
-                                className="flex items-start gap-2 text-sm text-muted-secondary"
-                              >
-                                <span className="text-orange mt-0.5 shrink-0" aria-hidden="true">
-                                  •
-                                </span>
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </article>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-3xl mx-auto">
-              {workingNotes.map((note) => {
-                const Icon = note.icon;
-                return (
-                  <article key={note.title} className="site-card p-5 sm:p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-orange/30 bg-black/60">
-                        <Icon className="text-orange text-sm" aria-hidden="true" />
-                      </span>
-                      <h3 className="text-lg font-semibold text-white">{note.title}</h3>
+          <CompanyBlock
+            title="Adım adım süreç"
+            intro="Her fazın amacı, çalışma biçimi ve somut çıktıları aşağıda."
+            titleId="process-steps"
+          >
+            <ol className="process-steps">
+              {processSteps.map((step) => (
+                <li key={step.id} className="process-step">
+                  <div>
+                    <div className="process-step__mark">
+                      <CompanyIcon Icon={step.Icon} size="md" />
+                      <p className="process-step__index">
+                        {String(step.id).padStart(2, "0")}
+                      </p>
                     </div>
-                    <p className="text-muted text-sm sm:text-base leading-relaxed">{note.body}</p>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
+                    <h3 className="process-step__title">{step.title}</h3>
+                  </div>
+                  <p className="process-step__body">{step.description}</p>
+                  <div>
+                    <p className="process-step__deliver-label">Çıktılar</p>
+                    <ul className="process-step__deliver">
+                      {step.deliverables.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </CompanyBlock>
 
-          <PageCta />
+          <CompanyBlock title="Nasıl ilerleriz?" titleId="process-notes">
+            <div className="company-grid-2">
+              {workingNotes.map((note) => (
+                <div key={note.title} className="company-item company-item--rule">
+                  <div className="company-item__head">
+                    <CompanyIcon Icon={note.Icon} />
+                    <h3>{note.title}</h3>
+                  </div>
+                  <p>{note.body}</p>
+                </div>
+              ))}
+            </div>
+          </CompanyBlock>
+
+          <CompanyCta
+            text="Süreci projenize uyarlamak için ücretsiz keşif görüşmesi planlayın."
+            secondaryHref="/neden-biz/"
+            secondary
+          />
         </div>
-      </section>
+      </article>
     </SitePageLayout>
   );
 }

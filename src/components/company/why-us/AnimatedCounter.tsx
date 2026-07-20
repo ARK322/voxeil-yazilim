@@ -7,6 +7,7 @@ type AnimatedCounterProps = {
   suffix: string;
   delay?: number;
   id: string;
+  className?: string;
 };
 
 export default function AnimatedCounter({
@@ -14,6 +15,7 @@ export default function AnimatedCounter({
   suffix,
   delay = 0,
   id,
+  className,
 }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
@@ -59,7 +61,10 @@ export default function AnimatedCounter({
   return (
     <div
       id={id}
-      className="text-3xl sm:text-4xl lg:text-5xl font-bold text-orange mb-2 text-center site-glow-text"
+      className={
+        className ??
+        "text-3xl sm:text-4xl lg:text-5xl font-bold text-orange mb-2 text-center site-glow-text"
+      }
     >
       {count}
       {suffix}
