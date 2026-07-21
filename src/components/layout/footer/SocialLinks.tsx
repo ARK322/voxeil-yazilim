@@ -10,7 +10,7 @@ type SocialLinksProps = {
   className?: string;
 };
 
-export default function SocialLinks({ className = "flex gap-4" }: SocialLinksProps) {
+export default function SocialLinks({ className = "flex gap-3" }: SocialLinksProps) {
   return (
     <div className={className}>
       {socialItems.map(({ href, label, icon: Icon }) => (
@@ -19,10 +19,10 @@ export default function SocialLinks({ className = "flex gap-4" }: SocialLinksPro
           href={href}
           target="_blank"
           rel="noopener noreferrer me"
-          className="site-icon-btn w-12 h-12"
+          className="site-icon-btn footer-social-btn"
           aria-label={label}
         >
-          <Icon className="text-xl" />
+          <Icon />
         </a>
       ))}
     </div>

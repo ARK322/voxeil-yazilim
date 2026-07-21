@@ -18,7 +18,7 @@ import { scrollToNavTarget } from "@/lib/scroll-to-section";
 import { siteConfig } from "@/lib/site";
 
 const footerLinkClass =
-  "text-muted hover:text-orange transition-colors text-sm leading-snug";
+  "text-muted hover:text-orange transition-colors text-sm leading-normal";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -38,29 +38,30 @@ export default function Footer() {
     <footer className="relative border-t border-border-divider">
       <div className="nav-container">
         <div className="py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-8">
-            {/* 1 — Marka */}
+          <div className="footer-grid">
+            {/* 1 — Marka (2 birim genişlik) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="space-y-3"
             >
-              <Link href="/" className="inline-block transition-opacity hover:opacity-80">
-                <Image
-                  src="/logo.svg"
-                  alt={siteConfig.logoAlt}
-                  width={150}
-                  height={50}
-                  className="h-9 w-auto"
-                  unoptimized
-                />
-              </Link>
-              <p className="text-foreground font-semibold text-sm">{siteConfig.legalName}</p>
-              <p className="text-muted text-sm leading-relaxed">
-                {siteConfig.footerDescription}
-              </p>
+              <div className="footer-col-head">
+                <Link href="/" className="inline-block transition-opacity hover:opacity-80">
+                  <Image
+                    src="/logo.svg"
+                    alt={siteConfig.logoAlt}
+                    width={150}
+                    height={50}
+                    className="h-9 w-auto"
+                    unoptimized
+                  />
+                </Link>
+              </div>
+              <div className="footer-brand-copy">
+                <p className="footer-col-title">{siteConfig.legalName}</p>
+                <p className="footer-col-text">{siteConfig.footerDescription}</p>
+              </div>
             </motion.div>
 
             {/* 2–4 — Hizmetler + Kurumsal + Keşfet */}
@@ -72,8 +73,10 @@ export default function Footer() {
                 transition={{ duration: 0.6, delay: 0.05 * (index + 1) }}
                 viewport={{ once: true }}
               >
-                <p className="footer-col-title mb-3">{column.title}</p>
-                <ul className="space-y-1.5">
+                <div className="footer-col-head">
+                  <p className="footer-col-title">{column.title}</p>
+                </div>
+                <ul className="footer-col-list">
                   {column.items.map((item) => (
                     <li key={`${column.title}-${item.label}-${item.serviceTab ?? ""}`}>
                       <Link
@@ -89,34 +92,36 @@ export default function Footer() {
               </motion.div>
             ))}
 
-            {/* 4 — İletişim */}
+            {/* 5 — İletişim */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               viewport={{ once: true }}
             >
-              <p className="footer-col-title mb-3">İletişim</p>
-              <ul className="space-y-2.5">
-                <li className="flex items-start gap-2.5">
-                  <FaMapMarkerAlt className="text-orange text-xs mt-1 flex-shrink-0" />
+              <div className="footer-col-head">
+                <p className="footer-col-title">İletişim</p>
+              </div>
+              <ul className="footer-col-list">
+                <li>
+                  <FaMapMarkerAlt className="footer-icon" aria-hidden="true" />
                   <a
                     href={siteConfig.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={footerLinkClass}
+                    className="text-muted hover:text-orange transition-colors text-sm footer-address"
                   >
                     {siteConfig.address.full}
                   </a>
                 </li>
-                <li className="flex items-center gap-2.5">
-                  <FaEnvelope className="text-orange text-xs flex-shrink-0" />
+                <li>
+                  <FaEnvelope className="footer-icon" aria-hidden="true" />
                   <a href={`mailto:${siteConfig.email}`} className={footerLinkClass}>
                     {siteConfig.email}
                   </a>
                 </li>
-                <li className="flex items-center gap-2.5">
-                  <FaPhone className="text-orange text-xs flex-shrink-0" />
+                <li>
+                  <FaPhone className="footer-icon" aria-hidden="true" />
                   <a href={`tel:${siteConfig.phone}`} className={footerLinkClass}>
                     {siteConfig.phoneDisplay}
                   </a>
@@ -124,7 +129,7 @@ export default function Footer() {
               </ul>
               <Link
                 href={sectionHref(sectionAnchors.iletisim)}
-                className="inline-block mt-3 text-sm text-orange hover:text-orange-hover transition-colors"
+                className="inline-block mt-4 text-sm leading-normal text-orange hover:text-orange-hover transition-colors"
               >
                 Teklif / Keşif görüşmesi →
               </Link>
@@ -133,7 +138,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border-divider py-4 space-y-2">
+        <div className="border-t border-border-divider py-4 space-y-3">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
